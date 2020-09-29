@@ -8,8 +8,16 @@
     "start": "node api.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hanszman/tccWorkerBackEnd.git"
+  },
   "author": "Victor Hanszman",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hanszman/tccWorkerBackEnd/issues"
+  },
+  "homepage": "https://github.com/Hanszman/tccWorkerBackEnd#readme",
   "dependencies": {
     "body-parse": "^0.1.0",
     "cors": "^2.8.5",
