@@ -3,6 +3,7 @@ const bodyparser = require('body-parser');
 const cors = require('cors');
 const api = express();
 const router = express.Router();
+const porta = process.env.PORT || 3000
 
 api.use(cors());
 api.use(bodyparser.urlencoded({extended: true}));
@@ -13,5 +14,5 @@ router.get("/", (req, res) => res.json({
 }));
 
 api.use("/", router);
-api.listen(process.env.PORT || 3000);
+api.listen(porta);
 console.log("Run API Express");
