@@ -13,7 +13,7 @@ ou
 
 Passo a passo básico (commit e push):
 "git add ."
-"git commit -m "mensagem do commit"
-"git push origin master
+"git commit -m "mensagem do commit""
+"git push origin master"
 
 OBS: Sempre que executar o comando "git push origin master", o código vai subir tanto para o github quando para o servidor do heroku automaticamente.
