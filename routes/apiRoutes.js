@@ -11,4 +11,5 @@ router.get('/', (request, response) => response.json({mensagem: 'Digite alguma r
 router.get('/empresa/', empresa.empresaRead);
 router.get('/usuario/', usuario.usuarioRead);
 
+// Exportando Router
 module.exports = router;
