@@ -11,7 +11,7 @@ api.use(cors());
 api.use(bodyparser.urlencoded({extended: true}));
 api.use(bodyparser.json({limit: '20mb', extended: true}));
 
-router.get('/', (req, res) => res.json({
+router.get('/', (request, response) => response.json({
     mensagem: 'API Online!'
 }));
 

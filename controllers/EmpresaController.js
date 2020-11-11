@@ -1,5 +1,7 @@
 const empresaRead = async (request, response) => {
-    console.log('empresa');
+    var result = new Object();
+    result['tabela'] = 'Empresa'
+    response.status(200).json({error: false, data: result});
 };
 
 module.exports = {

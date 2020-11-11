@@ -7,7 +7,7 @@ const empresa = require('../controllers/EmpresaController');
 const usuario = require('../controllers/UsuarioController');
 
 // Rotas
-router.get('/', (req, res) => res.json({mensagem: 'Digite alguma rota da API!'}));
+router.get('/', (request, response) => response.json({mensagem: 'Digite alguma rota da API!'}));
 router.get('/empresa/', empresa.empresaRead);
 router.get('/usuario/', usuario.usuarioRead);
 
