@@ -12,8 +12,8 @@ const loginAuth = async (request, response) => {
     const hash = bcrypt.hashSync(dados.dsc_senha, salt);
     console.log(hash);
     console.log(dados.dsc_senha);
-    const bcrypt = require('bcryptjs');
     // Instruções:
+    // const bcrypt = require('bcryptjs');
     // const password = '123';
     // const salt = bcrypt.genSaltSync(10);
     // const hash = bcrypt.hashSync(password, salt); // Guarde o `hash` na sua base de dados...
