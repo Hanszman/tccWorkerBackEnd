@@ -6,4 +6,8 @@ module.exports = class UsuarioModel {
     static selectUsuarios(callback) {
         return db.query("SELECT * FROM usuario", callback);
     }
+
+    static authSenhaLogin(login, callback) {
+        return db.query("SELECT dsc_senha FROM usuario WHERE dsc_login = ?", [login], callback);
+    }
 }
