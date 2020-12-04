@@ -12,7 +12,7 @@ const loginAuth = async (request, response) => {
         if (jsonRetorno.length == 1) {
             if (bcrypt.compareSync(dados.dsc_senha, jsonRetorno[0]['dsc_senha']))
                 console.log('OK');
-            else 
+            else
                 console.log('Senha incorreta!');
         }
         else {
