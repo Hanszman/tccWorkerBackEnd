@@ -9,9 +9,10 @@ const loginAuth = async (request, response) => {
     var dados = request.body;
     console.log(dados.dsc_senha);
     const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(dados.dsc_senha, salt);
+    const hash = bcrypt.hashSync('teste', salt);
     console.log(hash);
-    console.log(dados.dsc_senha);
+    console.log(bcrypt.compareSync('teste', '$2a$10$UZXZSGxL/JQncOVFT1bNtOfd0nPHFFbPTYtyuVkPLEHJYBveD6d/G')); // Irá retornar true.
+    console.log(bcrypt.compareSync('asdasdasd', '$2a$10$UZXZSGxL/JQncOVFT1bNtOfd0nPHFFbPTYtyuVkPLEHJYBveD6d/G')); // Irá retornar false.
     // Instruções:
     // const bcrypt = require('bcryptjs');
     // const password = '123';
