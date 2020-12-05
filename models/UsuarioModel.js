@@ -8,6 +8,6 @@ module.exports = class UsuarioModel {
     }
 
     static authSenhaLogin(login, callback) {
-        return db.query("SELECT dsc_senha FROM usuario WHERE dsc_login = ?", [login], callback);
+        return db.query("SELECT id_usuario, dsc_nome, dsc_senha FROM usuario WHERE dsc_login = ?", [login], callback);
     }
 }

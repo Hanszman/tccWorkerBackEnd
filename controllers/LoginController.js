@@ -13,12 +13,13 @@ const loginAuth = async (request, response) => {
         if (jsonRetorno.length == 1) {
             if (bcrypt.compareSync(dados.dsc_senha, jsonRetorno[0]['dsc_senha'])) {
                 result['sucesso'] = true;
-                result['mensagem'] = 'Login realizado com sucesso!';
+                result['id_usuario'] = jsonRetorno[0]['id_usuario'];
+                result['dsc_nome'] = jsonRetorno[0]['dsc_nome'];
             }
             else {
                 result['sucesso'] = false;
                 result['mensagem'] = 'Senha incorreta!';
-            }   
+            }
         }
         else {
             result['sucesso'] = false;
