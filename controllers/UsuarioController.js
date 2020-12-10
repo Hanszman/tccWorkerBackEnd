@@ -25,10 +25,8 @@ const usuarioCreate = async (request, response) => {
         var jsonValidacao = JSON.parse(JSON.stringify(validacao));
         if (jsonValidacao.length == 0) {
             usuarioModel.insertUsuario(dados, function(erro, retorno) {
-                var jsonRetorno = JSON.parse(JSON.stringify(retorno));
                 result['sucesso'] = true;
                 result['mensagem'] = 'Usuário inserido com sucesso!';
-                result['id_usuario'] = jsonRetorno['insertId'];
                 response.status(200).json({error: false, data: result});
             });
         }
