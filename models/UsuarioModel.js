@@ -8,6 +8,12 @@ module.exports = class UsuarioModel {
         callback);
     }
 
+    static selectUsuariosWhereLogin(login, callback) {
+        return db.query("SELECT id_usuario FROM usuario WHERE dsc_nome = ?",
+        [login],
+        callback);
+    }
+
     static insertUsuario(dados, callback) {
         return db.query("INSERT INTO usuario (dsc_nome, dsc_sobrenome, dsc_email, dsc_login, dsc_senha) VALUES (?, ?, ?, ?, ?)",
         [dados.dsc_nome, dados.dsc_sobrenome, dados.dsc_email, dados.dsc_login, dados.dsc_senha],

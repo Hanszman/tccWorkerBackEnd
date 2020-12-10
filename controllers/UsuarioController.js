@@ -1,3 +1,6 @@
+// Importando Bibliotecas
+const bcrypt = require('bcryptjs');
+
 // Importando Models
 const usuarioModel = require('../models/UsuarioModel');
 
@@ -12,17 +15,28 @@ const usuarioRead = async (request, response) => {
 };
 
 const usuarioCreate = async (request, response) => {
-    // No Cadastro:
-    // const password = '123';
-    // const salt = bcrypt.genSaltSync(10);
-    // const hash = bcrypt.hashSync(password, salt);
-    // Guarde o `hash` na sua base de dados...
     var dados = request.body;
-    usuarioModel.insertUsuario(dados, function(erro, retorno) {
+    const password = dados.dsc_senha;
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
+    dados.dsc_senha = hash;
+    usuarioModel.selectUsuariosWhereLogin(dados.dsc_login, function(erro, validacao) {
         var result = new Object();
-        var jsonRetorno = JSON.parse(JSON.stringify(retorno));
-        console.log(jsonRetorno);
-        response.status(200).json({error: false, data: result});
+        var jsonValidacao = JSON.parse(JSON.stringify(validacao));
+        if (jsonValidacao.length == 0) {
+            usuarioModel.insertUsuario(dados, function(erro, retorno) {
+                var jsonRetorno = JSON.parse(JSON.stringify(retorno));
+                result['sucesso'] = true;
+                result['mensagem'] = 'Usuário inserido com sucesso!';
+                result['id_usuario'] = jsonRetorno['insertId'];
+                response.status(200).json({error: false, data: result});
+            });
+        }
+        else {
+            result['sucesso'] = false;
+            result['mensagem'] = 'Usuário com este login já existe!';
+            response.status(200).json({error: false, data: result});
+        }
     });
 };
 
