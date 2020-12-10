@@ -11,6 +11,16 @@ const usuarioRead = async (request, response) => {
     response.status(200).json({error: false, data: result});
 };
 
+const usuarioCreate = async (request, response) => {
+    var dados = request.body;
+    usuarioModel.insertUsuario(dados, function(erro, retorno) {
+        var result = new Object();
+        var jsonRetorno = JSON.parse(JSON.stringify(retorno));
+        console.log(jsonRetorno);
+        response.status(200).json({error: false, data: result});
+    });
+};
+
 // Exportando Funções
 module.exports = {
     usuarioRead
