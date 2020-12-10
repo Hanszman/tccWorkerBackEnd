@@ -16,6 +16,13 @@ router.get('/usuario/', usuario.usuarioRead);
 
 // POST
 router.post('/login/', login.loginAuth);
+router.post('/usuario/', usuario.usuarioCreate);
+
+// PUT
+// ...
+
+// DELETE
+// ...
 
 // Exportando Router
 module.exports = router;

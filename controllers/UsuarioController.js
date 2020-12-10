@@ -12,6 +12,11 @@ const usuarioRead = async (request, response) => {
 };
 
 const usuarioCreate = async (request, response) => {
+    // No Cadastro:
+    // const password = '123';
+    // const salt = bcrypt.genSaltSync(10);
+    // const hash = bcrypt.hashSync(password, salt);
+    // Guarde o `hash` na sua base de dados...
     var dados = request.body;
     usuarioModel.insertUsuario(dados, function(erro, retorno) {
         var result = new Object();
@@ -23,5 +28,6 @@ const usuarioCreate = async (request, response) => {
 
 // Exportando Funções
 module.exports = {
-    usuarioRead
+    usuarioRead,
+    usuarioCreate
 };
