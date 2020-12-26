@@ -9,7 +9,7 @@ module.exports = class UsuarioModel {
     }
 
     static selectUsuariosWhereLogin(login, callback) {
-        return db.query("SELECT id_usuario FROM usuario WHERE dsc_nome = ?",
+        return db.query("SELECT id_usuario FROM usuario WHERE dsc_login = ?",
         [login],
         callback);
     }
