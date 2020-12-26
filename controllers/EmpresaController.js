@@ -4,8 +4,9 @@ const empresaModel = require('../models/EmpresaModel');
 // Funções do Controller
 const empresaRead = async (request, response) => {
     var id_usuario = request.query.id_usuario;
+    var dsc_nome = request.query.dsc_nome;
     if (id_usuario !== undefined) {
-        empresaModel.selectEmpresas(id_usuario, function(erro, retorno) {
+        empresaModel.selectEmpresas(id_usuario, dsc_nome, function(erro, retorno) {
             var result = JSON.parse(JSON.stringify(retorno));
             response.status(200).json({error: false, data: result});
         });
