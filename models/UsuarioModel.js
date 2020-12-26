@@ -8,9 +8,9 @@ module.exports = class UsuarioModel {
         callback);
     }
 
-    static selectUsuariosWhereLogin(login, callback) {
+    static selectUsuariosWhereLogin(dsc_login, callback) {
         return db.query("SELECT id_usuario FROM usuario WHERE dsc_login = ?",
-        [login],
+        [dsc_login],
         callback);
     }
 

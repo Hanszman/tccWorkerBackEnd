@@ -3,10 +3,14 @@ const empresaModel = require('../models/EmpresaModel');
 
 // Funções do Controller
 const empresaRead = async (request, response) => {
-    empresaModel.selectEmpresas(function(erro, retorno) {
-        var result = JSON.parse(JSON.stringify(retorno));
-        response.status(200).json({error: false, data: result});
-    });
+    var id_usuario = request.query.id_usuario;
+    if (id_usuario !== undefined) {
+        console.log(id_usuario)
+        empresaModel.selectEmpresas(id_usuario, function(erro, retorno) {
+            var result = JSON.parse(JSON.stringify(retorno));
+            response.status(200).json({error: false, data: result});
+        });
+    }  
 };
 
 // Exportando Funções
