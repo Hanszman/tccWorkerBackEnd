@@ -2,7 +2,8 @@
 const empresaModel = require('../models/EmpresaModel');
 
 // Importando Funções
-const formatDate = require('./GeralController').formatDate;
+const formatoData = require('./GeralController').formatoData;
+const controleAcesso = require('./GeralController').controleAcesso;
 
 // Funções do Controller
 const empresaRead = async (request, response) => {
@@ -12,8 +13,9 @@ const empresaRead = async (request, response) => {
         empresaModel.selectEmpresas(id_usuario, dsc_nome, function(erro, retorno) {
             var result = JSON.parse(JSON.stringify(retorno));
             for(let i = 0; i < result.length; i++) {
-                result[i]['dat_fundacao'] = formatDate(result[i]['dat_fundacao']);
-                result[i]['dat_contratacao'] = formatDate(result[i]['dat_contratacao']);
+                result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao']);
+                result[i]['dat_contratacao'] = formatoData(result[i]['dat_contratacao']);
+                result[i]['ind_controle_acesso'] = controleAcesso(result[i]['ind_controle_acesso']);
             }
             response.status(200).json({error: false, data: result});
         });
