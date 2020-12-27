@@ -8,7 +8,7 @@ const formatoData = (data) => {
     return dataFormato;
 }
 
-const controleAcesso = (indicador) => {
+const indControleAcesso = (indicador) => {
     var result;
     switch (indicador) {
         case 'C':
@@ -26,8 +26,43 @@ const controleAcesso = (indicador) => {
     return result;
 }
 
+const indContratacao = (indicador) => {
+    var result;
+    switch (indicador) {
+        case 'C':
+            result = 'Carteira Assinada';
+            break;
+        case 'E':
+            result = 'Estágio';
+            break;
+        case 'M':
+            result = 'MEI';
+            break;
+        default:
+            result = 'Carteira Assinada';
+    }
+    return result;
+}
+
+const indStatus = (indicador) => {
+    var result;
+    switch (indicador) {
+        case 'A':
+            result = 'Ativo';
+            break;
+        case 'I':
+            result = 'Inativo';
+            break;
+        default:
+            result = 'Ativo';
+    }
+    return result;
+}
+
 // Exportando Funções
 module.exports = {
     formatoData,
-    controleAcesso
+    indControleAcesso,
+    indContratacao,
+    indStatus
 };
