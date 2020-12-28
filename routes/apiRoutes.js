@@ -12,6 +12,7 @@ const usuario = require('../controllers/UsuarioController');
 // GET
 router.get('/', (request, response) => response.json({mensagem: 'Digite alguma rota da API!'}));
 router.get('/empresa/read/', empresa.empresaRead);
+router.get('/empresa/read/:id', empresa.empresaDetail);
 router.get('/usuario/read/', usuario.usuarioRead);
 
 // POST

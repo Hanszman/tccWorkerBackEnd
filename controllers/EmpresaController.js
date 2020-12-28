@@ -14,7 +14,7 @@ const empresaRead = async (request, response) => {
     if (id_usuario !== undefined) {
         empresaModel.selectEmpresas(id_usuario, dsc_nome, function(erro, retorno) {
             var result = JSON.parse(JSON.stringify(retorno));
-            for(let i = 0; i < result.length; i++) {
+            for(let i = 0; i < result.length; i++){
                 result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao']);
                 result[i]['dat_contratacao'] = formatoData(result[i]['dat_contratacao']);
                 result[i]['ind_controle_acesso'] = indControleAcesso(result[i]['ind_controle_acesso']);
@@ -26,7 +26,18 @@ const empresaRead = async (request, response) => {
     }  
 };
 
+const empresaDetail = async (request, response) => {
+    var id_empresa = request.params.id;
+    empresaModel.selectEmpresaID(id_empresa, function(erro, retorno) {
+        var result = JSON.parse(JSON.stringify(retorno));
+        for(let i = 0; i < result.length; i++)
+            result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao']);
+        response.status(200).json({error: false, data: result});
+    });
+};
+
 // Exportando Funções
 module.exports = {
-    empresaRead
+    empresaRead,
+    empresaDetail
 };
