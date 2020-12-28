@@ -10,7 +10,7 @@ module.exports = class EmpresaModel {
     }
 
     static selectEmpresaID(id_empresa, callback){
-        return db.query("SELECT * FROM empresa WHERE id_empresa = ?",
+        return db.query("SELECT e.*, COUNT(DISTINCT ue.id_usuario) as qtd_usuario FROM empresa e JOIN usuario_empresa ue ON ue.id_empresa = e.id_empresa WHERE e.id_empresa = ? GROUP BY e.id_empresa",
         [id_empresa],
         callback)
     }
