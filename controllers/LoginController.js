@@ -2,13 +2,13 @@
 const bcrypt = require('bcryptjs');
 
 // Importando Models
-const authSenhaLogin = require('../models/UsuarioModel').authSenhaLogin;
+const usuarioModel = require('../models/UsuarioModel');
 
 // Funções do Controller
 const loginAuth = async (request, response) => {
     var result = new Object();
     var dados = request.body;
-    var queryLogin = await authSenhaLogin(dados.dsc_login);
+    var queryLogin = await usuarioModel.authSenhaLogin(dados.dsc_login);
     if (queryLogin.length == 1) {
         if (bcrypt.compareSync(dados.dsc_senha, queryLogin[0]['dsc_senha'])) {
             result['sucesso'] = true;

@@ -1,6 +1,5 @@
 // Importando Models
-const selectEmpresas = require('../models/EmpresaModel').selectEmpresas;
-const selectEmpresaID = require('../models/EmpresaModel').selectEmpresaID;
+const empresaModel = require('../models/EmpresaModel');
 
 // Importando Funções
 const formatoData = require('./GeralController').formatoData;
@@ -13,7 +12,7 @@ const empresaRead = async (request, response) => {
     var id_usuario = request.query.id_usuario;
     var dsc_nome = request.query.dsc_nome;
     if (id_usuario !== undefined) {
-        var queryEmpresas = await selectEmpresas(id_usuario, dsc_nome);
+        var queryEmpresas = await empresaModel.selectEmpresas(id_usuario, dsc_nome);
         var result = queryEmpresas;
         for(let i = 0; i < result.length; i++){
             result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao']);
@@ -28,7 +27,7 @@ const empresaRead = async (request, response) => {
 
 const empresaDetail = async (request, response) => {
     var id_empresa = request.params.id;
-    var queryEmpresa = await selectEmpresaID(id_empresa);
+    var queryEmpresa = await empresaModel.selectEmpresaID(id_empresa);
     var result = queryEmpresa;
     for(let i = 0; i < result.length; i++)
         result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao']);
