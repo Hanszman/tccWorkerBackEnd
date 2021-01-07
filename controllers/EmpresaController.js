@@ -23,15 +23,21 @@ const empresaRead = async (request, response) => {
         }
         response.status(200).json({error: false, data: result});
     }
+    else
+       response.status(500).json({error: true, message: 'Usuário indefinido!'});
 };
 
 const empresaDetail = async (request, response) => {
     var id_empresa = request.params.id;
-    var querySelect = await empresaModel.selectEmpresaID(id_empresa);
-    var result = querySelect;
-    for(let i = 0; i < result.length; i++)
-        result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao']);
-    response.status(200).json({error: false, data: result});
+    if (id_empresa !== undefined) {
+        var querySelect = await empresaModel.selectEmpresaID(id_empresa);
+        var result = querySelect;
+        for(let i = 0; i < result.length; i++)
+            result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao']);
+        response.status(200).json({error: false, data: result});
+    }
+    else
+        response.status(500).json({error: true, message: 'Empresa indefinida!'});
 };
 
 // Exportando Funções
