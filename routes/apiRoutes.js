@@ -42,7 +42,7 @@ router.get('/empresa/read/:id', empresa.empresaDetail);
 // router.get('/subatividade/read/:id', subatividade.subatividadeDetail);
 // router.get('/etapa/read/', etapa.etapaRead);
 // router.get('/etapa/read/:id', etapa.etapaDetail);
-// router.get('/telefone/read/', telefone.telefoneRead);
+router.get('/telefone/read/', telefone.telefoneRead);
 // router.get('/telefone/read/:id', telefone.telefoneDetail);
 // router.get('/endereco/read/', endereco.enderecoRead);
 // router.get('/endereco/read/:id', endereco.enderecoDetail);

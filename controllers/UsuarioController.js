@@ -8,7 +8,7 @@ const usuarioModel = require('../models/UsuarioModel');
 const usuarioRead = async (request, response) => {
     var result = new Object();
     var querySelect = await usuarioModel.selectUsuario();
-    result['tabela'] = querySelect;
+    result['data'] = querySelect;
     response.status(200).json({error: false, data: result});
 };
 
