@@ -17,7 +17,7 @@ const selectEmpresa = async (id_empresa, id_usuario, dsc_nome) => {
         query.andWhere('ue2.id_usuario', '=', id_usuario);
     }
     if (dsc_nome)
-        query.andWhere('e.dsc_nome', 'like', dsc_nome);
+        query.andWhere('e.dsc_nome', 'like', '%' + dsc_nome + '%');
     let result = await query;
     return result;
 };
