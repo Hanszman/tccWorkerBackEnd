@@ -8,7 +8,7 @@ const usuarioModel = require('../models/UsuarioModel');
 const loginAuth = async (request, response) => {
     var result = new Object();
     var dados = request.body;
-    var querySelect = await usuarioModel.selectUsuario(dados.dsc_login);
+    var querySelect = await usuarioModel.selectUsuario(undefined, undefined, dados.dsc_login);
     if (querySelect.length == 1) {
         if (bcrypt.compareSync(dados.dsc_senha, querySelect[0]['dsc_senha'])) {
             result['sucesso'] = true;

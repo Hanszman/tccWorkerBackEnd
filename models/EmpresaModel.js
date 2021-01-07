@@ -12,7 +12,7 @@ const selectEmpresa = async (id_empresa, id_usuario, dsc_nome) => {
     if (id_empresa)
         query.andWhere('e.id_empresa', '=', id_empresa);
     if (id_usuario) {
-        query.select('ue2.*')
+        query.select('ue2.*');
         query.join({ ue2: "usuario_empresa" }, "ue2.id_empresa", "=", "e.id_empresa");
         query.andWhere('ue2.id_usuario', '=', id_usuario);
     }

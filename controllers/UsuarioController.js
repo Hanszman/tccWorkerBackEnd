@@ -4,11 +4,15 @@ const bcrypt = require('bcryptjs');
 // Importando Models
 const usuarioModel = require('../models/UsuarioModel');
 
+// Importando Funções
+const configuraPaginacao = require('./GeralController').configuraPaginacao;
+const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
+
 // Funções do Controller
 const usuarioRead = async (request, response) => {
-    var result = new Object();
-    var querySelect = await usuarioModel.selectUsuario();
-    result['data'] = querySelect;
+    var querySelect = await usuarioModel.selectUsuario(request.params.id, request.query);
+    var paginacao = configuraPaginacao(request.query.pagina, request.query.paginacao);
+    var result = aplicaPaginacao(paginacao, querySelect);
     response.status(200).json({error: false, data: result});
 };
 
@@ -19,25 +23,23 @@ const usuarioCreate = async (request, response) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
     dados.dsc_senha = hash;
-    var querySelect = await usuarioModel.selectUsuario(dados.dsc_login);
+    var querySelect = await usuarioModel.selectUsuario(undefined, undefined, dados.dsc_login);
     if (querySelect.length == 0) {
         var queryInsert = await usuarioModel.insertUsuario(dados);
         if (queryInsert.length > 0) {
             result['sucesso'] = true;
             result['mensagem'] = 'Usuário inserido com sucesso!';
-            response.status(200).json({error: false, data: result});
         }
         else {
             result['sucesso'] = false;
             result['mensagem'] = 'Erro ao inserir usuário!';
-            response.status(200).json({error: false, data: result});
         }   
     }
     else {
         result['sucesso'] = false;
         result['mensagem'] = 'Usuário com este login já existe!';
-        response.status(200).json({error: false, data: result});
     }
+    response.status(200).json({error: false, data: result});
 };
 
 // Exportando Funções
