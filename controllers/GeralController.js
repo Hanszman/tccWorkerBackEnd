@@ -5,7 +5,11 @@ var moment = require('moment');
 const configuraPaginacao = (pagina, paginacao, padrao = 999999999) => {
     pagina = pagina ? parseInt(pagina) : 1;
     paginacao = paginacao ? parseInt(paginacao) : padrao;
-    return { pagina, paginacao };
+    const result = {
+        pagina, 
+        paginacao
+    }
+    return result;
 };
 
 const aplicaPaginacao = (configuracao, colecao) => {
