@@ -12,8 +12,8 @@ const empresaRead = async (request, response) => {
     var id_usuario = request.query.id_usuario;
     var dsc_nome = request.query.dsc_nome;
     if (id_usuario !== undefined) {
-        var queryEmpresas = await empresaModel.selectEmpresas(id_usuario, dsc_nome);
-        var result = queryEmpresas;
+        var querySelect = await empresaModel.selectEmpresa(id_usuario, dsc_nome);
+        var result = querySelect;
         for(let i = 0; i < result.length; i++){
             result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao']);
             result[i]['dat_contratacao'] = formatoData(result[i]['dat_contratacao']);
@@ -27,8 +27,8 @@ const empresaRead = async (request, response) => {
 
 const empresaDetail = async (request, response) => {
     var id_empresa = request.params.id;
-    var queryEmpresa = await empresaModel.selectEmpresaID(id_empresa);
-    var result = queryEmpresa;
+    var querySelect = await empresaModel.selectEmpresaID(id_empresa);
+    var result = querySelect;
     for(let i = 0; i < result.length; i++)
         result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao']);
     response.status(200).json({error: false, data: result});

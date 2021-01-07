@@ -2,20 +2,16 @@
 const knex = require('../database/conexao');
 
 // Funções do Model
-const selectUsuarios = async () => {
-    var query = await knex('usuario');
-    return query;
-};
-
-const selectUsuarioWhereLogin = async (dsc_login) => {
-    var query = await knex('usuario')
-    .select('id_usuario')
-    .where('dsc_login', '=', dsc_login);
-    return query;
+const selectUsuario = async (dsc_login) => {
+    let query = knex('usuario')
+    if (dsc_login)
+        query.where('dsc_login', '=', dsc_login);
+    let result = await query;
+    return result;
 };
 
 const insertUsuario = async (dados) => {
-    var query = await knex('usuario')
+    let query = knex('usuario')
     .insert({
         dsc_nome: dados.dsc_nome,
         dsc_sobrenome: dados.dsc_sobrenome,
@@ -23,20 +19,12 @@ const insertUsuario = async (dados) => {
         dsc_login: dados.dsc_login,
         dsc_senha: dados.dsc_senha
     }).returning('id_usuario');
-    return query;
-};
-
-const authSenhaLogin = async (login) => {
-    var query = await knex('usuario')
-    .select('id_usuario', 'dsc_nome', 'dsc_senha')
-    .where('dsc_login', '=', login);
-    return query;
+    let result = await query;
+    return result;
 };
 
 // Exportando Funções
 module.exports = {
-    selectUsuarios,
-    selectUsuarioWhereLogin,
-    insertUsuario,
-    authSenhaLogin
+    selectUsuario,
+    insertUsuario
 }

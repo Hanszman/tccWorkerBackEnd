@@ -7,8 +7,8 @@ const usuarioModel = require('../models/UsuarioModel');
 // Funções do Controller
 const usuarioRead = async (request, response) => {
     var result = new Object();
-    var queryUsuarios = await usuarioModel.selectUsuarios();
-    result['tabela'] = queryUsuarios;
+    var querySelect = await usuarioModel.selectUsuario();
+    result['tabela'] = querySelect;
     response.status(200).json({error: false, data: result});
 };
 
@@ -19,8 +19,8 @@ const usuarioCreate = async (request, response) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
     dados.dsc_senha = hash;
-    var queryUsuario = await usuarioModel.selectUsuarioWhereLogin(dados.dsc_login);
-    if (queryUsuario.length == 0) {
+    var querySelect = await usuarioModel.selectUsuario(dados.dsc_login);
+    if (querySelect.length == 0) {
         var queryInsert = await usuarioModel.insertUsuario(dados);
         if (queryInsert.length > 0) {
             result['sucesso'] = true;
