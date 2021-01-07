@@ -1,17 +1,31 @@
 // Importando Conexão com o Banco de Dados
-const db = require('../database/conexao');
+const knex = require('../database/conexao');
 
-// Exportando a Classe do Model
-module.exports = class EmpresaModel {
-    static selectEmpresas(id_usuario, dsc_nome, callback){
-        return db.query("SELECT * FROM empresa e JOIN usuario_empresa ue ON ue.id_empresa = e.id_empresa WHERE ue.id_usuario = ? AND e.dsc_nome like ?",
-        [id_usuario, dsc_nome],
-        callback);
-    }
+// Funções do Model
+const selectEmpresas = async (id_usuario, dsc_nome) => {
+    var query = await knex('empresa')
+    .join('usuario_empresa', function(){
+        this.on('usuario_empresa.id_empresa', '=', 'empresa.id_empresa')
+    })
+    .where('usuario_empresa.id_usuario', '=', id_usuario)
+    .andWhere('empresa.dsc_nome', 'like', dsc_nome);
+    return query;
+};
 
-    static selectEmpresaID(id_empresa, callback){
-        return db.query("SELECT e.*, COUNT(DISTINCT ue.id_usuario) as qtd_usuario FROM empresa e JOIN usuario_empresa ue ON ue.id_empresa = e.id_empresa WHERE e.id_empresa = ? GROUP BY e.id_empresa",
-        [id_empresa],
-        callback)
-    }
+const selectEmpresaID = async (id_empresa) => {
+    var query = await knex('empresa')
+    .select('empresa.*')
+    .countDistinct('usuario_empresa.id_usuario as qtd_usuario')
+    .join('usuario_empresa', function(){
+        this.on('usuario_empresa.id_empresa', '=', 'empresa.id_empresa')
+    })
+    .where('empresa.id_empresa', '=', id_empresa)
+    .groupBy('empresa.id_empresa');
+    return query;
+};
+
+// Exportando Funções
+module.exports = {
+    selectEmpresas,
+    selectEmpresaID
 }

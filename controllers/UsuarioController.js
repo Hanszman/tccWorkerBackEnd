@@ -2,40 +2,44 @@
 const bcrypt = require('bcryptjs');
 
 // Importando Models
-const usuarioModel = require('../models/UsuarioModel');
+const selectUsuarios = require('../models/UsuarioModel').selectUsuarios;
+const selectUsuarioWhereLogin = require('../models/UsuarioModel').selectUsuarioWhereLogin;
+const insertUsuario = require('../models/UsuarioModel').insertUsuario;
 
 // Funções do Controller
 const usuarioRead = async (request, response) => {
-    usuarioModel.selectUsuarios(function(erro, retorno) {
-        console.log(retorno);
-    });
     var result = new Object();
-    result['tabela'] = 'Usuário';
+    var queryUsuarios = await selectUsuarios();
+    result['tabela'] = queryUsuarios;
     response.status(200).json({error: false, data: result});
 };
 
 const usuarioCreate = async (request, response) => {
+    var result = new Object();
     var dados = request.body;
     const password = dados.dsc_senha;
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
     dados.dsc_senha = hash;
-    usuarioModel.selectUsuariosWhereLogin(dados.dsc_login, function(erro, validacao) {
-        var result = new Object();
-        var jsonValidacao = JSON.parse(JSON.stringify(validacao));
-        if (jsonValidacao.length == 0) {
-            usuarioModel.insertUsuario(dados, function(erro, retorno) {
-                result['sucesso'] = true;
-                result['mensagem'] = 'Usuário inserido com sucesso!';
-                response.status(200).json({error: false, data: result});
-            });
+    var queryUsuario = await selectUsuarioWhereLogin(dados.dsc_login);
+    if (queryUsuario.length == 0) {
+        var queryInsert = await insertUsuario(dados);
+        if (queryInsert.length > 0) {
+            result['sucesso'] = true;
+            result['mensagem'] = 'Usuário inserido com sucesso!';
+            response.status(200).json({error: false, data: result});
         }
         else {
             result['sucesso'] = false;
-            result['mensagem'] = 'Usuário com este login já existe!';
+            result['mensagem'] = 'Erro ao inserir usuário!';
             response.status(200).json({error: false, data: result});
-        }
-    });
+        }   
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Usuário com este login já existe!';
+        response.status(200).json({error: false, data: result});
+    }
 };
 
 // Exportando Funções

@@ -2,31 +2,29 @@
 const bcrypt = require('bcryptjs');
 
 // Importando Models
-const usuarioModel = require('../models/UsuarioModel');
+const authSenhaLogin = require('../models/UsuarioModel').authSenhaLogin;
 
 // Funções do Controller
 const loginAuth = async (request, response) => {
+    var result = new Object();
     var dados = request.body;
-    usuarioModel.authSenhaLogin(dados.dsc_login, function(erro, retorno) {
-        var result = new Object();
-        var jsonRetorno = JSON.parse(JSON.stringify(retorno));
-        if (jsonRetorno.length == 1) {
-            if (bcrypt.compareSync(dados.dsc_senha, jsonRetorno[0]['dsc_senha'])) {
-                result['sucesso'] = true;
-                result['id_usuario'] = jsonRetorno[0]['id_usuario'];
-                result['dsc_nome'] = jsonRetorno[0]['dsc_nome'];
-            }
-            else {
-                result['sucesso'] = false;
-                result['mensagem'] = 'Senha incorreta!';
-            }
+    var queryLogin = await authSenhaLogin(dados.dsc_login);
+    if (queryLogin.length == 1) {
+        if (bcrypt.compareSync(dados.dsc_senha, queryLogin[0]['dsc_senha'])) {
+            result['sucesso'] = true;
+            result['id_usuario'] = queryLogin[0]['id_usuario'];
+            result['dsc_nome'] = queryLogin[0]['dsc_nome'];
         }
         else {
             result['sucesso'] = false;
-            result['mensagem'] = 'Usuário não existe!';
+            result['mensagem'] = 'Senha incorreta!';
         }
-        response.status(200).json({error: false, data: result});
-    });
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Usuário não existe!';
+    }
+    response.status(200).json({error: false, data: result});
 };
 
 // Exportando Funções
