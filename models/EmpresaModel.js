@@ -2,32 +2,27 @@
 const knex = require('../database/conexao');
 
 // Funções do Model
-const selectEmpresa = async (id_usuario, dsc_nome) => {
-    let query = knex('empresa')
-    .join('usuario_empresa', function(){
-        this.on('usuario_empresa.id_empresa', '=', 'empresa.id_empresa')
-    })
-    .where('usuario_empresa.id_usuario', '=', id_usuario)
-    .andWhere('empresa.dsc_nome', 'like', dsc_nome);
-    let result = await query;
-    return result;
-};
-
-const selectEmpresaID = async (id_empresa) => {
-    let query = knex('empresa')
-    .select('empresa.*')
-    .countDistinct('usuario_empresa.id_usuario as qtd_usuario')
-    .join('usuario_empresa', function(){
-        this.on('usuario_empresa.id_empresa', '=', 'empresa.id_empresa')
-    })
-    .where('empresa.id_empresa', '=', id_empresa)
-    .groupBy('empresa.id_empresa');
+const selectEmpresa = async (id_empresa, id_usuario, dsc_nome) => {
+    let query = knex({ e: 'empresa' })
+    .select('e.*')
+    .countDistinct('ue.id_usuario as qtd_usuario')
+    .join({ ue: "usuario_empresa" }, "ue.id_empresa", "=", "e.id_empresa")
+    .where(1, '=', 1)
+    .groupBy('e.id_empresa');
+    if (id_empresa)
+        query.andWhere('empresa.id_empresa', '=', id_empresa);
+    if (id_usuario) {
+        query.select('ue2.*')
+        query.join({ ue2: "usuario_empresa" }, "ue2.id_empresa", "=", "e.id_empresa");
+        query.andWhere('ue2.id_usuario', '=', id_usuario);
+    }
+    if (dsc_nome)
+        query.andWhere('e.dsc_nome', 'like', dsc_nome);
     let result = await query;
     return result;
 };
 
 // Exportando Funções
 module.exports = {
-    selectEmpresa,
-    selectEmpresaID
+    selectEmpresa
 }

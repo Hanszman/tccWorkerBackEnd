@@ -12,7 +12,7 @@ const empresaRead = async (request, response) => {
     var id_usuario = request.query.id_usuario;
     var dsc_nome = request.query.dsc_nome;
     if (id_usuario !== undefined) {
-        var querySelect = await empresaModel.selectEmpresa(id_usuario, dsc_nome);
+        var querySelect = await empresaModel.selectEmpresa(undefined, id_usuario, dsc_nome);
         var result = querySelect;
         for(let i = 0; i < result.length; i++){
             result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao']);
@@ -30,7 +30,7 @@ const empresaRead = async (request, response) => {
 const empresaDetail = async (request, response) => {
     var id_empresa = request.params.id;
     if (id_empresa !== undefined) {
-        var querySelect = await empresaModel.selectEmpresaID(id_empresa);
+        var querySelect = await empresaModel.selectEmpresa(id_empresa);
         var result = querySelect;
         for(let i = 0; i < result.length; i++)
             result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao']);

@@ -3,7 +3,7 @@ const knex = require('../database/conexao');
 
 // Funções do Model
 const selectUsuario = async (dsc_login) => {
-    let query = knex('usuario')
+    let query = knex('usuario');
     if (dsc_login)
         query.where('dsc_login', '=', dsc_login);
     let result = await query;
