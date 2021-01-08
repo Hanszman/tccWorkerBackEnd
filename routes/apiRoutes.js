@@ -23,7 +23,7 @@ const email = require('../controllers/EmailController');
 // GET
 router.get('/', (request, response) => response.json({mensagem: 'Digite alguma rota da API!'}));
 router.get('/usuario/read/', usuario.usuarioRead);
-// router.get('/usuario/read/:id', usuario.usuarioDetail);
+router.get('/usuario/read/:id', usuario.usuarioRead);
 router.get('/empresa/read/', empresa.empresaRead);
 router.get('/empresa/read/:id', empresa.empresaDetail);
 // router.get('/cliente/read/', cliente.clienteRead);
@@ -44,10 +44,10 @@ router.get('/empresa/read/:id', empresa.empresaDetail);
 // router.get('/etapa/read/:id', etapa.etapaDetail);
 router.get('/telefone/read/', telefone.telefoneRead);
 router.get('/telefone/read/:id', telefone.telefoneRead);
-// router.get('/endereco/read/', endereco.enderecoRead);
-// router.get('/endereco/read/:id', endereco.enderecoDetail);
-// router.get('/email/read/', email.emailRead);
-// router.get('/email/read/:id', email.emailDetail);
+router.get('/endereco/read/', endereco.enderecoRead);
+router.get('/endereco/read/:id', endereco.enderecoRead);
+router.get('/email/read/', email.emailRead);
+router.get('/email/read/:id', email.emailRead);
 
 // POST
 router.post('/login/', login.loginAuth);
