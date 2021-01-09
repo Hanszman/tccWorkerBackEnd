@@ -10,9 +10,14 @@ const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 
 // Funções do Controller
 const usuarioRead = async (request, response) => {
+    var result;
     var querySelect = await usuarioModel.selectUsuario(request.params.id, request.query);
-    var paginacao = configuraPaginacao(request.query.pagina, request.query.paginacao);
-    var result = aplicaPaginacao(paginacao, querySelect);
+    if (request.params.id)
+        result = querySelect;
+    else {
+        var paginacao = configuraPaginacao(request.query.pagina, request.query.paginacao);
+        result = aplicaPaginacao(paginacao, querySelect);
+    }
     response.status(200).json({error: false, data: result});
 };
 
