@@ -1,3 +1,6 @@
+// Importando Bibliotecas
+const fs = require('fs');
+
 // Importando Models
 const empresaModel = require('../models/EmpresaModel');
 
