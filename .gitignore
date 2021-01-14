@@ -12,7 +12,7 @@
 package-lock.json
 
 #environments
-.env
+# .env
 
 # profiling files
 chrome-profiler-events*.json
