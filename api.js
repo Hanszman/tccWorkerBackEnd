@@ -12,6 +12,8 @@ api.use(cors());
 api.use(bodyparser.urlencoded({extended: true}));
 api.use(bodyparser.json({limit: '20mb', extended: true}));
 
+api.use('/api/files', express.static(__dirname + '/files'));
+
 router.get('/', (request, response) => response.json({
     mensagem: 'API Online!'
 }));

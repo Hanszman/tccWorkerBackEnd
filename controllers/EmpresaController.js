@@ -27,7 +27,7 @@ const empresaRead = async (request, response) => {
         response.status(200).json({error: false, data: result});
     }
     else
-       response.status(500).json({error: true, message: 'Usuário indefinido!'});
+       response.status(200).json({error: false, message: 'Usuário indefinido!'});
 };
 
 const empresaDetail = async (request, response) => {
@@ -40,11 +40,29 @@ const empresaDetail = async (request, response) => {
         response.status(200).json({error: false, data: result});
     }
     else
-        response.status(500).json({error: true, message: 'Empresa indefinida!'});
+        response.status(200).json({error: false, message: 'Empresa indefinida!'});
 };
 
 const empresaCreate = async (request, response) => {
-
+    var result = new Object();
+    var dados = request.body;
+    if (dados.dados_arq_foto !== undefined && dados.arq_foto !== undefined) {
+        let bitmap = new Buffer.from(dados.dados_arq_foto.imagem_base64, 'base64');
+        let dataAtual = new Date().toLocaleString().replace(/\//g, '').replace(/:/g, '').replace(/-/g, '').replace(/ /g, '');
+        let nomeImagemCaminho = './files/img/' + dataAtual + dados.dados_arq_foto.nome_arquivo;
+        fs.writeFileSync(nomeImagemCaminho, bitmap);
+        dados.caminho_arq_foto = nomeImagemCaminho;
+    }
+    var queryInsert = await empresaModel.insertEmpresa(dados);
+    if (queryInsert.length > 0) {
+        result['sucesso'] = true;
+        result['mensagem'] = 'Empresa cadastrada com sucesso!';
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Erro ao cadastrar empresa!';
+    }
+    response.status(200).json({error: false, message: result});
 };
 
 const empresaUpdate = async (request, response) => {

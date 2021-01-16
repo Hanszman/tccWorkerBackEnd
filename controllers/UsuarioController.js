@@ -33,12 +33,12 @@ const usuarioCreate = async (request, response) => {
         var queryInsert = await usuarioModel.insertUsuario(dados);
         if (queryInsert.length > 0) {
             result['sucesso'] = true;
-            result['mensagem'] = 'Usuário inserido com sucesso!';
+            result['mensagem'] = 'Usuário cadastrado com sucesso!';
         }
         else {
             result['sucesso'] = false;
-            result['mensagem'] = 'Erro ao inserir usuário!';
-        }   
+            result['mensagem'] = 'Erro ao cadastrar usuário!';
+        }
     }
     else {
         result['sucesso'] = false;

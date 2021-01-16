@@ -23,7 +23,22 @@ const selectEmpresa = async (id_empresa, id_usuario, dsc_nome) => {
 };
 
 const insertEmpresa = async (dados) => {
+    let queryEmpresa = knex('empresa')
+    .insert({
+        dsc_nome: dados.dsc_nome,
+        dsc_cnpj: dados.dsc_cnpj,
+        dat_fundacao: dados.dat_fundacao,
+        arq_foto: dados.caminho_arq_foto
+    }).returning('id_empresa');
+    let resultIdEmpresa = await queryEmpresa;
 
+    let queryUsuarioEmpresa = knex('usuario_empresa')
+    .insert({
+        id_usuario: dados.id_usuario_logado,
+        id_empresa: resultIdEmpresa
+    }).returning('id_empresa');
+    let result = await queryUsuarioEmpresa;
+    return result;
 };
 
 const updateEmpresa = async (id, dados) => {
