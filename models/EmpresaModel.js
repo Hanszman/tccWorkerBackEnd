@@ -37,8 +37,8 @@ const insertEmpresa = async (dados) => {
         id_usuario: dados.id_usuario_logado,
         id_empresa: resultIdEmpresa
     }).returning('id_empresa');
-    let result = await queryUsuarioEmpresa;
-    return result;
+    let resultUsuarioEmpresa = await queryUsuarioEmpresa;
+    return resultUsuarioEmpresa;
 };
 
 const updateEmpresa = async (id, dados) => {
@@ -46,7 +46,21 @@ const updateEmpresa = async (id, dados) => {
 };
 
 const deleteEmpresa = async (id) => {
+    try {
+        await knex('usuario_empresa')
+        .delete()
+        .where('id_empresa', '=', id);
 
+        let query = knex('empresa')
+        .delete()
+        .where('id_empresa', '=', id);
+        let result = await query;
+        return result;
+    }
+    catch (erro) {
+        return 'Erro: ' + erro;
+    }
+    
 };
 
 // Exportando Funções

@@ -70,7 +70,18 @@ const empresaUpdate = async (request, response) => {
 };
 
 const empresaDelete = async (request, response) => {
-    
+    var result = new Object();
+    var id_empresa = request.params.id;
+    var queryDelete = await empresaModel.deleteEmpresa(id_empresa);
+    if (typeof(queryDelete) == 'number') {
+        result['sucesso'] = true;
+        result['mensagem'] = 'Empresa deletada com sucesso!';
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Erro ao deletar empresa!';
+    }
+    response.status(200).json({error: false, data: result});
 };
 
 // Exportando Funções
