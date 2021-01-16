@@ -62,7 +62,7 @@ const empresaCreate = async (request, response) => {
         result['sucesso'] = false;
         result['mensagem'] = 'Erro ao cadastrar empresa!';
     }
-    response.status(200).json({error: false, message: result});
+    response.status(200).json({error: false, data: result});
 };
 
 const empresaUpdate = async (request, response) => {
