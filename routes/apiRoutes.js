@@ -52,7 +52,7 @@ router.get('/email/read/:id', email.emailRead);
 // POST
 router.post('/login/', login.loginAuth);
 router.post('/usuario/create/', usuario.usuarioCreate);
-// router.post('/empresa/create/', empresa.empresaCreate);
+router.post('/empresa/create/', empresa.empresaCreate);
 // router.post('/cliente/create/', cliente.clienteCreate);
 // router.post('/fornecedor/create/', fornecedor.fornecedorCreate);
 // router.post('/setor/create/', setor.setorCreate);
@@ -67,7 +67,7 @@ router.post('/usuario/create/', usuario.usuarioCreate);
 
 // PUT
 // router.put('/usuario/update/:id', usuario.usuarioUpdate);
-// router.put('/empresa/update/:id', empresa.empresaUpdate);
+router.put('/empresa/update/:id', empresa.empresaUpdate);
 // router.put('/cliente/update/:id', cliente.clienteUpdate);
 // router.put('/fornecedor/update/:id', fornecedor.fornecedorUpdate);
 // router.put('/setor/update/:id', setor.setorUpdate);
@@ -82,7 +82,7 @@ router.post('/usuario/create/', usuario.usuarioCreate);
 
 // DELETE
 // router.delete('/usuario/delete/:id', usuario.usuarioDelete);
-// router.delete('/empresa/delete/:id', empresa.empresaDelete);
+router.delete('/empresa/delete/:id', empresa.empresaDelete);
 // router.delete('/cliente/delete/:id', cliente.clienteDelete);
 // router.delete('/fornecedor/delete/:id', fornecedor.fornecedorDelete);
 // router.delete('/setor/delete/:id', setor.setorDelete);

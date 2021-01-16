@@ -43,8 +43,23 @@ const empresaDetail = async (request, response) => {
         response.status(500).json({error: true, message: 'Empresa indefinida!'});
 };
 
+const empresaCreate = async (request, response) => {
+
+};
+
+const empresaUpdate = async (request, response) => {
+
+};
+
+const empresaDelete = async (request, response) => {
+    
+};
+
 // Exportando Funções
 module.exports = {
     empresaRead,
-    empresaDetail
+    empresaDetail,
+    empresaCreate,
+    empresaUpdate,
+    empresaDelete
 };

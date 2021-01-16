@@ -22,7 +22,22 @@ const selectEmpresa = async (id_empresa, id_usuario, dsc_nome) => {
     return result;
 };
 
+const insertEmpresa = async (dados) => {
+
+};
+
+const updateEmpresa = async (id, dados) => {
+
+};
+
+const deleteEmpresa = async (id) => {
+
+};
+
 // Exportando Funções
 module.exports = {
-    selectEmpresa
+    selectEmpresa,
+    insertEmpresa,
+    updateEmpresa,
+    deleteEmpresa
 }
