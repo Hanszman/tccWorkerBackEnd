@@ -33,9 +33,15 @@ const aplicaPaginacao = (configuracao, colecao) => {
     return result;
 };
 
-const formatoData = (data) => {
-    var dataFormato = moment.utc(data);
-    dataFormato = moment(dataFormato).format('DD/MM/YYYY').toString();
+const formatoData = (data, dbFormat = false) => {
+    var dataFormato = null;
+    if(data !== null) {
+        dataFormato = moment.utc(data);
+        if (dbFormat)
+            dataFormato = moment(dataFormato).format('YYYY-MM-DD').toString();
+        else
+            dataFormato = moment(dataFormato).format('DD/MM/YYYY').toString();
+    }
     return dataFormato;
 };
 
