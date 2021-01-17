@@ -49,7 +49,6 @@ const updateEmpresa = async (id, dados) => {
         dat_fundacao: dados.dat_fundacao,
         arq_foto: dados.caminho_arq_foto
     }).where('id_empresa', '=', id)
-    .returning('id_empresa');
     let result = await query;
     return result;
 };

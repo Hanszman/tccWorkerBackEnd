@@ -85,6 +85,14 @@ const empresaUpdate = async (request, response) => {
     else
         dados.caminho_arq_foto = null;
     var queryUpdate = await empresaModel.updateEmpresa(id_empresa, dados);
+    if (queryUpdate > 0) {
+        result['sucesso'] = true;
+        result['mensagem'] = 'Empresa editada com sucesso!';
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Erro ao editar empresa!';
+    }
     response.status(200).json({error: false, data: result});
 };
 
