@@ -42,7 +42,16 @@ const insertEmpresa = async (dados) => {
 };
 
 const updateEmpresa = async (id, dados) => {
-
+    let query = knex('empresa')
+    .update({
+        dsc_nome: dados.dsc_nome,
+        dsc_cnpj: dados.dsc_cnpj,
+        dat_fundacao: dados.dat_fundacao,
+        arq_foto: dados.caminho_arq_foto
+    }).where('id_empresa', '=', id)
+    .returning('id_empresa');
+    let result = await query;
+    return result;
 };
 
 const deleteEmpresa = async (id) => {

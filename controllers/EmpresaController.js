@@ -70,7 +70,22 @@ const empresaCreate = async (request, response) => {
 };
 
 const empresaUpdate = async (request, response) => {
-
+    var result = new Object();
+    var id_empresa = request.params.id;
+    var dados = request.body;
+    if (dados.old_arq_foto !== undefined)
+        dados.caminho_arq_foto = dados.old_arq_foto;
+    else if (dados.dados_arq_foto !== undefined && dados.arq_foto !== undefined) {
+        let bitmap = new Buffer.from(dados.dados_arq_foto.imagem_base64, 'base64');
+        let dataAtual = new Date().toLocaleString().replace(/\//g, '').replace(/:/g, '').replace(/-/g, '').replace(/ /g, '');
+        let nomeImagemCaminho = './files/img/' + dataAtual + dados.dados_arq_foto.nome_arquivo;
+        fs.writeFileSync(nomeImagemCaminho, bitmap);
+        dados.caminho_arq_foto = nomeImagemCaminho;
+    }
+    else
+        dados.caminho_arq_foto = null;
+    var queryUpdate = await empresaModel.updateEmpresa(id_empresa, dados);
+    response.status(200).json({error: false, data: result});
 };
 
 const empresaDelete = async (request, response) => {
