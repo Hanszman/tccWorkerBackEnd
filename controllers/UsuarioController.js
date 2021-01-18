@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const usuarioModel = require('../models/UsuarioModel');
 
 // Importando Funções
+const formatoData = require('./GeralController').formatoData;
 const configuraPaginacao = require('./GeralController').configuraPaginacao;
 const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 
@@ -12,6 +13,12 @@ const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 const usuarioRead = async (request, response) => {
     var result;
     var querySelect = await usuarioModel.selectUsuario(request.params.id, request.query);
+    for(let i = 0; i < querySelect.length; i++) {
+        if (request.query.isForm)
+            querySelect[i]['dat_nascimento'] = formatoData(querySelect[i]['dat_nascimento'], true);
+        else
+            querySelect[i]['dat_nascimento'] = formatoData(querySelect[i]['dat_nascimento']);
+    }
     if (request.params.id)
         result = querySelect;
     else {
