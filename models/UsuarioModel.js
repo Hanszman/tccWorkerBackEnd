@@ -55,12 +55,38 @@ const insertUsuario = async (dados) => {
 };
 
 const updateUsuario = async (id, dados) => {
-    console.log(id)
-    console.log(dados)
+    let query = knex('usuario')
+    .update({
+        dsc_nome: dados.dsc_nome,
+        dsc_sobrenome: dados.dsc_sobrenome,
+        dsc_email: dados.dsc_email,
+        dsc_login: dados.dsc_login,
+        dsc_senha:dados.dsc_senha,
+        dat_nascimento: dados.dat_nascimento,
+        dsc_cpf: dados.dsc_cpf,
+        dsc_rg: dados.dsc_rg,
+        arq_foto: dados.caminho_arq_foto
+    }).where('id_usuario', '=', id)
+    let result = await query;
+    return result;
 };
 
 const deleteUsuario = async (id) => {
-    console.log(id)
+    try {
+        // fazer todos os deletes necessários
+        await knex('usuario_empresa')
+        .delete()
+        .where('id_usuario', '=', id);
+
+        let query = knex('usuario')
+        .delete()
+        .where('id_usuario', '=', id);
+        let result = await query;
+        return result;
+    }
+    catch (erro) {
+        return 'Erro: ' + erro;
+    }
 };
 
 // Exportando Funções

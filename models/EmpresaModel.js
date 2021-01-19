@@ -69,7 +69,6 @@ const deleteEmpresa = async (id) => {
     catch (erro) {
         return 'Erro: ' + erro;
     }
-    
 };
 
 // Exportando Funções
