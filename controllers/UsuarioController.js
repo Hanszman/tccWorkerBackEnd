@@ -54,8 +54,19 @@ const usuarioCreate = async (request, response) => {
     response.status(200).json({error: false, data: result});
 };
 
+const usuarioUpdate = async (request, response) => {
+    console.log(request.params)
+    console.log(request.body)
+};
+
+const usuarioDelete = async (request, response) => {
+    console.log(request.params)
+};
+
 // Exportando Funções
 module.exports = {
     usuarioRead,
-    usuarioCreate
+    usuarioCreate,
+    usuarioUpdate,
+    usuarioDelete
 };
