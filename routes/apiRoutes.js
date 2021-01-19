@@ -66,7 +66,7 @@ router.post('/empresa/create/', empresa.empresaCreate);
 // router.post('/email/create/', email.emailCreate);
 
 // PUT
-// router.put('/usuario/update/:id', usuario.usuarioUpdate);
+router.put('/usuario/update/:id', usuario.usuarioUpdate);
 router.put('/empresa/update/:id', empresa.empresaUpdate);
 // router.put('/cliente/update/:id', cliente.clienteUpdate);
 // router.put('/fornecedor/update/:id', fornecedor.fornecedorUpdate);
@@ -81,7 +81,7 @@ router.put('/empresa/update/:id', empresa.empresaUpdate);
 // router.put('/email/update/:id', email.emailUpdate);
 
 // DELETE
-// router.delete('/usuario/delete/:id', usuario.usuarioDelete);
+router.delete('/usuario/delete/:id', usuario.usuarioDelete);
 router.delete('/empresa/delete/:id', empresa.empresaDelete);
 // router.delete('/cliente/delete/:id', cliente.clienteDelete);
 // router.delete('/fornecedor/delete/:id', fornecedor.fornecedorDelete);
