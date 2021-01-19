@@ -65,12 +65,12 @@ const usuarioUpdate = async (request, response) => {
     var querySelect = await usuarioModel.selectUsuario(id_usuario);
     var old_dsc_senha = querySelect[0]['dsc_senha'];
     if (dados.dsc_confirm_senha == dados.dsc_senha) {
-        if (!bcrypt.compareSync(dados.dsc_senha, old_dsc_senha)) {
+        if (dados.dsc_senha !== old_dsc_senha) {
             const password = dados.dsc_senha;
             const salt = bcrypt.genSaltSync(10);
             const hash = bcrypt.hashSync(password, salt);
             dados.dsc_senha = hash;
-        }
+        }   
         if (dados.old_arq_foto !== undefined)
             dados.caminho_arq_foto = dados.old_arq_foto;
         else if (dados.dados_arq_foto !== undefined && dados.arq_foto !== undefined) {
