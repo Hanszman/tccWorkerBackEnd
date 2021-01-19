@@ -1,5 +1,6 @@
 // Importando Bibliotecas
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
 
 // Importando Models
 const usuarioModel = require('../models/UsuarioModel');
@@ -67,7 +68,6 @@ const usuarioUpdate = async (request, response) => {
             const salt = bcrypt.genSaltSync(10);
             const hash = bcrypt.hashSync(password, salt);
             dados.dsc_senha = hash;
-            console.log(dados.dsc_senha)
         }
         if (dados.old_arq_foto !== undefined)
             dados.caminho_arq_foto = dados.old_arq_foto;
