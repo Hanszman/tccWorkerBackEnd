@@ -14,6 +14,7 @@ const usuarioRead = async (request, response) => {
     var result;
     var querySelect = await usuarioModel.selectUsuario(request.params.id, request.query);
     for(let i = 0; i < querySelect.length; i++) {
+        querySelect[i]['dsc_confirm_senha'] = querySelect[i]['dsc_senha'];
         if (request.query.isForm)
             querySelect[i]['dat_nascimento'] = formatoData(querySelect[i]['dat_nascimento'], true);
         else
