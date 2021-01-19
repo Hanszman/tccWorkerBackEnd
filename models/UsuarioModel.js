@@ -61,7 +61,7 @@ const updateUsuario = async (id, dados) => {
         dsc_sobrenome: dados.dsc_sobrenome,
         dsc_email: dados.dsc_email,
         dsc_login: dados.dsc_login,
-        dsc_senha:dados.dsc_senha,
+        dsc_senha: dados.dsc_senha,
         dat_nascimento: dados.dat_nascimento,
         dsc_cpf: dados.dsc_cpf,
         dsc_rg: dados.dsc_rg,

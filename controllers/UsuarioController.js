@@ -56,12 +56,60 @@ const usuarioCreate = async (request, response) => {
 };
 
 const usuarioUpdate = async (request, response) => {
-    console.log(request.params)
-    console.log(request.body)
+    var result = new Object();
+    var id_usuario = request.params.id;
+    var dados = request.body;
+    var querySelect = await usuarioModel.selectUsuario(id_usuario);
+    var old_dsc_senha = querySelect[0]['dsc_senha'];
+    if (dados.dsc_confirm_senha == dados.dsc_senha) {
+        if (!bcrypt.compareSync(dados.dsc_senha, old_dsc_senha)) {
+            const password = dados.dsc_senha;
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(password, salt);
+            dados.dsc_senha = hash;
+            console.log(dados.dsc_senha)
+        }
+        if (dados.old_arq_foto !== undefined)
+            dados.caminho_arq_foto = dados.old_arq_foto;
+        else if (dados.dados_arq_foto !== undefined && dados.arq_foto !== undefined) {
+            let bitmap = new Buffer.from(dados.dados_arq_foto.imagem_base64, 'base64');
+            let dataAtual = new Date().toLocaleString().replace(/\//g, '').replace(/:/g, '').replace(/-/g, '').replace(/ /g, '');
+            let nomeImagemCaminho = './files/img/' + dataAtual + dados.dados_arq_foto.nome_arquivo;
+            fs.writeFileSync(nomeImagemCaminho, bitmap);
+            dados.caminho_arq_foto = nomeImagemCaminho;
+        }
+        else
+            dados.caminho_arq_foto = null;
+        var queryUpdate = await usuarioModel.updateUsuario(id_usuario, dados);
+        if (queryUpdate > 0) {
+            result['sucesso'] = true;
+            result['mensagem'] = 'Usuário editado com sucesso!';
+        }
+        else {
+            result['sucesso'] = false;
+            result['mensagem'] = 'Erro ao editar usuário!';
+        }
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Senhas não conferem!';
+    }
+    response.status(200).json({error: false, data: result});
 };
 
 const usuarioDelete = async (request, response) => {
-    console.log(request.params)
+    var result = new Object();
+    var id_usuario = request.params.id;
+    var queryDelete = await usuarioModel.deleteUsuario(id_usuario);
+    if (typeof(queryDelete) == 'number') {
+        result['sucesso'] = true;
+        result['mensagem'] = 'Usuário deletado com sucesso!';
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Erro ao deletar usuário!';
+    }
+    response.status(200).json({error: false, data: result});
 };
 
 // Exportando Funções
