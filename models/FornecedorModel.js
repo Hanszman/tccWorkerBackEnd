@@ -12,8 +12,8 @@ const selectFornecedor = async (id_fornecedor, parametros) => {
             query.andWhere('id_empresa', '=', parametros.id_empresa);
         if (parametros.dsc_nome)
             query.andWhere('dsc_nome', 'like', '%' + parametros.dsc_nome + '%');
-        if (parametros.ind_cnpj)
-            query.andWhere('ind_cnpj', 'like', '%' + parametros.ind_cnpj + '%');
+        if (parametros.dsc_cnpj)
+            query.andWhere('dsc_cnpj', 'like', '%' + parametros.dsc_cnpj + '%');
         if(parametros.ordenarPor){
             if(parametros.direcao)
                 query.orderBy(parametros.ordenarPor, parametros.direcao);
