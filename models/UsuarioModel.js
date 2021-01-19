@@ -54,8 +54,19 @@ const insertUsuario = async (dados) => {
     return result;
 };
 
+const updateUsuario = async (id, dados) => {
+    console.log(id)
+    console.log(dados)
+};
+
+const deleteUsuario = async (id) => {
+    console.log(id)
+};
+
 // Exportando Funções
 module.exports = {
     selectUsuario,
-    insertUsuario
+    insertUsuario,
+    updateUsuario,
+    deleteUsuario
 }
