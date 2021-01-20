@@ -18,7 +18,22 @@ const setorRead = async (request, response) => {
     response.status(200).json({error: false, data: result});
 };
 
+const setorCreate = async (request, response) => {
+
+};
+
+const setorUpdate = async (request, response) => {
+
+};
+
+const setorDelete = async (request, response) => {
+
+};
+
 // Exportando Funções
 module.exports = {
-    setorRead
+    setorRead,
+    setorCreate,
+    setorUpdate,
+    setorDelete
 };

@@ -18,7 +18,22 @@ const fornecedorRead = async (request, response) => {
     response.status(200).json({error: false, data: result});
 };
 
+const fornecedorCreate = async (request, response) => {
+
+};
+
+const fornecedorUpdate = async (request, response) => {
+
+};
+
+const fornecedorDelete = async (request, response) => {
+
+};
+
 // Exportando Funções
 module.exports = {
-    fornecedorRead
+    fornecedorRead,
+    fornecedorCreate,
+    fornecedorUpdate,
+    fornecedorDelete
 };
