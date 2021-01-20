@@ -25,7 +25,22 @@ const selectFornecedor = async (id_fornecedor, parametros) => {
     return result;
 };
 
+const insertFornecedor = async (dados) => {
+
+};
+
+const updateFornecedor = async (id, dados) => {
+
+};
+
+const deleteFornecedor = async (id) => {
+
+};
+
 // Exportando Funções
 module.exports = {
-    selectFornecedor
+    selectFornecedor,
+    insertFornecedor,
+    updateFornecedor,
+    deleteFornecedor
 }

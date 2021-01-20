@@ -23,7 +23,22 @@ const selectSetor = async (id_setor, parametros) => {
     return result;
 };
 
+const insertSetor = async (dados) => {
+
+};
+
+const updateSetor = async (id, dados) => {
+
+};
+
+const deleteSetor = async (id) => {
+
+};
+
 // Exportando Funções
 module.exports = {
-    selectSetor
+    selectSetor,
+    insertSetor,
+    updateSetor,
+    deleteSetor
 }

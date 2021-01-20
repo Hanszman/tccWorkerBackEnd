@@ -25,7 +25,22 @@ const selectCliente = async (id_cliente, parametros) => {
     return result;
 };
 
+const insertCliente = async (dados) => {
+
+};
+
+const updateCliente = async (id, dados) => {
+
+};
+
+const deleteCliente = async (id) => {
+
+};
+
 // Exportando Funções
 module.exports = {
-    selectCliente
+    selectCliente,
+    insertCliente,
+    updateCliente,
+    deleteCliente
 }
