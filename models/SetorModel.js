@@ -24,15 +24,37 @@ const selectSetor = async (id_setor, parametros) => {
 };
 
 const insertSetor = async (dados) => {
-
+    let query = knex('setor')
+    .insert({
+        dsc_setor: dados.dsc_setor,
+        id_empresa: dados.id_empresa_logada
+    }).returning('id_setor');
+    let result = await query;
+    return result;
 };
 
 const updateSetor = async (id, dados) => {
-
+    let query = knex('setor')
+    .update({
+        dsc_setor: dados.dsc_setor,
+        id_empresa: dados.id_empresa_logada
+    }).where('id_setor', '=', id)
+    let result = await query;
+    return result;
 };
 
 const deleteSetor = async (id) => {
-
+    try {
+        // TODO: fazer todos os deletes necessários
+        let query = knex('setor')
+        .delete()
+        .where('id_setor', '=', id);
+        let result = await query;
+        return result;
+    }
+    catch (erro) {
+        return 'Erro: ' + erro;
+    }
 };
 
 // Exportando Funções

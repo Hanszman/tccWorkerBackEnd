@@ -26,15 +26,39 @@ const selectFornecedor = async (id_fornecedor, parametros) => {
 };
 
 const insertFornecedor = async (dados) => {
-
+    let query = knex('fornecedor')
+    .insert({
+        dsc_nome: dados.dsc_nome,
+        dsc_cnpj: dados.dsc_cnpj,
+        id_empresa: dados.id_empresa_logada
+    }).returning('id_fornecedor');
+    let result = await query;
+    return result;
 };
 
 const updateFornecedor = async (id, dados) => {
-
+    let query = knex('fornecedor')
+    .update({
+        dsc_nome: dados.dsc_nome,
+        dsc_cnpj: dados.dsc_cnpj,
+        id_empresa: dados.id_empresa_logada
+    }).where('id_fornecedor', '=', id)
+    let result = await query;
+    return result;
 };
 
 const deleteFornecedor = async (id) => {
-
+    try {
+        // TODO: fazer todos os deletes necessários
+        let query = knex('fornecedor')
+        .delete()
+        .where('id_fornecedor', '=', id);
+        let result = await query;
+        return result;
+    }
+    catch (erro) {
+        return 'Erro: ' + erro;
+    }
 };
 
 // Exportando Funções
