@@ -19,15 +19,49 @@ const fornecedorRead = async (request, response) => {
 };
 
 const fornecedorCreate = async (request, response) => {
-
+    var result = new Object();
+    var dados = request.body;
+    var queryInsert = await fornecedorModel.insertFornecedor(dados);
+    if (queryInsert.length > 0) {
+        result['sucesso'] = true;
+        result['mensagem'] = 'Fornecedor cadastrado com sucesso!';
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Erro ao cadastrar fornecedor!';
+    }
+    response.status(200).json({error: false, data: result});
 };
 
 const fornecedorUpdate = async (request, response) => {
-
+    var result = new Object();
+    var id_fornecedor = request.params.id;
+    var dados = request.body;
+    var queryUpdate = await fornecedorModel.updateFornecedor(id_fornecedor, dados);
+    if (queryUpdate > 0) {
+        result['sucesso'] = true;
+        result['mensagem'] = 'Fornecedor editado com sucesso!';
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Erro ao editar fornecedor!';
+    }
+    response.status(200).json({error: false, data: result});
 };
 
 const fornecedorDelete = async (request, response) => {
-
+    var result = new Object();
+    var id_fornecedor = request.params.id;
+    var queryDelete = await fornecedorModel.deleteFornecedor(id_fornecedor);
+    if (typeof(queryDelete) == 'number') {
+        result['sucesso'] = true;
+        result['mensagem'] = 'Fornecedor deletado com sucesso!';
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Erro ao deletar fornecedor!';
+    }
+    response.status(200).json({error: false, data: result});
 };
 
 // Exportando Funções

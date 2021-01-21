@@ -19,15 +19,49 @@ const clienteRead = async (request, response) => {
 };
 
 const clienteCreate = async (request, response) => {
-
+    var result = new Object();
+    var dados = request.body;
+    var queryInsert = await clienteModel.insertCliente(dados);
+    if (queryInsert.length > 0) {
+        result['sucesso'] = true;
+        result['mensagem'] = 'Cliente cadastrado com sucesso!';
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Erro ao cadastrar cliente!';
+    }
+    response.status(200).json({error: false, data: result});
 };
 
 const clienteUpdate = async (request, response) => {
-
+    var result = new Object();
+    var id_cliente = request.params.id;
+    var dados = request.body;
+    var queryUpdate = await clienteModel.updateCliente(id_cliente, dados);
+    if (queryUpdate > 0) {
+        result['sucesso'] = true;
+        result['mensagem'] = 'Cliente editado com sucesso!';
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Erro ao editar cliente!';
+    }
+    response.status(200).json({error: false, data: result});
 };
 
 const clienteDelete = async (request, response) => {
-
+    var result = new Object();
+    var id_cliente = request.params.id;
+    var queryDelete = await clienteModel.deleteCliente(id_cliente);
+    if (typeof(queryDelete) == 'number') {
+        result['sucesso'] = true;
+        result['mensagem'] = 'Cliente deletado com sucesso!';
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Erro ao deletar cliente!';
+    }
+    response.status(200).json({error: false, data: result});
 };
 
 // Exportando Funções
