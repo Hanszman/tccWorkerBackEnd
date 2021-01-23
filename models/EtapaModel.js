@@ -2,7 +2,7 @@
 const knex = require('../database/conexao');
 
 // Funções do Model
-const selectEtapa = async () => {
+const selectEtapa = async (id_etapa, parametros) => {
     
 };
 
