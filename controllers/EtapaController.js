@@ -21,7 +21,7 @@ const etapaRead = async (request, response) => {
 const etapaCreate = async (request, response) => {
     var result = new Object();
     var dados = request.body;
-    var querySelect = await etapaModel.selectEtapa(undefined, undefined, dados.ind_sequencia);
+    var querySelect = await etapaModel.selectEtapa(undefined, undefined, dados.id_empresa_logada, dados.ind_sequencia);
     if (querySelect.length == 0) {
         var queryInsert = await etapaModel.insertEtapa(dados);
         if (queryInsert.length > 0) {
@@ -44,7 +44,7 @@ const etapaUpdate = async (request, response) => {
     var result = new Object();
     var id_etapa = request.params.id;
     var dados = request.body;
-    var querySelect = await etapaModel.selectEtapa(undefined, undefined, dados.ind_sequencia);
+    var querySelect = await etapaModel.selectEtapa(undefined, undefined, dados.id_empresa_logada, dados.ind_sequencia);
     if (querySelect.length == 0) {
         var queryUpdate = await etapaModel.updateEtapa(id_etapa, dados);
         if (queryUpdate > 0) {
