@@ -2,11 +2,13 @@
 const knex = require('../database/conexao');
 
 // Funções do Model
-const selectEtapa = async (id_etapa, parametros) => {
+const selectEtapa = async (id_etapa, parametros, ind_sequencia) => {
     let query = knex('etapa')
     .where(1, '=', 1);
     if (id_etapa)
         query.andWhere('id_etapa', '=', id_etapa);
+    if (ind_sequencia)
+        query.andWhere('ind_sequencia', '=', ind_sequencia);
     if (parametros) {
         if (parametros.id_empresa)
             query.andWhere('id_empresa', '=', parametros.id_empresa);
