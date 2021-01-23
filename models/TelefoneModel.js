@@ -31,7 +31,22 @@ const selectTelefone = async (id_telefone, parametros) => {
     return result;
 };
 
+const insertTelefone = async (dados) => {
+
+};
+
+const updateTelefone = async (id, dados) => {
+
+};
+
+const deleteTelefone = async (id) => {
+
+};
+
 // Exportando Funções
 module.exports = {
-    selectTelefone
+    selectTelefone,
+    insertTelefone,
+    updateTelefone,
+    deleteTelefone
 }

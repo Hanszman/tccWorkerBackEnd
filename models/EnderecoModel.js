@@ -35,7 +35,22 @@ const selectEndereco = async (id_endereco, parametros) => {
     return result;
 };
 
+const insertEndereco = async (dados) => {
+
+};
+
+const updateEndereco = async (id, dados) => {
+
+};
+
+const deleteEndereco = async (id) => {
+
+};
+
 // Exportando Funções
 module.exports = {
-    selectEndereco
+    selectEndereco,
+    insertEndereco,
+    updateEndereco,
+    deleteEndereco
 }

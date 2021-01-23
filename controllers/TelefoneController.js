@@ -18,7 +18,22 @@ const telefoneRead = async (request, response) => {
     response.status(200).json({error: false, data: result});
 };
 
+const telefoneCreate = async (request, response) => {
+
+};
+
+const telefoneUpdate = async (request, response) => {
+
+};
+
+const telefoneDelete = async (request, response) => {
+
+};
+
 // Exportando Funções
 module.exports = {
-    telefoneRead
+    telefoneRead,
+    telefoneCreate,
+    telefoneUpdate,
+    telefoneDelete
 };

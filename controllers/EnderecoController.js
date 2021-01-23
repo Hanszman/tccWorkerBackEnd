@@ -18,7 +18,22 @@ const enderecoRead = async (request, response) => {
     response.status(200).json({error: false, data: result});
 };
 
+const enderecoCreate = async (request, response) => {
+
+};
+
+const enderecoUpdate = async (request, response) => {
+
+};
+
+const enderecoDelete = async (request, response) => {
+
+};
+
 // Exportando Funções
 module.exports = {
-    enderecoRead
+    enderecoRead,
+    enderecoCreate,
+    enderecoUpdate,
+    enderecoDelete
 };

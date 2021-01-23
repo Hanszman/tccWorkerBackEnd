@@ -18,7 +18,22 @@ const emailRead = async (request, response) => {
     response.status(200).json({error: false, data: result});
 };
 
+const emailCreate = async (request, response) => {
+
+};
+
+const emailUpdate = async (request, response) => {
+
+};
+
+const emailDelete = async (request, response) => {
+
+};
+
 // Exportando Funções
 module.exports = {
-    emailRead
+    emailRead,
+    emailCreate,
+    emailUpdate,
+    emailDelete
 };

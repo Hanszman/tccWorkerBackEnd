@@ -40,8 +40,8 @@ router.get('/setor/read/:id', setor.setorRead);
 // router.get('/atividade/read/:id', atividade.atividadeDetail);
 // router.get('/subatividade/read/', subatividade.subatividadeRead);
 // router.get('/subatividade/read/:id', subatividade.subatividadeDetail);
-// router.get('/etapa/read/', etapa.etapaRead);
-// router.get('/etapa/read/:id', etapa.etapaDetail);
+router.get('/etapa/read/', etapa.etapaRead);
+router.get('/etapa/read/:id', etapa.etapaRead);
 router.get('/telefone/read/', telefone.telefoneRead);
 router.get('/telefone/read/:id', telefone.telefoneRead);
 router.get('/endereco/read/', endereco.enderecoRead);
@@ -60,10 +60,10 @@ router.post('/setor/create/', setor.setorCreate);
 // router.post('/quadro/create/', quadro.quadroCreate);
 // router.post('/atividade/create/', atividade.atividadeCreate);
 // router.post('/subatividade/create/', subatividade.subatividadeCreate);
-// router.post('/etapa/create/', etapa.etapaCreate);
-// router.post('/telefone/create/', telefone.telefoneCreate);
-// router.post('/endereco/create/', endereco.enderecoCreate);
-// router.post('/email/create/', email.emailCreate);
+router.post('/etapa/create/', etapa.etapaCreate);
+router.post('/telefone/create/', telefone.telefoneCreate);
+router.post('/endereco/create/', endereco.enderecoCreate);
+router.post('/email/create/', email.emailCreate);
 
 // PUT
 router.put('/usuario/update/:id', usuario.usuarioUpdate);
@@ -75,10 +75,10 @@ router.put('/setor/update/:id', setor.setorUpdate);
 // router.put('/quadro/update/:id', quadro.quadroUpdate);
 // router.put('/atividade/update/:id', atividade.atividadeUpdate);
 // router.put('/subatividade/update/:id', subatividade.subatividadeUpdate);
-// router.put('/etapa/update/:id', etapa.etapaUpdate);
-// router.put('/telefone/update/:id', telefone.telefoneUpdate);
-// router.put('/endereco/update/:id', endereco.enderecoUpdate);
-// router.put('/email/update/:id', email.emailUpdate);
+router.put('/etapa/update/:id', etapa.etapaUpdate);
+router.put('/telefone/update/:id', telefone.telefoneUpdate);
+router.put('/endereco/update/:id', endereco.enderecoUpdate);
+router.put('/email/update/:id', email.emailUpdate);
 
 // DELETE
 router.delete('/usuario/delete/:id', usuario.usuarioDelete);
@@ -90,10 +90,10 @@ router.delete('/setor/delete/:id', setor.setorDelete);
 // router.delete('/quadro/delete/:id', quadro.quadroDelete);
 // router.delete('/atividade/delete/:id', atividade.atividadeDelete);
 // router.delete('/subatividade/delete/:id', subatividade.subatividadeDelete);
-// router.delete('/etapa/delete/:id', etapa.etapaDelete);
-// router.delete('/telefone/delete/:id', telefone.telefoneDelete);
-// router.delete('/endereco/delete/:id', endereco.enderecoDelete);
-// router.delete('/email/delete/:id', email.emailDelete);
+router.delete('/etapa/delete/:id', etapa.etapaDelete);
+router.delete('/telefone/delete/:id', telefone.telefoneDelete);
+router.delete('/endereco/delete/:id', endereco.enderecoDelete);
+router.delete('/email/delete/:id', email.emailDelete);
 
 // Exportando Router
 module.exports = router;

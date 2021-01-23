@@ -29,7 +29,22 @@ const selectEmail = async (id_email, parametros) => {
     return result;
 };
 
+const insertEmail = async (dados) => {
+
+};
+
+const updateEmail = async (id, dados) => {
+
+};
+
+const deleteEmail = async (id) => {
+
+};
+
 // Exportando Funções
 module.exports = {
-    selectEmail
+    selectEmail,
+    insertEmail,
+    updateEmail,
+    deleteEmail
 }
