@@ -36,15 +36,50 @@ const selectEndereco = async (id_endereco, parametros) => {
 };
 
 const insertEndereco = async (dados) => {
-
+    let query = knex('endereco')
+    .insert({
+        id_usuario: dados.id_usuario,
+        id_fornecedor: dados.id_fornecedor,
+        id_cliente: dados.id_cliente,
+        id_empresa: dados.id_empresa,
+        dsc_logradouro: dados.dsc_logradouro,
+        dsc_numero: dados.dsc_numero,
+        dsc_bairro: dados.dsc_bairro,
+        dsc_cidade: dados.dsc_cidade,
+        dsc_uf: dados.dsc_uf
+    }).returning('id_endereco');
+    let result = await query;
+    return result;
 };
 
 const updateEndereco = async (id, dados) => {
-
+    let query = knex('endereco')
+    .update({
+        id_usuario: dados.id_usuario,
+        id_fornecedor: dados.id_fornecedor,
+        id_cliente: dados.id_cliente,
+        id_empresa: dados.id_empresa,
+        dsc_logradouro: dados.dsc_logradouro,
+        dsc_numero: dados.dsc_numero,
+        dsc_bairro: dados.dsc_bairro,
+        dsc_cidade: dados.dsc_cidade,
+        dsc_uf: dados.dsc_uf
+    }).where('id_endereco', '=', id)
+    let result = await query;
+    return result;
 };
 
 const deleteEndereco = async (id) => {
-
+    try {
+        let query = knex('endereco')
+        .delete()
+        .where('id_endereco', '=', id);
+        let result = await query;
+        return result;
+    }
+    catch (erro) {
+        return 'Erro: ' + erro;
+    }
 };
 
 // Exportando Funções

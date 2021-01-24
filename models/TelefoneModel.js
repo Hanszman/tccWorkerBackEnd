@@ -32,15 +32,44 @@ const selectTelefone = async (id_telefone, parametros) => {
 };
 
 const insertTelefone = async (dados) => {
-
+    let query = knex('telefone')
+    .insert({
+        id_usuario: dados.id_usuario,
+        id_fornecedor: dados.id_fornecedor,
+        id_cliente: dados.id_cliente,
+        id_empresa: dados.id_empresa,
+        dsc_telefone: dados.dsc_telefone,
+        ind_tipo: dados.ind_tipo
+    }).returning('id_telefone');
+    let result = await query;
+    return result;
 };
 
 const updateTelefone = async (id, dados) => {
-
+    let query = knex('telefone')
+    .update({
+        id_usuario: dados.id_usuario,
+        id_fornecedor: dados.id_fornecedor,
+        id_cliente: dados.id_cliente,
+        id_empresa: dados.id_empresa,
+        dsc_telefone: dados.dsc_telefone,
+        ind_tipo: dados.ind_tipo
+    }).where('id_telefone', '=', id)
+    let result = await query;
+    return result;
 };
 
 const deleteTelefone = async (id) => {
-
+    try {
+        let query = knex('telefone')
+        .delete()
+        .where('id_telefone', '=', id);
+        let result = await query;
+        return result;
+    }
+    catch (erro) {
+        return 'Erro: ' + erro;
+    }
 };
 
 // Exportando Funções

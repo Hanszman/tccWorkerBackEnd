@@ -30,15 +30,42 @@ const selectEmail = async (id_email, parametros) => {
 };
 
 const insertEmail = async (dados) => {
-
+    let query = knex('email')
+    .insert({
+        id_usuario: dados.id_usuario,
+        id_fornecedor: dados.id_fornecedor,
+        id_cliente: dados.id_cliente,
+        id_empresa: dados.id_empresa,
+        dsc_email: dados.dsc_email
+    }).returning('id_email');
+    let result = await query;
+    return result;
 };
 
 const updateEmail = async (id, dados) => {
-
+    let query = knex('email')
+    .update({
+        id_usuario: dados.id_usuario,
+        id_fornecedor: dados.id_fornecedor,
+        id_cliente: dados.id_cliente,
+        id_empresa: dados.id_empresa,
+        dsc_email: dados.dsc_email
+    }).where('id_email', '=', id)
+    let result = await query;
+    return result;
 };
 
 const deleteEmail = async (id) => {
-
+    try {
+        let query = knex('email')
+        .delete()
+        .where('id_email', '=', id);
+        let result = await query;
+        return result;
+    }
+    catch (erro) {
+        return 'Erro: ' + erro;
+    }
 };
 
 // Exportando Funções
