@@ -19,15 +19,49 @@ const enderecoRead = async (request, response) => {
 };
 
 const enderecoCreate = async (request, response) => {
-
+    var result = new Object();
+    var dados = request.body;
+    var queryInsert = await enderecoModel.insertEndereco(dados);
+    if (queryInsert.length > 0) {
+        result['sucesso'] = true;
+        result['mensagem'] = 'Endereço cadastrado com sucesso!';
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Erro ao cadastrar endereço!';
+    }
+    response.status(200).json({error: false, data: result});
 };
 
 const enderecoUpdate = async (request, response) => {
-
+    var result = new Object();
+    var id_endereco = request.params.id;
+    var dados = request.body;
+    var queryUpdate = await enderecoModel.updateEndereco(id_endereco, dados);
+    if (queryUpdate > 0) {
+        result['sucesso'] = true;
+        result['mensagem'] = 'Endereço editado com sucesso!';
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Erro ao editar endereço!';
+    }
+    response.status(200).json({error: false, data: result});
 };
 
 const enderecoDelete = async (request, response) => {
-
+    var result = new Object();
+    var id_endereco = request.params.id;
+    var queryDelete = await enderecoModel.deleteEndereco(id_endereco);
+    if (typeof(queryDelete) == 'number') {
+        result['sucesso'] = true;
+        result['mensagem'] = 'Endereço deletado com sucesso!';
+    }
+    else {
+        result['sucesso'] = false;
+        result['mensagem'] = 'Erro ao deletar endereço!';
+    }
+    response.status(200).json({error: false, data: result});
 };
 
 // Exportando Funções
