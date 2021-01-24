@@ -9,6 +9,27 @@ const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 const telefoneRead = async (request, response) => {
     var result;
     var querySelect = await telefoneModel.selectTelefone(request.params.id, request.query);
+    for (let i = 0; i < querySelect.length; i++) {
+        if (!request.query.isForm) {
+            switch(querySelect[i]['ind_tipo']){
+                case 'F':
+                    querySelect[i]['ind_tipo'] = 'Fixo';
+                    break;
+                case 'M':
+                    querySelect[i]['ind_tipo'] = 'Celular';
+                    break;
+                case 'C':
+                    querySelect[i]['ind_tipo'] = 'Casa';
+                    break;
+                case 'T':
+                    querySelect[i]['ind_tipo'] = 'Trabalho';
+                    break;
+                case 'O':
+                    querySelect[i]['ind_tipo'] = 'Outro';
+                    break;
+            }
+        }
+    }
     if (request.params.id)
         result = querySelect;
     else {
