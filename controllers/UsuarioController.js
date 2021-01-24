@@ -14,7 +14,7 @@ const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 const usuarioRead = async (request, response) => {
     var result;
     var querySelect = await usuarioModel.selectUsuario(request.params.id, request.query);
-    for(let i = 0; i < querySelect.length; i++) {
+    for (let i = 0; i < querySelect.length; i++) {
         querySelect[i]['dsc_confirm_senha'] = querySelect[i]['dsc_senha'];
         if (querySelect[i]['dsc_nome_completo'] == null)
             querySelect[i]['dsc_nome_completo'] = querySelect[i]['dsc_nome'];

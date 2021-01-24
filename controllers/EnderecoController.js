@@ -9,6 +9,27 @@ const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 const enderecoRead = async (request, response) => {
     var result;
     var querySelect = await enderecoModel.selectEndereco(request.params.id, request.query);
+    for (let i = 0; i < querySelect.length; i++) {
+        if (!request.query.isForm) {
+            switch(querySelect[i]['dsc_uf']){
+                case 'F':
+                    querySelect[i]['dsc_uf'] = 'Fixo';
+                    break;
+                case 'M':
+                    querySelect[i]['dsc_uf'] = 'Celular';
+                    break;
+                case 'C':
+                    querySelect[i]['dsc_uf'] = 'Casa';
+                    break;
+                case 'T':
+                    querySelect[i]['dsc_uf'] = 'Trabalho';
+                    break;
+                case 'O':
+                    querySelect[i]['dsc_uf'] = 'Outro';
+                    break;
+            }
+        }
+    }
     if (request.params.id)
         result = querySelect;
     else {

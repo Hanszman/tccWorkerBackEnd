@@ -35,7 +35,7 @@ const empresaDetail = async (request, response) => {
     if (id_empresa !== undefined) {
         var querySelect = await empresaModel.selectEmpresa(id_empresa);
         var result = querySelect;
-        for(let i = 0; i < result.length; i++) {
+        for (let i = 0; i < result.length; i++) {
             if (request.query.isForm)
                 result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao'], true);
             else
