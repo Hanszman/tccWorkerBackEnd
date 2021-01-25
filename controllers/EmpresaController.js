@@ -6,6 +6,7 @@ const empresaModel = require('../models/EmpresaModel');
 
 // Importando Funções
 const formatoData = require('./GeralController').formatoData;
+const formatoCNPJ = require('./GeralController').formatoCNPJ;
 const indControleAcesso = require('./GeralController').indControleAcesso;
 const indContratacao = require('./GeralController').indContratacao;
 const indStatus = require('./GeralController').indStatus;
@@ -18,6 +19,7 @@ const empresaRead = async (request, response) => {
         var querySelect = await empresaModel.selectEmpresa(undefined, id_usuario, dsc_nome);
         var result = querySelect;
         for(let i = 0; i < result.length; i++){
+            result[i]['dsc_cnpj'] = formatoCNPJ(result[i]['dsc_cnpj']);
             result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao']);
             result[i]['dat_contratacao'] = formatoData(result[i]['dat_contratacao']);
             result[i]['ind_controle_acesso'] = indControleAcesso(result[i]['ind_controle_acesso']);
@@ -38,8 +40,10 @@ const empresaDetail = async (request, response) => {
         for (let i = 0; i < result.length; i++) {
             if (request.query.isForm)
                 result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao'], true);
-            else
+            else {
+                result[i]['dsc_cnpj'] = formatoCNPJ(result[i]['dsc_cnpj']);
                 result[i]['dat_fundacao'] = formatoData(result[i]['dat_fundacao']);
+            }
         }
         response.status(200).json({error: false, data: result});
     }

@@ -7,6 +7,7 @@ const usuarioModel = require('../models/UsuarioModel');
 
 // Importando Funções
 const formatoData = require('./GeralController').formatoData;
+const formatoCPF = require('./GeralController').formatoCPF;
 const configuraPaginacao = require('./GeralController').configuraPaginacao;
 const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 
@@ -20,8 +21,10 @@ const usuarioRead = async (request, response) => {
             querySelect[i]['dsc_nome_completo'] = querySelect[i]['dsc_nome'];
         if (request.query.isForm)
             querySelect[i]['dat_nascimento'] = formatoData(querySelect[i]['dat_nascimento'], true);
-        else
+        else {
+            querySelect[i]['dsc_cpf'] = formatoCPF(querySelect[i]['dsc_cpf']);
             querySelect[i]['dat_nascimento'] = formatoData(querySelect[i]['dat_nascimento']);
+        }
     }
     if (request.params.id)
         result = querySelect;

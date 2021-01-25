@@ -2,6 +2,7 @@
 const fornecedorModel = require('../models/FornecedorModel');
 
 // Importando Funções
+const formatoCNPJ = require('./GeralController').formatoCNPJ;
 const configuraPaginacao = require('./GeralController').configuraPaginacao;
 const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 
@@ -9,6 +10,10 @@ const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 const fornecedorRead = async (request, response) => {
     var result;
     var querySelect = await fornecedorModel.selectFornecedor(request.params.id, request.query);
+    for (let i = 0; i < querySelect.length; i++) {
+        if (!request.query.isForm)
+            querySelect[i]['dsc_cnpj'] = formatoCNPJ(querySelect[i]['dsc_cnpj']);
+    }
     if (request.params.id)
         result = querySelect;
     else {

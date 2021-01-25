@@ -2,6 +2,7 @@
 const clienteModel = require('../models/ClienteModel');
 
 // Importando Funções
+const formatoCNPJ = require('./GeralController').formatoCNPJ;
 const configuraPaginacao = require('./GeralController').configuraPaginacao;
 const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 
@@ -9,6 +10,10 @@ const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 const clienteRead = async (request, response) => {
     var result;
     var querySelect = await clienteModel.selectCliente(request.params.id, request.query);
+    for (let i = 0; i < querySelect.length; i++) {
+        if (!request.query.isForm)
+            querySelect[i]['dsc_cnpj'] = formatoCNPJ(querySelect[i]['dsc_cnpj']);
+    }
     if (request.params.id)
         result = querySelect;
     else {

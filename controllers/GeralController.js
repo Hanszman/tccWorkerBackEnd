@@ -45,6 +45,14 @@ const formatoData = (data, dbFormat = false) => {
     return dataFormato;
 };
 
+const formatoCPF = (cpf) => {
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g,"\$1.\$2.\$3\-\$4");
+};
+
+const formatoCNPJ = (cnpj) => {
+    return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,"\$1.\$2.\$3\/\$4\-\$5");
+};
+
 const indControleAcesso = (indicador) => {
     var result;
     switch (indicador) {
@@ -101,6 +109,8 @@ module.exports = {
     configuraPaginacao,
     aplicaPaginacao,
     formatoData,
+    formatoCPF,
+    formatoCNPJ,
     indControleAcesso,
     indContratacao,
     indStatus
