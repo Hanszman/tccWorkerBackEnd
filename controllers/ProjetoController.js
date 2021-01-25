@@ -2,6 +2,7 @@
 const projetoModel = require('../models/ProjetoModel');
 
 // Importando Funções
+const formatoData = require('./GeralController').formatoData;
 const configuraPaginacao = require('./GeralController').configuraPaginacao;
 const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 
@@ -9,6 +10,16 @@ const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 const projetoRead = async (request, response) => {
     var result;
     var querySelect = await projetoModel.selectProjeto(request.params.id, request.query);
+    for (let i = 0; i < querySelect.length; i++) {
+        if (request.query.isForm){
+            querySelect[i]['dat_inicio'] = formatoData(querySelect[i]['dat_inicio'], true);
+            querySelect[i]['dat_fim'] = formatoData(querySelect[i]['dat_fim'], true);
+        }
+        else {
+            querySelect[i]['dat_inicio'] = formatoData(querySelect[i]['dat_inicio']);
+            querySelect[i]['dat_fim'] = formatoData(querySelect[i]['dat_fim']);
+        }
+    }
     if (request.params.id)
         result = querySelect;
     else {
