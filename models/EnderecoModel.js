@@ -24,6 +24,8 @@ const selectEndereco = async (id_endereco, parametros) => {
             query.andWhere('dsc_bairro', 'like', '%' + parametros.dsc_bairro + '%');
         if (parametros.dsc_cidade)
             query.andWhere('dsc_cidade', 'like', '%' + parametros.dsc_cidade + '%');
+        if (parametros.dsc_uf)
+            query.andWhere('dsc_uf', 'like', '%' + parametros.dsc_uf + '%');
         if(parametros.ordenarPor){
             if(parametros.direcao)
                 query.orderBy(parametros.ordenarPor, parametros.direcao);
