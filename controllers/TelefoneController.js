@@ -15,11 +15,11 @@ const telefoneRead = async (request, response) => {
                 case 'F':
                     querySelect[i]['ind_tipo'] = 'Fixo';
                     break;
-                case 'M':
+                case 'C':
                     querySelect[i]['ind_tipo'] = 'Celular';
                     break;
-                case 'C':
-                    querySelect[i]['ind_tipo'] = 'Casa';
+                case 'R':
+                    querySelect[i]['ind_tipo'] = 'Residencial';
                     break;
                 case 'T':
                     querySelect[i]['ind_tipo'] = 'Trabalho';
