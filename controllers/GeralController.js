@@ -65,8 +65,6 @@ const indControleAcesso = (indicador) => {
         case 'G':
             result = 'Gerente';
             break;
-        default:
-            result = 'Comum';
     }
     return result;
 };
@@ -83,8 +81,6 @@ const indContratacao = (indicador) => {
         case 'M':
             result = 'MEI';
             break;
-        default:
-            result = 'Carteira Assinada';
     }
     return result;
 };
@@ -98,8 +94,28 @@ const indStatus = (indicador) => {
         case 'I':
             result = 'Inativo';
             break;
-        default:
-            result = 'Ativo';
+    }
+    return result;
+};
+
+const indTipoTelefone = (indicador) => {
+    var result;
+    switch(indicador){
+        case 'F':
+            result = 'Fixo';
+            break;
+        case 'C':
+            result = 'Celular';
+            break;
+        case 'R':
+            result = 'Residencial';
+            break;
+        case 'T':
+            result = 'Trabalho';
+            break;
+        case 'O':
+            result = 'Outro';
+            break;
     }
     return result;
 };
@@ -113,5 +129,6 @@ module.exports = {
     formatoCNPJ,
     indControleAcesso,
     indContratacao,
-    indStatus
+    indStatus,
+    indTipoTelefone
 };
