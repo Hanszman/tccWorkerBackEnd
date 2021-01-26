@@ -3,7 +3,7 @@ const knex = require('../database/conexao');
 
 // Funções do Model
 const selectQuadro = async (id_quadro, parametros) => {
-    let query = knex({ p: 'quadro' })
+    let query = knex({ q: 'quadro' })
     .leftJoin({ p: "projeto" }, "p.id_projeto", "=", "q.id_projeto")
     .where(1, '=', 1);
     if (id_quadro)
