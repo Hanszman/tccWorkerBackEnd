@@ -9,6 +9,8 @@ const selectQuadro = async (id_quadro, parametros) => {
     if (id_quadro)
         query.andWhere('q.id_quadro', '=', id_quadro);
     if (parametros) {
+        if (parametros.id_empresa)
+            query.andWhere('p.id_empresa', '=', parametros.id_empresa);
         if (parametros.dsc_nome)
             query.andWhere('q.dsc_nome', 'like', '%' + parametros.dsc_nome + '%');
         if (parametros.dsc_descricao)
