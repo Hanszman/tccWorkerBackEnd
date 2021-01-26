@@ -4,6 +4,7 @@ const knex = require('../database/conexao');
 // Funções do Model
 const selectProjeto = async (id_projeto, parametros) => {
     let query = knex({ p: 'projeto' })
+    .select('p.*', 's.dsc_setor')
     .leftJoin({ s: "setor" }, "s.id_setor", "=", "p.id_setor")
     .where(1, '=', 1);
     if (id_projeto)
@@ -19,6 +20,8 @@ const selectProjeto = async (id_projeto, parametros) => {
             query.andWhere('p.dat_inicio', 'like', '%' + parametros.dat_inicio + '%');
         if (parametros.dat_fim)
             query.andWhere('p.dat_fim', 'like', '%' + parametros.dat_fim + '%');
+        if (parametros.id_setor)
+            query.andWhere('s.id_setor', '=', parametros.id_setor);
         if (parametros.dsc_setor)
             query.andWhere('s.dsc_setor', 'like', '%' + parametros.dsc_setor + '%');
         if(parametros.ordenarPor){
