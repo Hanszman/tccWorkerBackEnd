@@ -11,7 +11,9 @@ const projetoRead = async (request, response) => {
     var result;
     var querySelect = await projetoModel.selectProjeto(request.params.id, request.query);
     for (let i = 0; i < querySelect.length; i++) {
-        if (request.query.isForm){
+        if (request.query.isForm) {
+            if (querySelect[i]['id_setor'] == null)
+                querySelect[i]['id_setor'] = undefined;
             querySelect[i]['dat_inicio'] = formatoData(querySelect[i]['dat_inicio'], true);
             querySelect[i]['dat_fim'] = formatoData(querySelect[i]['dat_fim'], true);
         }

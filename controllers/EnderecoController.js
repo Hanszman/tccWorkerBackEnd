@@ -9,6 +9,12 @@ const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 const enderecoRead = async (request, response) => {
     var result;
     var querySelect = await enderecoModel.selectEndereco(request.params.id, request.query);
+    for (let i = 0; i < querySelect.length; i++) {
+        if (request.query.isForm) {
+            if (querySelect[i]['dsc_uf'] == null)
+                querySelect[i]['dsc_uf'] = undefined;
+        }
+    }
     if (request.params.id)
         result = querySelect;
     else {
