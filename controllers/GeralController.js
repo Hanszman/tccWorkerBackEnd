@@ -46,11 +46,17 @@ const formatoData = (data, dbFormat = false) => {
 };
 
 const formatoCPF = (cpf) => {
-    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g,"\$1.\$2.\$3\-\$4");
+    if (cpf)
+        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g,"\$1.\$2.\$3\-\$4");
+    else
+        return cnpf
 };
 
 const formatoCNPJ = (cnpj) => {
-    return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,"\$1.\$2.\$3\/\$4\-\$5");
+    if (cnpj)
+        return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,"\$1.\$2.\$3\/\$4\-\$5");
+    else
+        return cnpj;
 };
 
 const indControleAcesso = (indicador) => {
