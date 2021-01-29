@@ -18,8 +18,6 @@ const selectTelefone = async (id_telefone, parametros) => {
             query.andWhere('id_empresa', '=', parametros.id_empresa);
         if (parametros.dsc_telefone)
             query.andWhere('dsc_telefone', 'like', '%' + parametros.dsc_telefone + '%');
-        if (parametros.ind_tipo)
-            query.andWhere('ind_tipo', 'like', '%' + parametros.ind_tipo + '%');
         if(parametros.ordenarPor){
             if(parametros.direcao)
                 query.orderBy(parametros.ordenarPor, parametros.direcao);

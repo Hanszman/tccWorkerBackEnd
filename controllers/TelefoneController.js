@@ -3,22 +3,34 @@ const telefoneModel = require('../models/TelefoneModel');
 
 // Importando Funções
 const indTipoTelefone = require('./GeralController').indTipoTelefone;
+const filtroSelect = require('./GeralController').filtroSelect;
 const configuraPaginacao = require('./GeralController').configuraPaginacao;
 const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 
 // Funções do Controller
 const telefoneRead = async (request, response) => {
     var result;
+    var queryFiltro = [];
     var querySelect = await telefoneModel.selectTelefone(request.params.id, request.query);
     for (let i = 0; i < querySelect.length; i++) {
-        if (!request.query.isForm)
+        if (!request.query.isForm) {
             querySelect[i]['ind_tipo'] = indTipoTelefone(querySelect[i]['ind_tipo']);
+            if (filtroSelect(querySelect[i]['ind_tipo'], request.query['ind_tipo']))
+                queryFiltro.push(querySelect[i]);
+        }
     }
-    if (request.params.id)
-        result = querySelect;
+    if (request.params.id) {
+        if (!request.query.isForm)
+            result = queryFiltro;
+        else
+            result = querySelect;
+    }
     else {
         var paginacao = configuraPaginacao(request.query.pagina, request.query.paginacao);
-        result = aplicaPaginacao(paginacao, querySelect);
+        if (!request.query.isForm)
+            result = aplicaPaginacao(paginacao, queryFiltro);
+        else
+            result = aplicaPaginacao(paginacao, querySelect);
     }
     response.status(200).json({error: false, data: result});
 };

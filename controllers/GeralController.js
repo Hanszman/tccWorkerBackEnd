@@ -1,5 +1,8 @@
 // Importando Bibliotecas
-var moment = require('moment');
+const moment = require('moment');
+
+// Cosntantes
+const acentos = {"â":"a","Â":"A","à":"a","À":"A","á":"a","Á":"A","ã":"a","Ã":"A","ê":"e","Ê":"E","è":"e","È":"E","é":"e","É":"E","î":"i","Î":"I","ì":"i","Ì":"I","í":"i","Í":"I","õ":"o","Õ":"O","ô":"o","Ô":"O","ò":"o","Ò":"O","ó":"o","Ó":"O","ü":"u","Ü":"U","û":"u","Û":"U","ú":"u","Ú":"U","ù":"u","Ù":"U","ç":"c","Ç":"C"};
 
 // Funções do Controller
 const configuraPaginacao = (pagina, paginacao, padrao = 999999999) => {
@@ -126,6 +129,23 @@ const indTipoTelefone = (indicador) => {
     return result;
 };
 
+const filtroSelect = (dado, filtro) => {
+    if (filtro && dado) {
+        if (removeAcentos(dado.toString().toLowerCase()).includes(removeAcentos(filtro.toLowerCase())))
+            return true;
+        else
+            return false;
+    }
+    else
+        return true;
+};
+
+const removeAcentos = (string) => { 
+    return string.replace(/[\W\[\] ]/g, function (char) {
+        return acentos[char]||char;
+    });
+};
+
 // Exportando Funções
 module.exports = {
     configuraPaginacao,
@@ -136,5 +156,6 @@ module.exports = {
     indControleAcesso,
     indContratacao,
     indStatus,
-    indTipoTelefone
+    indTipoTelefone,
+    filtroSelect
 };
