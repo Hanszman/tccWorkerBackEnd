@@ -49,7 +49,7 @@ const formatoCPF = (cpf) => {
     if (cpf)
         return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g,"\$1.\$2.\$3\-\$4");
     else
-        return cnpf
+        return cpf;
 };
 
 const formatoCNPJ = (cnpj) => {
