@@ -109,7 +109,7 @@ CREATE TABLE `usuario_empresa` (
   `ind_controle_acesso` char(1) NOT NULL DEFAULT 'C' COMMENT 'C (Comum), A (Administrador), G (Gerente)',
   `dsc_cargo` varchar(150) NOT NULL DEFAULT 'Fundador',
   `ind_contratacao` char(1) NOT NULL DEFAULT 'C' COMMENT 'C (Carteira Assinada), E (Estágio), M (MEI)',
-  `ind_status` char(1) NOT NULL DEFAULT 'A' COMMENT 'A (Ativo), I (Inativo)',
+  `ind_status` char(1) NOT NULL DEFAULT 'A' COMMENT 'A (Ativo), D (Desativado)',
   `dat_contratacao` date DEFAULT NULL,
   `id_setor` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_usuario_empresa`),

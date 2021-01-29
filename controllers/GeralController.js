@@ -100,8 +100,8 @@ const indStatus = (indicador) => {
         case 'A':
             result = 'Ativo';
             break;
-        case 'I':
-            result = 'Inativo';
+        case 'D':
+            result = 'Desativado';
             break;
     }
     return result;
