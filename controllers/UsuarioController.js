@@ -20,7 +20,7 @@ const usuarioRead = async (request, response) => {
     var querySelect = await usuarioModel.selectUsuario(request.params.id, request.query);
     for (let i = 0; i < querySelect.length; i++) {
         querySelect[i]['dsc_confirm_senha'] = querySelect[i]['dsc_senha'];
-        if (querySelect[i]['dsc_nome_completo'] == null)
+        if (!querySelect[i]['dsc_nome_completo'])
             querySelect[i]['dsc_nome_completo'] = querySelect[i]['dsc_nome'];
         if (request.query.isForm)
             querySelect[i]['dat_nascimento'] = formatoData(querySelect[i]['dat_nascimento'], true);
@@ -80,9 +80,9 @@ const usuarioUpdate = async (request, response) => {
             const hash = bcrypt.hashSync(password, salt);
             dados.dsc_senha = hash;
         }   
-        if (dados.old_arq_foto !== undefined)
+        if (dados.old_arq_foto)
             dados.caminho_arq_foto = dados.old_arq_foto;
-        else if (dados.dados_arq_foto !== undefined && dados.arq_foto !== undefined) {
+        else if (dados.dados_arq_foto && dados.arq_foto) {
             let bitmap = new Buffer.from(dados.dados_arq_foto.imagem_base64, 'base64');
             let dataAtual = new Date().toLocaleString().replace(/\//g, '').replace(/:/g, '').replace(/-/g, '').replace(/ /g, '');
             let nomeImagemCaminho = './files/img/' + dataAtual + dados.dados_arq_foto.nome_arquivo;

@@ -15,7 +15,7 @@ const indStatus = require('./GeralController').indStatus;
 const empresaRead = async (request, response) => {
     var id_usuario = request.query.id_usuario;
     var dsc_nome = request.query.dsc_nome;
-    if (id_usuario !== undefined) {
+    if (id_usuario) {
         var querySelect = await empresaModel.selectEmpresa(undefined, id_usuario, dsc_nome);
         var result = querySelect;
         for(let i = 0; i < result.length; i++){
@@ -34,7 +34,7 @@ const empresaRead = async (request, response) => {
 
 const empresaDetail = async (request, response) => {
     var id_empresa = request.params.id;
-    if (id_empresa !== undefined) {
+    if (id_empresa) {
         var querySelect = await empresaModel.selectEmpresa(id_empresa);
         var result = querySelect;
         for (let i = 0; i < result.length; i++) {
@@ -54,7 +54,7 @@ const empresaDetail = async (request, response) => {
 const empresaCreate = async (request, response) => {
     var result = new Object();
     var dados = request.body;
-    if (dados.dados_arq_foto !== undefined && dados.arq_foto !== undefined) {
+    if (dados.dados_arq_foto && dados.arq_foto) {
         let bitmap = new Buffer.from(dados.dados_arq_foto.imagem_base64, 'base64');
         let dataAtual = new Date().toLocaleString().replace(/\//g, '').replace(/:/g, '').replace(/-/g, '').replace(/ /g, '');
         let nomeImagemCaminho = './files/img/' + dataAtual + dados.dados_arq_foto.nome_arquivo;
@@ -77,9 +77,9 @@ const empresaUpdate = async (request, response) => {
     var result = new Object();
     var id_empresa = request.params.id;
     var dados = request.body;
-    if (dados.old_arq_foto !== undefined)
+    if (dados.old_arq_foto)
         dados.caminho_arq_foto = dados.old_arq_foto;
-    else if (dados.dados_arq_foto !== undefined && dados.arq_foto !== undefined) {
+    else if (dados.dados_arq_foto && dados.arq_foto) {
         let bitmap = new Buffer.from(dados.dados_arq_foto.imagem_base64, 'base64');
         let dataAtual = new Date().toLocaleString().replace(/\//g, '').replace(/:/g, '').replace(/-/g, '').replace(/ /g, '');
         let nomeImagemCaminho = './files/img/' + dataAtual + dados.dados_arq_foto.nome_arquivo;

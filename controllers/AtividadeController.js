@@ -12,9 +12,9 @@ const atividadeRead = async (request, response) => {
     var querySelect = await atividadeModel.selectAtividade(request.params.id, request.query);
     for (let i = 0; i < querySelect.length; i++) {
         if (request.query.isForm) {
-            if (querySelect[i]['id_quadro'] == null)
+            if (!querySelect[i]['id_quadro'])
                 querySelect[i]['id_quadro'] = undefined;
-            if (querySelect[i]['id_etapa'] == null)
+            if (!querySelect[i]['id_etapa'])
                 querySelect[i]['id_etapa'] = undefined;
             querySelect[i]['dat_inicio'] = formatoData(querySelect[i]['dat_inicio'], true);
             querySelect[i]['dat_fim'] = formatoData(querySelect[i]['dat_fim'], true);

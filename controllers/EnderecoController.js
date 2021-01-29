@@ -11,7 +11,7 @@ const enderecoRead = async (request, response) => {
     var querySelect = await enderecoModel.selectEndereco(request.params.id, request.query);
     for (let i = 0; i < querySelect.length; i++) {
         if (request.query.isForm) {
-            if (querySelect[i]['dsc_uf'] == null)
+            if (!querySelect[i]['dsc_uf'])
                 querySelect[i]['dsc_uf'] = undefined;
         }
     }

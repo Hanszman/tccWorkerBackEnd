@@ -35,7 +35,7 @@ const aplicaPaginacao = (configuracao, colecao) => {
 
 const formatoData = (data, dbFormat = false) => {
     var dataFormato = null;
-    if(data !== null) {
+    if(data) {
         dataFormato = moment.utc(data);
         if (dbFormat)
             dataFormato = moment(dataFormato).format('YYYY-MM-DD').toString();

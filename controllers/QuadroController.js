@@ -12,7 +12,7 @@ const quadroRead = async (request, response) => {
     var querySelect = await quadroModel.selectQuadro(request.params.id, request.query);
     for (let i = 0; i < querySelect.length; i++) {
         if (request.query.isForm) {
-            if (querySelect[i]['id_projeto'] == null)
+            if (!querySelect[i]['id_projeto'])
                 querySelect[i]['id_projeto'] = undefined;
             querySelect[i]['dat_inicio'] = formatoData(querySelect[i]['dat_inicio'], true);
             querySelect[i]['dat_fim'] = formatoData(querySelect[i]['dat_fim'], true);
