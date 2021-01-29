@@ -12,8 +12,9 @@ const selectUsuario = async (id_usuario, parametros, dsc_login) => {
         query.andWhere('u.dsc_login', '=', dsc_login);
     if (parametros) {
         if (parametros.id_empresa) {
-            query.select('ue.*');
+            query.select('ue.*', 's.id_setor', 's.dsc_setor');
             query.join({ ue: "usuario_empresa" }, "ue.id_usuario", "=", "u.id_usuario");
+            query.leftJoin({ s: "setor" }, "s.id_setor", "=", "ue.id_setor");
             query.andWhere('ue.id_empresa', '=', parametros.id_empresa);
             if (parametros.dsc_cargo)
                 query.andWhere('ue.dsc_cargo', 'like', '%' + parametros.dsc_cargo + '%');
@@ -21,6 +22,10 @@ const selectUsuario = async (id_usuario, parametros, dsc_login) => {
                 query.andWhere('ue.ind_controle_acesso', 'like', '%' + parametros.ind_controle_acesso + '%');
             if (parametros.ind_status)
                 query.andWhere('ue.ind_status', 'like', '%' + parametros.ind_status + '%');
+            if (parametros.id_setor)
+                query.andWhere('s.id_setor', '=', parametros.id_setor);
+            if (parametros.dsc_setor)
+                query.andWhere('s.dsc_setor', 'like', '%' + parametros.dsc_setor + '%');
         }
         if (parametros.dsc_nome)
             query.andWhere('u.dsc_nome', 'like', '%' + parametros.dsc_nome + '%');
