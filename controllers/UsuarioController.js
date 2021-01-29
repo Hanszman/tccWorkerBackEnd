@@ -11,12 +11,14 @@ const formatoCPF = require('./GeralController').formatoCPF;
 const indControleAcesso = require('./GeralController').indControleAcesso;
 const indContratacao = require('./GeralController').indContratacao;
 const indStatus = require('./GeralController').indStatus;
+const filtroSelect = require('./GeralController').filtroSelect;
 const configuraPaginacao = require('./GeralController').configuraPaginacao;
 const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 
 // Funções do Controller
 const usuarioRead = async (request, response) => {
     var result;
+    var queryFiltro = [];
     var querySelect = await usuarioModel.selectUsuario(request.params.id, request.query);
     for (let i = 0; i < querySelect.length; i++) {
         querySelect[i]['dsc_confirm_senha'] = querySelect[i]['dsc_senha'];
@@ -30,13 +32,24 @@ const usuarioRead = async (request, response) => {
             querySelect[i]['ind_controle_acesso'] = indControleAcesso(querySelect[i]['ind_controle_acesso']);
             querySelect[i]['ind_contratacao'] = indContratacao(querySelect[i]['ind_contratacao']);
             querySelect[i]['ind_status'] = indStatus(querySelect[i]['ind_status']);
+            if (filtroSelect(querySelect[i]['ind_controle_acesso'], request.query['ind_controle_acesso']) &&
+                filtroSelect(querySelect[i]['ind_contratacao'], request.query['ind_contratacao']) &&
+                filtroSelect(querySelect[i]['ind_status'], request.query['ind_status']))
+                queryFiltro.push(querySelect[i]);
         }
     }
-    if (request.params.id)
-        result = querySelect;
+    if (request.params.id) {
+        if (!request.query.isForm)
+            result = queryFiltro;
+        else
+            result = querySelect;
+    }
     else {
         var paginacao = configuraPaginacao(request.query.pagina, request.query.paginacao);
-        result = aplicaPaginacao(paginacao, querySelect);
+        if (!request.query.isForm)
+            result = aplicaPaginacao(paginacao, queryFiltro);
+        else
+            result = aplicaPaginacao(paginacao, querySelect);
     }
     response.status(200).json({error: false, data: result});
 };
