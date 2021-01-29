@@ -8,6 +8,9 @@ const usuarioModel = require('../models/UsuarioModel');
 // Importando Funções
 const formatoData = require('./GeralController').formatoData;
 const formatoCPF = require('./GeralController').formatoCPF;
+const indControleAcesso = require('./GeralController').indControleAcesso;
+const indContratacao = require('./GeralController').indContratacao;
+const indStatus = require('./GeralController').indStatus;
 const configuraPaginacao = require('./GeralController').configuraPaginacao;
 const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 
@@ -24,6 +27,9 @@ const usuarioRead = async (request, response) => {
         else {
             querySelect[i]['dsc_cpf'] = formatoCPF(querySelect[i]['dsc_cpf']);
             querySelect[i]['dat_nascimento'] = formatoData(querySelect[i]['dat_nascimento']);
+            querySelect[i]['ind_controle_acesso'] = indControleAcesso(querySelect[i]['ind_controle_acesso']);
+            querySelect[i]['ind_contratacao'] = indContratacao(querySelect[i]['ind_contratacao']);
+            querySelect[i]['ind_status'] = indStatus(querySelect[i]['ind_status']);
         }
     }
     if (request.params.id)
