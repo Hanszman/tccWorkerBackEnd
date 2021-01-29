@@ -16,6 +16,7 @@ const etapa = require('../controllers/EtapaController');
 const telefone = require('../controllers/TelefoneController');
 const endereco = require('../controllers/EnderecoController');
 const email = require('../controllers/EmailController');
+const usuario_empresa = require('../controllers/UsuarioEmpresaController');
 
 // Rotas
 
@@ -60,6 +61,7 @@ router.post('/etapa/create/', etapa.etapaCreate);
 router.post('/telefone/create/', telefone.telefoneCreate);
 router.post('/endereco/create/', endereco.enderecoCreate);
 router.post('/email/create/', email.emailCreate);
+router.post('/usuario_empresa/create/', usuario_empresa.usuarioEmpresaCreate);
 
 // PUT
 router.put('/usuario/update/:id', usuario.usuarioUpdate);
@@ -74,6 +76,7 @@ router.put('/etapa/update/:id', etapa.etapaUpdate);
 router.put('/telefone/update/:id', telefone.telefoneUpdate);
 router.put('/endereco/update/:id', endereco.enderecoUpdate);
 router.put('/email/update/:id', email.emailUpdate);
+router.put('/usuario_empresa/update/:id', usuario_empresa.usuarioEmpresaUpdate);
 
 // DELETE
 router.delete('/usuario/delete/:id', usuario.usuarioDelete);
@@ -88,6 +91,7 @@ router.delete('/etapa/delete/:id', etapa.etapaDelete);
 router.delete('/telefone/delete/:id', telefone.telefoneDelete);
 router.delete('/endereco/delete/:id', endereco.enderecoDelete);
 router.delete('/email/delete/:id', email.emailDelete);
+router.delete('/usuario_empresa/delete/:id', usuario_empresa.usuarioEmpresaDelete);
 
 // Exportando Router
 module.exports = router;
