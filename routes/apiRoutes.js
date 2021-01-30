@@ -17,6 +17,10 @@ const telefone = require('../controllers/TelefoneController');
 const endereco = require('../controllers/EnderecoController');
 const email = require('../controllers/EmailController');
 const usuario_empresa = require('../controllers/UsuarioEmpresaController');
+const atividade_usuario_empresa = require('../controllers/AtividadeUsuarioEmpresaController');
+const projeto_usuario_empresa = require('../controllers/ProjetoUsuarioEmpresaController');
+const projeto_cliente = require('../controllers/ProjetoClienteController');
+const projeto_fornecedor = require('../controllers/ProjetoFornecedorController');
 
 // Rotas
 
