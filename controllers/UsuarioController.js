@@ -20,7 +20,6 @@ const usuarioRead = async (request, response) => {
     var result;
     var queryFiltro = [];
     var querySelect = await usuarioModel.selectUsuario(request.params.id, request.query);
-    console.log(querySelect)
     for (let i = 0; i < querySelect.length; i++) {
         querySelect[i]['dsc_confirm_senha'] = querySelect[i]['dsc_senha'];
         if (!querySelect[i]['dsc_nome_completo'])

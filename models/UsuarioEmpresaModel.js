@@ -19,9 +19,6 @@ const selectUsuarioEmpresa = async (id_usuario, id_empresa) => {
     .andWhere('id_usuario', '=', id_usuario);
     let resultQueryU = await queryU;
 
-    console.log(resultQueryUE.length)
-    console.log(resultQueryU.length)
-
     if (resultQueryUE.length == 0)
         boolUE = true;
     else
