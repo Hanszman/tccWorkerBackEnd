@@ -5,14 +5,21 @@ const usuarioEmpresaModel = require('../models/UsuarioEmpresaModel');
 const usuarioEmpresaCreate = async (request, response) => {
     var result = new Object();
     var dados = request.body;
-    var queryInsert = await usuarioEmpresaModel.insertUsuarioEmpresa(dados);
-    if (queryInsert.length > 0) {
-        result['sucesso'] = true;
-        result['mensagem'] = 'Funcionário vinculado à empresa com sucesso!';
+    var querySelect = await usuarioEmpresaModel.selectUsuarioEmpresa(dados.id_usuario, dados.id_empresa);
+    if (querySelect['boolean']) {
+        var queryInsert = await usuarioEmpresaModel.insertUsuarioEmpresa(dados);
+        if (queryInsert.length > 0) {
+            result['sucesso'] = true;
+            result['mensagem'] = 'Funcionário vinculado à empresa com sucesso!';
+        }
+        else {
+            result['sucesso'] = false;
+            result['mensagem'] = 'Erro ao vincular funcionário à empresa!';
+        }
     }
     else {
         result['sucesso'] = false;
-        result['mensagem'] = 'Erro ao vincular funcionário à empresa!';
+        result['mensagem'] = querySelect['mensagem'];
     }
     response.status(200).json({error: false, data: result});
 };

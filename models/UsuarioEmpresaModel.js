@@ -2,6 +2,43 @@
 const knex = require('../database/conexao');
 
 // Funções do Model
+const selectUsuarioEmpresa = async (id_usuario, id_empresa) => {
+    var result = new Object();
+    let boolUE = false;
+    let boolU = false;
+    let resultBool = false;
+    
+    let queryUE = knex('usuario_empresa')
+    .where(1, '=', 1)
+    .andWhere('id_usuario', '=', id_usuario)
+    .andWhere('id_empresa', '=', id_empresa);
+    let resultQueryUE = await queryUE;
+    
+    let queryU = knex('usuario')
+    .where(1, '=', 1)
+    .andWhere('id_usuario', '=', id_usuario);
+    let resultQueryU = await queryU;
+
+    console.log(resultQueryUE.length)
+    console.log(resultQueryU.length)
+
+    if (resultQueryUE.length == 0)
+        boolUE = true;
+    else
+        result['mensagem'] = 'Este usuário já é um funcionário vinculado a esta empresa!';
+
+    if (resultQueryU.length > 0)
+        boolU = true;
+    else
+        result['mensagem'] = 'Este usuário não existe no sistema!';
+
+    if (boolUE && boolU)
+        resultBool = true;
+    
+    result['boolean'] = resultBool;
+    return result;
+};
+
 const insertUsuarioEmpresa = async (dados) => {
     let query = knex('usuario_empresa')
     .insert({
@@ -50,6 +87,7 @@ const deleteUsuarioEmpresa = async (id) => {
 
 // Exportando Funções
 module.exports = {
+    selectUsuarioEmpresa,
     insertUsuarioEmpresa,
     updateUsuarioEmpresa,
     deleteUsuarioEmpresa
