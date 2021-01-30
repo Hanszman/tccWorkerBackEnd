@@ -20,15 +20,19 @@ const usuarioRead = async (request, response) => {
     var result;
     var queryFiltro = [];
     var querySelect = await usuarioModel.selectUsuario(request.params.id, request.query);
+    console.log(querySelect)
     for (let i = 0; i < querySelect.length; i++) {
         querySelect[i]['dsc_confirm_senha'] = querySelect[i]['dsc_senha'];
         if (!querySelect[i]['dsc_nome_completo'])
             querySelect[i]['dsc_nome_completo'] = querySelect[i]['dsc_nome'];
-        if (request.query.isForm)
+        if (request.query.isForm) {
             querySelect[i]['dat_nascimento'] = formatoData(querySelect[i]['dat_nascimento'], true);
+            querySelect[i]['dat_contratacao'] = formatoData(querySelect[i]['dat_contratacao'], true);
+        }
         else {
             querySelect[i]['dsc_cpf'] = formatoCPF(querySelect[i]['dsc_cpf']);
             querySelect[i]['dat_nascimento'] = formatoData(querySelect[i]['dat_nascimento']);
+            querySelect[i]['dat_contratacao'] = formatoData(querySelect[i]['dat_contratacao']);
             querySelect[i]['ind_controle_acesso'] = indControleAcesso(querySelect[i]['ind_controle_acesso']);
             querySelect[i]['ind_contratacao'] = indContratacao(querySelect[i]['ind_contratacao']);
             querySelect[i]['ind_status'] = indStatus(querySelect[i]['ind_status']);

@@ -46,6 +46,8 @@ router.get('/endereco/read/', endereco.enderecoRead);
 router.get('/endereco/read/:id', endereco.enderecoRead);
 router.get('/email/read/', email.emailRead);
 router.get('/email/read/:id', email.emailRead);
+router.get('/usuario_empresa/read/', usuario.usuarioRead);
+router.get('/usuario_empresa/read/:id', usuario.usuarioRead);
 
 // POST
 router.post('/login/', login.loginAuth);
