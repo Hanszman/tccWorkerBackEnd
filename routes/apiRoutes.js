@@ -52,6 +52,8 @@ router.get('/email/read/', email.emailRead);
 router.get('/email/read/:id', email.emailRead);
 router.get('/usuario_empresa/read/', usuario.usuarioRead);
 router.get('/usuario_empresa/read/:id', usuario.usuarioRead);
+router.get('/projeto_cliente/read/', projeto_cliente.projetoClienteRead);
+router.get('/projeto_cliente/read/:id', projeto_cliente.projetoClienteRead);
 
 // POST
 router.post('/login/', login.loginAuth);
@@ -68,6 +70,7 @@ router.post('/telefone/create/', telefone.telefoneCreate);
 router.post('/endereco/create/', endereco.enderecoCreate);
 router.post('/email/create/', email.emailCreate);
 router.post('/usuario_empresa/create/', usuario_empresa.usuarioEmpresaCreate);
+router.post('/projeto_cliente/create/', projeto_cliente.projetoClienteCreate);
 
 // PUT
 router.put('/usuario/update/:id', usuario.usuarioUpdate);
@@ -83,6 +86,7 @@ router.put('/telefone/update/:id', telefone.telefoneUpdate);
 router.put('/endereco/update/:id', endereco.enderecoUpdate);
 router.put('/email/update/:id', email.emailUpdate);
 router.put('/usuario_empresa/update/:id', usuario_empresa.usuarioEmpresaUpdate);
+router.put('/projeto_cliente/update/:id', projeto_cliente.projetoClienteUpdate);
 
 // DELETE
 router.delete('/usuario/delete/:id', usuario.usuarioDelete);
@@ -98,6 +102,7 @@ router.delete('/telefone/delete/:id', telefone.telefoneDelete);
 router.delete('/endereco/delete/:id', endereco.enderecoDelete);
 router.delete('/email/delete/:id', email.emailDelete);
 router.delete('/usuario_empresa/delete/:id', usuario_empresa.usuarioEmpresaDelete);
+router.delete('/projeto_cliente/delete/:id', projeto_cliente.projetoClienteDelete);
 
 // Exportando Router
 module.exports = router;
