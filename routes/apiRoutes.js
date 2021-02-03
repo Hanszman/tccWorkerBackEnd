@@ -86,7 +86,6 @@ router.put('/telefone/update/:id', telefone.telefoneUpdate);
 router.put('/endereco/update/:id', endereco.enderecoUpdate);
 router.put('/email/update/:id', email.emailUpdate);
 router.put('/usuario_empresa/update/:id', usuario_empresa.usuarioEmpresaUpdate);
-router.put('/projeto_cliente/update/:id', projeto_cliente.projetoClienteUpdate);
 
 // DELETE
 router.delete('/usuario/delete/:id', usuario.usuarioDelete);

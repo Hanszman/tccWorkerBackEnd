@@ -48,22 +48,6 @@ const projetoClienteCreate = async (request, response) => {
     response.status(200).json({error: false, data: result});
 };
 
-const projetoClienteUpdate = async (request, response) => {
-    var result = new Object();
-    var id_projeto_cliente = request.params.id;
-    var dados = request.body;
-    var queryUpdate = await projetoClienteModel.updateProjetoCliente(id_projeto_cliente, dados);
-    if (queryUpdate > 0) {
-        result['sucesso'] = true;
-        result['mensagem'] = 'Vínculo de projeto com cliente editado com sucesso!';
-    }
-    else {
-        result['sucesso'] = false;
-        result['mensagem'] = 'Erro ao editar vínculo de projeto com cliente!';
-    }
-    response.status(200).json({error: false, data: result});
-};
-
 const projetoClienteDelete = async (request, response) => {
     var result = new Object();
     var id_projeto_cliente = request.params.id;
@@ -83,6 +67,5 @@ const projetoClienteDelete = async (request, response) => {
 module.exports = {
     projetoClienteRead,
     projetoClienteCreate,
-    projetoClienteUpdate,
     projetoClienteDelete
 };

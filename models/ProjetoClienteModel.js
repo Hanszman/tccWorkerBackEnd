@@ -67,16 +67,6 @@ const insertProjetoCliente = async (dados) => {
     return result;
 };
 
-const updateProjetoCliente = async (id, dados) => {
-    let query = knex('projeto_cliente')
-    .update({
-        id_projeto: dados.id_projeto,
-        id_cliente: dados.id_cliente
-    }).where('id_projeto_cliente', '=', id)
-    let result = await query;
-    return result;
-};
-
 const deleteProjetoCliente = async (id) => {
     try {
         let query = knex('projeto_cliente')
@@ -94,6 +84,5 @@ const deleteProjetoCliente = async (id) => {
 module.exports = {
     selectProjetoCliente,
     insertProjetoCliente,
-    updateProjetoCliente,
     deleteProjetoCliente
 }
