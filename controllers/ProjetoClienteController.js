@@ -50,7 +50,7 @@ const projetoClienteCreate = async (request, response) => {
     }
     else {
         result['sucesso'] = false;
-        result['mensagem'] = 'Vínculo de projeto e cliente já existe!';
+        result['mensagem'] = 'Vínculo entre projeto e cliente já existe!';
     }
     response.status(200).json({error: false, data: result});
 };
