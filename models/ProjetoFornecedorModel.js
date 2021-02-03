@@ -9,7 +9,6 @@ const selectProjetoFornecedor = async (id_projeto_fornecedor, id_projeto, id_for
             'p.dsc_descricao as dsc_descricao_projeto',
             'p.dat_inicio as dat_inicio_projeto',
             'p.dat_fim as dat_fim_projeto',
-            'p.dat_fim as dat_fim_projeto',
             'p.id_setor as id_setor_projeto',
             's.dsc_setor as dsc_setor_projeto',
             'p.id_empresa as id_empresa_projeto',
