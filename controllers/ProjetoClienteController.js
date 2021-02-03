@@ -37,7 +37,6 @@ const projetoClienteCreate = async (request, response) => {
     var result = new Object();
     var dados = request.body;
     var querySelect = await projetoClienteModel.selectProjetoCliente(undefined, dados.id_projeto, dados.id_cliente);
-    console.log(querySelect.length);
     if (querySelect.length == 0) {
         var queryInsert = await projetoClienteModel.insertProjetoCliente(dados);
         if (queryInsert.length > 0) {
