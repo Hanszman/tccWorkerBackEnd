@@ -10,7 +10,7 @@ const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 // Funções do Controller
 const projetoClienteRead = async (request, response) => {
     var result;
-    var querySelect = await projetoClienteModel.selectProjetoCliente(request.params.id, request.query);
+    var querySelect = await projetoClienteModel.selectProjetoCliente(request.params.id, undefined, undefined, request.query);
     for (let i = 0; i < querySelect.length; i++) {
         if (request.query.isForm) {
             if (!querySelect[i]['id_setor_projeto'])
