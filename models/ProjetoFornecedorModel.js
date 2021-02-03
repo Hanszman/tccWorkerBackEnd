@@ -3,7 +3,7 @@ const knex = require('../database/conexao');
 
 // Funções do Model
 const selectProjetoFornecedor = async (id_projeto_fornecedor, id_projeto, id_fornecedor, parametros) => {
-    let query = knex({ pf: 'id_projeto_fornecedor' })
+    let query = knex({ pf: 'projeto_fornecedor' })
     .select('pf.*',
             'p.dsc_nome as dsc_nome_projeto',
             'p.dsc_descricao as dsc_descricao_projeto',

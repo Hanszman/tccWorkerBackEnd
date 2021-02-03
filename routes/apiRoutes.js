@@ -54,6 +54,7 @@ router.get('/usuario_empresa/read/', usuario.usuarioRead);
 router.get('/usuario_empresa/read/:id', usuario.usuarioRead);
 router.get('/projeto_cliente/read/', projeto_cliente.projetoClienteRead);
 router.get('/projeto_cliente/read/:id', projeto_cliente.projetoClienteRead);
+router.get('/projeto_fornecedor/read/', projeto_fornecedor.projetoFornecedorRead);
 router.get('/projeto_fornecedor/read/:id', projeto_fornecedor.projetoFornecedorRead);
 
 // POST
