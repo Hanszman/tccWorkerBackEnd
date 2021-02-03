@@ -36,16 +36,23 @@ const projetoClienteRead = async (request, response) => {
 const projetoClienteCreate = async (request, response) => {
     var result = new Object();
     var dados = request.body;
-    var queryInsert = await projetoClienteModel.insertProjetoCliente(dados);
-    if (queryInsert.length > 0) {
-        result['sucesso'] = true;
-        result['mensagem'] = 'Projeto vinculado ao cliente com sucesso!';
+    var querySelect = await projetoClienteModel.selectProjetoCliente(undefined, dados.id_projeto, dados.id_cliente);
+    if (querySelect.length == 0) {
+        var queryInsert = await projetoClienteModel.insertProjetoCliente(dados);
+        if (queryInsert.length > 0) {
+            result['sucesso'] = true;
+            result['mensagem'] = 'Projeto vinculado ao cliente com sucesso!';
+        }
+        else {
+            result['sucesso'] = false;
+            result['mensagem'] = 'Erro ao vincular projeto ao cliente!';
+        }
+        response.status(200).json({error: false, data: result});
     }
     else {
         result['sucesso'] = false;
-        result['mensagem'] = 'Erro ao vincular projeto ao cliente!';
+        result['mensagem'] = 'Vínculo de projeto e cliente já existe!';
     }
-    response.status(200).json({error: false, data: result});
 };
 
 const projetoClienteDelete = async (request, response) => {

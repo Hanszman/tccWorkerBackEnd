@@ -2,7 +2,7 @@
 const knex = require('../database/conexao');
 
 // Funções do Model
-const selectProjetoCliente = async (id_projeto_cliente, parametros) => {
+const selectProjetoCliente = async (id_projeto_cliente, id_projeto, id_cliente, parametros) => {
     let query = knex({ pc: 'projeto_cliente' })
     .select('pc.*',
             'p.dsc_nome as dsc_nome_projeto',
@@ -21,6 +21,10 @@ const selectProjetoCliente = async (id_projeto_cliente, parametros) => {
     .where(1, '=', 1);
     if (id_projeto_cliente)
         query.andWhere('pc.id_projeto_cliente', '=', id_projeto_cliente);
+    if (id_projeto)
+        query.andWhere('pc.id_projeto', '=', id_projeto);
+    if (id_cliente)
+        query.andWhere('pc.id_cliente', '=', id_cliente);
     if (parametros) {
         if (parametros.id_projeto)
             query.andWhere('pc.id_projeto', '=', parametros.id_projeto);
