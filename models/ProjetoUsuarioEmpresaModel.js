@@ -15,7 +15,8 @@ const selectProjetoUsuarioEmpresa = async (id_projeto_usuario_empresa, id_projet
             knex.raw("concat(u.dsc_nome, ' ', u.dsc_sobrenome) as dsc_nome_completo_usuario_empresa"),
             'u.dsc_nome as dsc_nome_usuario_empresa',
             'u.dsc_login as dsc_login_usuario_empresa',
-            'ue.dsc_cargo as dsc_cargo_usuario_empresa')
+            'ue.dsc_cargo as dsc_cargo_usuario_empresa',
+            'u.id_usuario')
     .leftJoin({p: "projeto"}, "p.id_projeto", "=", "pue.id_projeto")
     .leftJoin({ue: "usuario_empresa"}, "ue.id_usuario_empresa", "=", "pue.id_usuario_empresa")
     .leftJoin({s: "setor"}, "s.id_setor", "=", "p.id_setor")
