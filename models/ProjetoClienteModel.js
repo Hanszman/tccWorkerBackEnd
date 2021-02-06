@@ -32,23 +32,23 @@ const selectProjetoCliente = async (id_projeto_cliente, id_projeto, id_cliente, 
         if (parametros.dsc_nome_projeto)
             query.andWhere('p.dsc_nome', 'like', '%' + parametros.dsc_nome_projeto + '%');
         if (parametros.dsc_descricao_projeto)
-            query.andWhere('p.dsc_descricao', 'like', '%' + parametros.dsc_descricao_projeto + '%')
+            query.andWhere('p.dsc_descricao', 'like', '%' + parametros.dsc_descricao_projeto + '%');
         if (parametros.dat_inicio_projeto)
-            query.andWhere('p.dat_inicio', 'like', '%' + parametros.dat_inicio_projeto + '%')
+            query.andWhere('p.dat_inicio', 'like', '%' + parametros.dat_inicio_projeto + '%');
         if (parametros.dat_fim_projeto)
-            query.andWhere('p.dat_fim', 'like', '%' + parametros.dat_fim_projeto + '%')
+            query.andWhere('p.dat_fim', 'like', '%' + parametros.dat_fim_projeto + '%');
         if (parametros.dat_fim_projeto)
-            query.andWhere('p.dat_fim', 'like', '%' + parametros.dat_fim_projeto + '%')
+            query.andWhere('p.dat_fim', 'like', '%' + parametros.dat_fim_projeto + '%');
         if (parametros.id_setor_projeto)
-            query.andWhere('p.id_setor', '=' + parametros.id_setor_projeto)
+            query.andWhere('p.id_setor', '=' + parametros.id_setor_projeto);
         if (parametros.dsc_setor_projeto)
-            query.andWhere('s.dsc_setor', 'like', '%' + parametros.dsc_setor_projeto + '%')
+            query.andWhere('s.dsc_setor', 'like', '%' + parametros.dsc_setor_projeto + '%');
         if (parametros.id_empresa_projeto)
-            query.andWhere('p.id_empresa', '=' + parametros.id_empresa_projeto)
+            query.andWhere('p.id_empresa', '=' + parametros.id_empresa_projeto);
         if (parametros.dsc_nome_cliente)
-            query.andWhere('c.dsc_nome', 'like', '%' + parametros.dsc_nome_cliente + '%')
+            query.andWhere('c.dsc_nome', 'like', '%' + parametros.dsc_nome_cliente + '%');
         if (parametros.dsc_cnpj_cliente)
-            query.andWhere('c.dsc_cnpj', 'like', '%' + parametros.dsc_cnpj_cliente + '%')
+            query.andWhere('c.dsc_cnpj', 'like', '%' + parametros.dsc_cnpj_cliente + '%');
         if(parametros.ordenarPor){
             if(parametros.direcao)
                 query.orderBy(parametros.ordenarPor, parametros.direcao);

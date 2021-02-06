@@ -36,25 +36,25 @@ const selectProjetoUsuarioEmpresa = async (id_projeto_usuario_empresa, id_projet
         if (parametros.dsc_nome_projeto)
             query.andWhere('p.dsc_nome', 'like', '%' + parametros.dsc_nome_projeto + '%');
         if (parametros.dsc_descricao_projeto)
-            query.andWhere('p.dsc_descricao', 'like', '%' + parametros.dsc_descricao_projeto + '%')
+            query.andWhere('p.dsc_descricao', 'like', '%' + parametros.dsc_descricao_projeto + '%');
         if (parametros.dat_inicio_projeto)
-            query.andWhere('p.dat_inicio', 'like', '%' + parametros.dat_inicio_projeto + '%')
+            query.andWhere('p.dat_inicio', 'like', '%' + parametros.dat_inicio_projeto + '%');
         if (parametros.dat_fim_projeto)
-            query.andWhere('p.dat_fim', 'like', '%' + parametros.dat_fim_projeto + '%')
+            query.andWhere('p.dat_fim', 'like', '%' + parametros.dat_fim_projeto + '%');
         if (parametros.id_setor_projeto)
-            query.andWhere('p.id_setor', '=' + parametros.id_setor_projeto)
+            query.andWhere('p.id_setor', '=' + parametros.id_setor_projeto);
         if (parametros.dsc_setor_projeto)
-            query.andWhere('s.dsc_setor', 'like', '%' + parametros.dsc_setor_projeto + '%')
+            query.andWhere('s.dsc_setor', 'like', '%' + parametros.dsc_setor_projeto + '%');
         if (parametros.id_empresa_projeto)
-            query.andWhere('p.id_empresa', '=' + parametros.id_empresa_projeto)
+            query.andWhere('p.id_empresa', '=' + parametros.id_empresa_projeto);
         if (parametros.dsc_nome_completo_usuario_empresa)
-            query.andWhere(knex.raw("concat(u.dsc_nome, ' ', u.dsc_sobrenome)"), 'like', '%' + parametros.dsc_nome_completo_usuario_empresa + '%')
+            query.andWhere(knex.raw("concat(u.dsc_nome, ' ', u.dsc_sobrenome)"), 'like', '%' + parametros.dsc_nome_completo_usuario_empresa + '%');
         if (parametros.dsc_nome_usuario_empresa)
-            query.andWhere('u.dsc_nome', 'like', '%' + parametros.dsc_nome_usuario_empresa + '%')
+            query.andWhere('u.dsc_nome', 'like', '%' + parametros.dsc_nome_usuario_empresa + '%');
         if (parametros.dsc_login_usuario_empresa)
-            query.andWhere('u.dsc_login', 'like', '%' + parametros.dsc_login_usuario_empresa + '%')
+            query.andWhere('u.dsc_login', 'like', '%' + parametros.dsc_login_usuario_empresa + '%');
         if (parametros.dsc_cargo_usuario_empresa)
-            query.andWhere('ue.dsc_cargo', 'like', '%' + parametros.dsc_cargo_usuario_empresa + '%')
+            query.andWhere('ue.dsc_cargo', 'like', '%' + parametros.dsc_cargo_usuario_empresa + '%');
         if(parametros.ordenarPor){
             if(parametros.direcao)
                 query.orderBy(parametros.ordenarPor, parametros.direcao);
