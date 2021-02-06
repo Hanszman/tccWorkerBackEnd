@@ -41,8 +41,6 @@ const selectProjetoUsuarioEmpresa = async (id_projeto_usuario_empresa, id_projet
             query.andWhere('p.dat_inicio', 'like', '%' + parametros.dat_inicio_projeto + '%')
         if (parametros.dat_fim_projeto)
             query.andWhere('p.dat_fim', 'like', '%' + parametros.dat_fim_projeto + '%')
-        if (parametros.dat_fim_projeto)
-            query.andWhere('p.dat_fim', 'like', '%' + parametros.dat_fim_projeto + '%')
         if (parametros.id_setor_projeto)
             query.andWhere('p.id_setor', '=' + parametros.id_setor_projeto)
         if (parametros.dsc_setor_projeto)
