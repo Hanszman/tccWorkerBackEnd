@@ -23,6 +23,8 @@ const selectUsuario = async (id_usuario, parametros, dsc_login) => {
             if (parametros.dsc_setor)
                 query.andWhere('s.dsc_setor', 'like', '%' + parametros.dsc_setor + '%');
         }
+        if (parametros.id_usuario)
+            query.andWhere('u.id_usuario', '=', parametros.id_usuario);
         if (parametros.dsc_nome)
             query.andWhere('u.dsc_nome', 'like', '%' + parametros.dsc_nome + '%');
         if (parametros.dsc_email)
