@@ -21,6 +21,7 @@ const atividade_usuario_empresa = require('../controllers/AtividadeUsuarioEmpres
 const projeto_usuario_empresa = require('../controllers/ProjetoUsuarioEmpresaController');
 const projeto_cliente = require('../controllers/ProjetoClienteController');
 const projeto_fornecedor = require('../controllers/ProjetoFornecedorController');
+const chart = require('../controllers/ChartController');
 
 // Rotas
 
