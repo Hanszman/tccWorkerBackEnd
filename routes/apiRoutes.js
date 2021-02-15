@@ -61,6 +61,17 @@ router.get('/projeto_cliente/read/', projeto_cliente.projetoClienteRead);
 router.get('/projeto_cliente/read/:id', projeto_cliente.projetoClienteRead);
 router.get('/projeto_fornecedor/read/', projeto_fornecedor.projetoFornecedorRead);
 router.get('/projeto_fornecedor/read/:id', projeto_fornecedor.projetoFornecedorRead);
+router.get('/chart/atividade_etapa/', chart.atividadeEtapaChart);
+router.get('/chart/atividade_prioridade_etapa/', chart.atividadePrioridadeEtapaChart);
+router.get('/chart/atividade_cliente_etapa/', chart.atividadeClienteEtapaChart);
+router.get('/chart/atividade_fornecedor_etapa/', chart.atividadeFornecedorEtapaChart);
+router.get('/chart/atividade_funcionario_etapa/', chart.atividadeFuncionarioEtapaChart);
+router.get('/chart/atividade_setor_etapa/', chart.atividadeSetorEtapaChart);
+router.get('/chart/atividade_projeto_etapa/', chart.atividadeProjetoEtapaChart);
+router.get('/chart/projeto_cliente/', chart.projetoClienteChart);
+router.get('/chart/projeto_fornecedor/', chart.projetoFornecedorChart);
+router.get('/chart/projeto_funcionario/', chart.projetoFuncionarioChart);
+router.get('/chart/projeto_setor/', chart.projetoSetorChart);
 
 // POST
 router.post('/login/', login.loginAuth);
