@@ -129,6 +129,25 @@ const indTipoTelefone = (indicador) => {
     return result;
 };
 
+const indPrioridade = (indicador) => {
+    var result;
+    switch(indicador){
+        case 'B':
+            result = 'Baixa';
+            break;
+        case 'N':
+            result = 'Normal';
+            break;
+        case 'A':
+            result = 'Alta';
+            break;
+        case 'U':
+            result = 'Urgente';
+            break;
+    }
+    return result;
+};
+
 const filtroSelect = (dado, filtro) => {
     if (filtro && dado) {
         if (removeAcentos(dado.toString().toLowerCase()).includes(removeAcentos(filtro.toLowerCase())))
@@ -157,5 +176,6 @@ module.exports = {
     indContratacao,
     indStatus,
     indTipoTelefone,
+    indPrioridade,
     filtroSelect
 };

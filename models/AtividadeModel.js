@@ -55,7 +55,8 @@ const insertAtividade = async (dados) => {
         dat_inicio: dados.dat_inicio,
         dat_fim: dados.dat_fim,
         id_quadro: dados.id_quadro,
-        id_etapa: dados.id_etapa
+        id_etapa: dados.id_etapa,
+        ind_prioridade: dados.ind_prioridade
     }).returning('id_atividade');
     let result = await query;
     return result;
@@ -69,7 +70,8 @@ const updateAtividade = async (id, dados) => {
         dat_inicio: dados.dat_inicio,
         dat_fim: dados.dat_fim,
         id_quadro: dados.id_quadro,
-        id_etapa: dados.id_etapa
+        id_etapa: dados.id_etapa,
+        ind_prioridade: dados.ind_prioridade
     }).where('id_atividade', '=', id)
     let result = await query;
     return result;

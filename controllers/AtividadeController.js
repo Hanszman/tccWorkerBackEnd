@@ -3,12 +3,15 @@ const atividadeModel = require('../models/AtividadeModel');
 
 // Importando Funções
 const formatoData = require('./GeralController').formatoData;
+const indPrioridade = require('./GeralController').indPrioridade;
+const filtroSelect = require('./GeralController').filtroSelect;
 const configuraPaginacao = require('./GeralController').configuraPaginacao;
 const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 
 // Funções do Controller
 const atividadeRead = async (request, response) => {
     var result;
+    var queryFiltro = [];
     var querySelect = await atividadeModel.selectAtividade(request.params.id, request.query);
     for (let i = 0; i < querySelect.length; i++) {
         if (request.query.isForm) {
@@ -22,13 +25,23 @@ const atividadeRead = async (request, response) => {
         else {
             querySelect[i]['dat_inicio'] = formatoData(querySelect[i]['dat_inicio']);
             querySelect[i]['dat_fim'] = formatoData(querySelect[i]['dat_fim']);
+            querySelect[i]['ind_prioridade'] = indPrioridade(querySelect[i]['ind_prioridade']);
+            if (filtroSelect(querySelect[i]['ind_prioridade'], request.query['ind_prioridade']))
+                queryFiltro.push(querySelect[i]);
         }
     }
-    if (request.params.id)
-        result = querySelect;
+    if (request.params.id) {
+        if (!request.query.isForm)
+            result = queryFiltro;
+        else
+            result = querySelect;
+    }
     else {
         var paginacao = configuraPaginacao(request.query.pagina, request.query.paginacao);
-        result = aplicaPaginacao(paginacao, querySelect);
+        if (!request.query.isForm)
+            result = aplicaPaginacao(paginacao, queryFiltro);
+        else
+            result = aplicaPaginacao(paginacao, querySelect);
     }
     response.status(200).json({error: false, data: result});
 };
