@@ -35,6 +35,10 @@ const atividadeFuncionarioEtapaChart = async (request, response) => {
 // 6-) Quantidade de Atividades por Setor e por Etapa (Barra Stacked) ***
 const atividadeSetorEtapaChart = async (request, response) => {
     var result = new Object();
+    result['tipos'] = [];
+    result['legendas'] = [];
+    result['eixoX'] = [];
+    result['eixoY'] = [];
     response.status(200).json({error: false, data: result});
 };
 
