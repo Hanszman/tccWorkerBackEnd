@@ -9,6 +9,7 @@ const selectAtividadeUsuarioEmpresa = async (id_atividade_usuario_empresa, id_at
             'a.dsc_descricao as dsc_descricao_atividade',
             'a.dat_inicio as dat_inicio_atividade',
             'a.dat_fim as dat_fim_atividade',
+            'a.ind_prioridade as ind_prioridade_atividade',
             'e.id_etapa as id_etapa_atividade',
             'e.dsc_etapa as dsc_etapa_atividade',
             'e.ind_sequencia as ind_sequencia_etapa_atividade',

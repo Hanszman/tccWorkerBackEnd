@@ -3,12 +3,15 @@ const atividadeUsuarioEmpresaModel = require('../models/AtividadeUsuarioEmpresaM
 
 // Importando Funções
 const formatoData = require('./GeralController').formatoData;
+const indPrioridade = require('./GeralController').indPrioridade;
+const filtroSelect = require('./GeralController').filtroSelect;
 const configuraPaginacao = require('./GeralController').configuraPaginacao;
 const aplicaPaginacao = require('./GeralController').aplicaPaginacao;
 
 // Funções do Controller
 const atividadeUsuarioEmpresaRead = async (request, response) => {
     var result;
+    var queryFiltro = [];
     var querySelect = await atividadeUsuarioEmpresaModel.selectAtividadeUsuarioEmpresa(request.params.id, undefined, undefined, request.query);
     for (let i = 0; i < querySelect.length; i++) {
         if (!querySelect[i]['dsc_nome_completo_usuario_empresa'])
@@ -26,13 +29,23 @@ const atividadeUsuarioEmpresaRead = async (request, response) => {
         else {
             querySelect[i]['dat_inicio_atividade'] = formatoData(querySelect[i]['dat_inicio_atividade']);
             querySelect[i]['dat_fim_atividade'] = formatoData(querySelect[i]['dat_fim_atividade']);
+            querySelect[i]['ind_prioridade_atividade'] = indPrioridade(querySelect[i]['ind_prioridade_atividade']);
+            if (filtroSelect(querySelect[i]['ind_prioridade_atividade'], request.query['ind_prioridade_atividade']))
+                queryFiltro.push(querySelect[i]);
         }
     }
-    if (request.params.id)
-        result = querySelect;
+    if (request.params.id) {
+        if (!request.query.isForm)
+            result = queryFiltro;
+        else
+            result = querySelect;
+    }
     else {
         var paginacao = configuraPaginacao(request.query.pagina, request.query.paginacao);
-        result = aplicaPaginacao(paginacao, querySelect);
+        if (!request.query.isForm)
+            result = aplicaPaginacao(paginacao, queryFiltro);
+        else
+            result = aplicaPaginacao(paginacao, querySelect);
     }
     response.status(200).json({error: false, data: result});
 };
