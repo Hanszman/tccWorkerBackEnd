@@ -2,6 +2,17 @@
 const knex = require('../database/conexao');
 
 // Funções do Model
+const selectEtapaEmpresa = async (id_empresa) => {
+    let query = knex({ e: 'etapa' })
+    .select('e.*')
+    .leftJoin({ em: "empresa" }, "em.id_empresa", "=", "e.id_empresa")
+    .where(1, '=', 1)
+    .andWhere('e.id_empresa', '=', id_empresa)
+    .orderBy('e.ind_sequencia', 'asc');
+    let result = await query;
+    return result;
+};
+
 const selectAtividadeEtapa = async () => {
 
 };
@@ -48,6 +59,7 @@ const selectProjetoSetor = async () => {
 
 // Exportando Funções
 module.exports = {
+    selectEtapaEmpresa,
     selectAtividadeEtapa,
     selectAtividadePrioridadeEtapa,
     selectAtividadeClienteEtapa,

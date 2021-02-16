@@ -1,4 +1,5 @@
 // Importando Models
+const { query } = require('express');
 const chartModel = require('../models/ChartModel');
 
 // Funções do Controller
@@ -35,8 +36,18 @@ const atividadeFuncionarioEtapaChart = async (request, response) => {
 // 6-) Quantidade de Atividades por Setor e por Etapa (Barra Stacked) ***
 const atividadeSetorEtapaChart = async (request, response) => {
     var result = new Object();
+    var dados = request.query;
+    var legendas = [];
+    if (dados.id_empresa) {
+        var queryEtapa = await chartModel.selectEtapaEmpresa(dados.id_empresa);
+        if (queryEtapa.length > 0) {
+            for (let i = 0; i < queryEtapa.length; i++) {
+                legendas.push(queryEtapa[i].dsc_etapa);
+            }
+        }
+    }
     result['tipos'] = [];
-    result['legendas'] = [];
+    result['legendas'] = legendas;
     result['eixoX'] = [];
     result['eixoY'] = [];
     response.status(200).json({error: false, data: result});
