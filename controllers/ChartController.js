@@ -55,25 +55,17 @@ const atividadeSetorEtapaChart = async (request, response) => {
             for (let i = 0; i < querySetor.length; i++)
                 eixoX.push(querySetor[i].dsc_setor);
         }
-        var queryChart = await chartModel.selectAtividadeSetorEtapa(dados.id_empresa)
-        console.log(queryChart);
-        if (queryChart.length > 0 && queryEtapa.length > 0 && querySetor.length > 0) {
+        if (queryEtapa.length > 0 && querySetor.length > 0) {
             for (let i = 0; i < queryEtapa.length; i++) {
                 var valoresY = [];
                 for (let j = 0; j < querySetor.length; j++) {
-                    for (let k = 0; k < queryChart.length; k++) {
-                        if (queryEtapa[i].id_etapa == queryChart[k].id_etapa &&
-                            querySetor[j].id_setor == queryChart[k].id_setor)
-                            console.log(queryChart[k].dsc_etapa + ' - ' + queryChart[k].dsc_setor + ': ' + queryChart[k].quantidade);
-                        else
-                            console.log(queryChart[k].dsc_etapa + ' - ' + queryChart[k].dsc_setor + ': NADA');
-                        console.log('// ---- Acabou o chart ---- //')
-                    }
-                    
-                    console.log('// ---- Acabou o setor ---- //')
+                    var queryChart = await chartModel.selectAtividadeSetorEtapa(dados.id_empresa, querySetor[j].id_setor, queryEtapa[i].id_etapa);
+                    if (queryChart.length > 0)
+                        valoresY.push(queryChart[0].quantidade);
+                    else
+                        valoresY.push(0);
                 }
                 eixoY.push(valoresY);
-                console.log('// ---- Acabou a etapa ---- //')
             }
         }
     }
