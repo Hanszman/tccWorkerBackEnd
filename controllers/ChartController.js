@@ -61,7 +61,11 @@ const atividadeSetorEtapaChart = async (request, response) => {
             for (let i = 0; i < queryEtapa.length; i++) {
                 var valoresY = [];
                 for (let j = 0; j < querySetor.length; j++) {
-                    
+                    for (let k = 0; k < queryChart.length; k++) {
+                        if (queryEtapa[i].id_etapa == queryChart[k].id_etapa &&
+                            querySetor[j].id_setor == queryChart[k].id_setor)
+                            console.log(queryChart[k].dsc_etapa + ' - ' + queryChart[k].dsc_setor + ':' + queryChart[k].quantidade);
+                    }
                 }
                 eixoY.push(valoresY);
             }
