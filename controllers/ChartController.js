@@ -54,6 +54,8 @@ const atividadeSetorEtapaChart = async (request, response) => {
             for (let i = 0; i < querySetor.length; i++)
                 eixoX.push(querySetor[i].dsc_setor);
         }
+        var queryChart = await chartModel.selectAtividadeSetorEtapa(dados.id_empresa)
+        console.log(queryChart);
     }
     result['tipos'] = tipos;
     result['legendas'] = legendas;
