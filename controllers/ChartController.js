@@ -1,6 +1,7 @@
 // Importando Models
-const { query } = require('express');
 const chartModel = require('../models/ChartModel');
+const etapaModel = require('../models/EtapaModel');
+const setorModel = require('../models/SetorModel');
 
 // Funções do Controller
 // 1-) Quantidade de Atividades por Etapa (Pizza) ***
@@ -37,18 +38,26 @@ const atividadeFuncionarioEtapaChart = async (request, response) => {
 const atividadeSetorEtapaChart = async (request, response) => {
     var result = new Object();
     var dados = request.query;
+    var tipos = [];
     var legendas = [];
+    var eixoX = [];
     if (dados.id_empresa) {
-        var queryEtapa = await chartModel.selectEtapaEmpresa(dados.id_empresa);
+        var queryEtapa = await etapaModel.selectEtapa(undefined, { ordenarPor: 'ind_sequencia', id_empresa: dados.id_empresa });
         if (queryEtapa.length > 0) {
             for (let i = 0; i < queryEtapa.length; i++) {
                 legendas.push(queryEtapa[i].dsc_etapa);
+                tipos.push('bar');
             }
         }
+        var querySetor = await setorModel.selectSetor(undefined, { id_empresa: dados.id_empresa });
+        if (querySetor.length > 0) {
+            for (let i = 0; i < querySetor.length; i++)
+                eixoX.push(querySetor[i].dsc_setor);
+        }
     }
-    result['tipos'] = [];
+    result['tipos'] = tipos;
     result['legendas'] = legendas;
-    result['eixoX'] = [];
+    result['eixoX'] = eixoX;
     result['eixoY'] = [];
     response.status(200).json({error: false, data: result});
 };
