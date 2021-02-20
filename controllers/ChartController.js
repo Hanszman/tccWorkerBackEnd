@@ -64,10 +64,16 @@ const atividadeSetorEtapaChart = async (request, response) => {
                     for (let k = 0; k < queryChart.length; k++) {
                         if (queryEtapa[i].id_etapa == queryChart[k].id_etapa &&
                             querySetor[j].id_setor == queryChart[k].id_setor)
-                            console.log(queryChart[k].dsc_etapa + ' - ' + queryChart[k].dsc_setor + ':' + queryChart[k].quantidade);
+                            console.log(queryChart[k].dsc_etapa + ' - ' + queryChart[k].dsc_setor + ': ' + queryChart[k].quantidade);
+                        else
+                            console.log(queryChart[k].dsc_etapa + ' - ' + queryChart[k].dsc_setor + ': NADA');
+                        console.log('// ---- Acabou o chart ---- //')
                     }
+                    
+                    console.log('// ---- Acabou o setor ---- //')
                 }
                 eixoY.push(valoresY);
+                console.log('// ---- Acabou a etapa ---- //')
             }
         }
     }

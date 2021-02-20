@@ -23,7 +23,7 @@ const selectAtividadeFuncionarioEtapa = async () => {
 
 };
 
-const selectAtividadeSetorEtapa = async (id_empresa) => {
+const selectAtividadeSetorEtapa = async (id_empresa, id_setor, id_etapa) => {
     let query = knex({ a: 'atividade' })
     .countDistinct('a.id_atividade as quantidade')
     .select('s.dsc_setor', 'e.dsc_etapa', 's.id_setor', 'e.id_etapa', 'e.ind_sequencia')
@@ -33,6 +33,8 @@ const selectAtividadeSetorEtapa = async (id_empresa) => {
     .leftJoin({ e: "etapa" }, "e.id_etapa", "=", "a.id_etapa")
     .where(1, '=', 1)
     .andWhere('s.id_empresa', '=', id_empresa)
+    .andWhere('s.id_setor', '=', id_setor)
+    .andWhere('e.id_etapa', '=', id_etapa)
     .groupBy('s.dsc_setor')
     .groupBy('e.dsc_etapa')
     .orderBy('s.id_setor', 'asc')
