@@ -41,6 +41,7 @@ const atividadeSetorEtapaChart = async (request, response) => {
     var tipos = [];
     var legendas = [];
     var eixoX = [];
+    var eixoY = [];
     if (dados.id_empresa) {
         var queryEtapa = await etapaModel.selectEtapa(undefined, { ordenarPor: 'ind_sequencia', id_empresa: dados.id_empresa });
         if (queryEtapa.length > 0) {
@@ -60,7 +61,7 @@ const atividadeSetorEtapaChart = async (request, response) => {
     result['tipos'] = tipos;
     result['legendas'] = legendas;
     result['eixoX'] = eixoX;
-    result['eixoY'] = [];
+    result['eixoY'] = eixoY;
     response.status(200).json({error: false, data: result});
 };
 
