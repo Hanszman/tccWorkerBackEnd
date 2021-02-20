@@ -57,6 +57,15 @@ const atividadeSetorEtapaChart = async (request, response) => {
         }
         var queryChart = await chartModel.selectAtividadeSetorEtapa(dados.id_empresa)
         console.log(queryChart);
+        if (queryChart.length > 0 && queryEtapa.length > 0 && querySetor.length > 0) {
+            for (let i = 0; i < queryEtapa.length; i++) {
+                var valoresY = [];
+                for (let j = 0; j < querySetor.length; j++) {
+                    
+                }
+                eixoY.push(valoresY);
+            }
+        }
     }
     result['tipos'] = tipos;
     result['legendas'] = legendas;
