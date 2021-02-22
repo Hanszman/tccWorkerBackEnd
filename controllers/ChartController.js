@@ -1,7 +1,8 @@
 // Importando Models
 const chartModel = require('../models/ChartModel');
-const etapaModel = require('../models/EtapaModel');
+const usuarioModel = require('../models/UsuarioModel');
 const setorModel = require('../models/SetorModel');
+const etapaModel = require('../models/EtapaModel');
 
 // Funções do Controller
 // 1-) Quantidade de Atividades por Etapa (Pizza) ***
@@ -30,13 +31,39 @@ const atividadeFornecedorEtapaChart = async (request, response) => {
 
 // 5-) Quantidade de Atividades por Funcionário e por Etapa (Barra Horizontal Stacked) ***
 const atividadeFuncionarioEtapaChart = async (request, response) => {
-    // horizontalBar
     var result = new Object();
     var dados = request.query;
     var tipos = [];
     var legendas = [];
     var eixoX = [];
     var eixoY = [];
+    if (dados.id_empresa) {
+        var queryEtapa = await etapaModel.selectEtapa(undefined, { ordenarPor: 'ind_sequencia', id_empresa: dados.id_empresa });
+        if (queryEtapa.length > 0) {
+            for (let i = 0; i < queryEtapa.length; i++) {
+                legendas.push(queryEtapa[i].dsc_etapa);
+                tipos.push('horizontalBar');
+            }
+        }
+        var queryUsuario = await usuarioModel.selectUsuario(undefined, { id_empresa: dados.id_empresa });
+        if (queryUsuario.length > 0) {
+            for (let i = 0; i < queryUsuario.length; i++)
+                eixoX.push(queryUsuario[i].dsc_nome_completo);
+        }
+        if (queryEtapa.length > 0 && queryUsuario.length > 0) {
+            for (let i = 0; i < queryEtapa.length; i++) {
+                var valoresY = [];
+                for (let j = 0; j < queryUsuario.length; j++) {
+                    var queryChart = await chartModel.selectAtividadeFuncionarioEtapa(dados.id_empresa, queryUsuario[j].id_usuario_empresa, queryEtapa[i].id_etapa);
+                    if (queryChart.length > 0)
+                        valoresY.push(queryChart[0].quantidade);
+                    else
+                        valoresY.push(0);
+                }
+                eixoY.push(valoresY);
+            }
+        }
+    }
     result['tipos'] = tipos;
     result['legendas'] = legendas;
     result['eixoX'] = eixoX;
