@@ -30,7 +30,17 @@ const atividadeFornecedorEtapaChart = async (request, response) => {
 
 // 5-) Quantidade de Atividades por Funcionário e por Etapa (Barra Horizontal Stacked) ***
 const atividadeFuncionarioEtapaChart = async (request, response) => {
+    // horizontalBar
     var result = new Object();
+    var dados = request.query;
+    var tipos = [];
+    var legendas = [];
+    var eixoX = [];
+    var eixoY = [];
+    result['tipos'] = tipos;
+    result['legendas'] = legendas;
+    result['eixoX'] = eixoX;
+    result['eixoY'] = eixoY;
     response.status(200).json({error: false, data: result});
 };
 
