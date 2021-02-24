@@ -8,6 +8,31 @@ const etapaModel = require('../models/EtapaModel');
 // 1-) Quantidade de Atividades por Etapa (Pizza) ***
 const atividadeEtapaChart = async (request, response) => {
     var result = new Object();
+    var dados = request.query;
+    var tipos = ['doughnut'];
+    var legendas = ['Atividades por Etapa'];
+    var eixoX = [];
+    var eixoY = [];
+    if (dados.id_empresa) {
+        var queryEtapa = await etapaModel.selectEtapa(undefined, { ordenarPor: 'ind_sequencia', id_empresa: dados.id_empresa });
+        if (queryEtapa.length > 0) {
+            for (let i = 0; i < queryEtapa.length; i++)
+                eixoX.push(queryEtapa[i].dsc_etapa);
+        }
+        if (queryEtapa.length > 0) {
+            for (let i = 0; i < queryEtapa.length; i++) {
+                var queryChart = await chartModel.selectAtividadeEtapa(dados.id_empresa, queryEtapa[i].id_etapa);
+                if (queryChart.length > 0)
+                    eixoY.push(queryChart[0].quantidade);
+                else
+                    eixoY.push(0);
+            }
+        }
+    }
+    result['tipos'] = tipos;
+    result['legendas'] = legendas;
+    result['eixoX'] = eixoX;
+    result['eixoY'] = eixoY;
     response.status(200).json({error: false, data: result});
 };
 
