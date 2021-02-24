@@ -14,6 +14,38 @@ const atividadeEtapaChart = async (request, response) => {
 // 2-) Quantidade de Atividades por Prioridade e por Etapa (Barra Stacked) ***
 const atividadePrioridadeEtapaChart = async (request, response) => {
     var result = new Object();
+    var dados = request.query;
+    var tipos = [];
+    var legendas = [];
+    var prioridades = ['B', 'N', 'A', 'U'];
+    var eixoX = ['Baixa', 'Normal', 'Alta', 'Urgente'];
+    var eixoY = [];
+    if (dados.id_empresa) {
+        var queryEtapa = await etapaModel.selectEtapa(undefined, { ordenarPor: 'ind_sequencia', id_empresa: dados.id_empresa });
+        if (queryEtapa.length > 0) {
+            for (let i = 0; i < queryEtapa.length; i++) {
+                legendas.push(queryEtapa[i].dsc_etapa);
+                tipos.push('bar');
+            }
+        }
+        if (queryEtapa.length > 0) {
+            for (let i = 0; i < queryEtapa.length; i++) {
+                var valoresY = [];
+                for (let j = 0; j < prioridades.length; j++) {
+                    var queryChart = await chartModel.selectAtividadePrioridadeEtapa(dados.id_empresa, prioridades[j], queryEtapa[i].id_etapa);
+                    if (queryChart.length > 0)
+                        valoresY.push(queryChart[0].quantidade);
+                    else
+                        valoresY.push(0);
+                }
+                eixoY.push(valoresY);
+            }
+        }
+    }
+    result['tipos'] = tipos;
+    result['legendas'] = legendas;
+    result['eixoX'] = eixoX;
+    result['eixoY'] = eixoY;
     response.status(200).json({error: false, data: result});
 };
 
