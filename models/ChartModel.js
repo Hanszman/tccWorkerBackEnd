@@ -120,8 +120,23 @@ const selectAtividadeSetorEtapa = async (id_empresa, id_setor, id_etapa) => {
     return result;
 };
 
-const selectAtividadeProjetoEtapa = async () => {
-
+const selectAtividadeProjetoEtapa = async (id_empresa, id_projeto, id_etapa) => {
+    let query = knex({ a: 'atividade' })
+    .countDistinct('a.id_atividade as quantidade')
+    .select('p.dsc_nome', 'e.dsc_etapa', 'p.id_projeto', 'e.id_etapa', 'e.ind_sequencia')
+    .leftJoin({ q: "quadro" }, "q.id_quadro", "=", "a.id_quadro")
+    .leftJoin({ p: "projeto" }, "p.id_projeto", "=", "q.id_projeto")
+    .leftJoin({ e: "etapa" }, "e.id_etapa", "=", "a.id_etapa")
+    .where(1, '=', 1)
+    .andWhere('p.id_empresa', '=', id_empresa)
+    .andWhere('p.id_projeto', '=', id_projeto)
+    .andWhere('e.id_etapa', '=', id_etapa)
+    .groupBy('p.dsc_nome')
+    .groupBy('e.id_etapa')
+    .orderBy('p.id_projeto', 'asc')
+    .orderBy('e.ind_sequencia', 'asc')
+    let result = await query;
+    return result;
 };
 
 const selectProjetoCliente = async () => {
