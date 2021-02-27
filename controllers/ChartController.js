@@ -2,6 +2,7 @@
 const chartModel = require('../models/ChartModel');
 const etapaModel = require('../models/EtapaModel');
 const clienteModel = require('../models/ClienteModel');
+const fornecedorModel = require('../models/FornecedorModel');
 const usuarioModel = require('../models/UsuarioModel');
 const setorModel = require('../models/SetorModel');
 
@@ -120,6 +121,42 @@ const atividadeClienteEtapaChart = async (request, response) => {
 // 4-) Quantidade de Atividades por Fornecedor e por Etapa (Barra Stacked)
 const atividadeFornecedorEtapaChart = async (request, response) => {
     var result = new Object();
+    var dados = request.query;
+    var tipos = [];
+    var legendas = [];
+    var eixoX = [];
+    var eixoY = [];
+    if (dados.id_empresa) {
+        var queryEtapa = await etapaModel.selectEtapa(undefined, { ordenarPor: 'ind_sequencia', id_empresa: dados.id_empresa });
+        if (queryEtapa.length > 0) {
+            for (let i = 0; i < queryEtapa.length; i++) {
+                legendas.push(queryEtapa[i].dsc_etapa);
+                tipos.push('bar');
+            }
+        }
+        var queryFornecedor = await fornecedorModel.selectFornecedor(undefined, { id_empresa: dados.id_empresa });
+        if (queryFornecedor.length > 0) {
+            for (let i = 0; i < queryFornecedor.length; i++)
+                eixoX.push(queryFornecedor[i].dsc_nome);
+        }
+        if (queryEtapa.length > 0 && queryFornecedor.length > 0) {
+            for (let i = 0; i < queryEtapa.length; i++) {
+                var valoresY = [];
+                for (let j = 0; j < queryFornecedor.length; j++) {
+                    var queryChart = await chartModel.selectAtividadeFornecedorEtapa(dados.id_empresa, queryFornecedor[j].id_fornecedor, queryEtapa[i].id_etapa);
+                    if (queryChart.length > 0)
+                        valoresY.push(queryChart[0].quantidade);
+                    else
+                        valoresY.push(0);
+                }
+                eixoY.push(valoresY);
+            }
+        }
+    }
+    result['tipos'] = tipos;
+    result['legendas'] = legendas;
+    result['eixoX'] = eixoX;
+    result['eixoY'] = eixoY;
     response.status(200).json({error: false, data: result});
 };
 
