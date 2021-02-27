@@ -21,7 +21,7 @@ const atividadeEtapaChart = async (request, response) => {
         }
         if (queryEtapa.length > 0) {
             for (let i = 0; i < queryEtapa.length; i++) {
-                var queryChart = await chartModel.selectAtividadeEtapa(dados.id_empresa, queryEtapa[i].id_etapa);
+                var queryChart = await chartModel.selectAtividadeEtapa(dados.id_empresa, queryEtapa[i].id_etapa); // dados.id_usuario_empresa
                 if (queryChart.length > 0)
                     eixoY.push(queryChart[0].quantidade);
                 else
