@@ -93,7 +93,7 @@ const atividadeClienteEtapaChart = async (request, response) => {
                 tipos.push('bar');
             }
         }
-        var queryCliente = await clienteModel.selectCliente(undefined, { id_empresa: dados.id_empresa });
+        var queryCliente = await clienteModel.selectCliente(undefined, { ordenarPor: 'dsc_nome', id_empresa: dados.id_empresa });
         if (queryCliente.length > 0) {
             for (let i = 0; i < queryCliente.length; i++)
                 eixoX.push(queryCliente[i].dsc_nome);
@@ -135,7 +135,7 @@ const atividadeFornecedorEtapaChart = async (request, response) => {
                 tipos.push('bar');
             }
         }
-        var queryFornecedor = await fornecedorModel.selectFornecedor(undefined, { id_empresa: dados.id_empresa });
+        var queryFornecedor = await fornecedorModel.selectFornecedor(undefined, { ordenarPor: 'dsc_nome', id_empresa: dados.id_empresa });
         if (queryFornecedor.length > 0) {
             for (let i = 0; i < queryFornecedor.length; i++)
                 eixoX.push(queryFornecedor[i].dsc_nome);
@@ -177,7 +177,7 @@ const atividadeFuncionarioEtapaChart = async (request, response) => {
                 tipos.push('horizontalBar');
             }
         }
-        var queryUsuario = await usuarioModel.selectUsuario(undefined, { id_empresa: dados.id_empresa });
+        var queryUsuario = await usuarioModel.selectUsuario(undefined, { ordenarPor: 'dsc_nome_completo', id_empresa: dados.id_empresa });
         if (queryUsuario.length > 0) {
             for (let i = 0; i < queryUsuario.length; i++)
                 eixoX.push(queryUsuario[i].dsc_nome_completo);
@@ -219,7 +219,7 @@ const atividadeSetorEtapaChart = async (request, response) => {
                 tipos.push('bar');
             }
         }
-        var querySetor = await setorModel.selectSetor(undefined, { id_empresa: dados.id_empresa });
+        var querySetor = await setorModel.selectSetor(undefined, { ordenarPor: 'dsc_setor', id_empresa: dados.id_empresa });
         if (querySetor.length > 0) {
             for (let i = 0; i < querySetor.length; i++)
                 eixoX.push(querySetor[i].dsc_setor);
@@ -261,7 +261,7 @@ const atividadeProjetoEtapaChart = async (request, response) => {
                 tipos.push('bar');
             }
         }
-        var queryProjeto = await projetoModel.selectProjeto(undefined, { id_empresa: dados.id_empresa });
+        var queryProjeto = await projetoModel.selectProjeto(undefined, { ordenarPor: 'dsc_nome', id_empresa: dados.id_empresa });
         if (queryProjeto.length > 0) {
             for (let i = 0; i < queryProjeto.length; i++)
                 eixoX.push(queryProjeto[i].dsc_nome);
@@ -290,24 +290,124 @@ const atividadeProjetoEtapaChart = async (request, response) => {
 // 8-) Quantidade de Projetos por Cliente (Pizza)
 const projetoClienteChart = async (request, response) => {
     var result = new Object();
+    var dados = request.query;
+    var tipos = ['doughnut'];
+    var legendas = ['Projetos por Cliente'];
+    var eixoX = [];
+    var eixoY = [];
+    if (dados.id_empresa) {
+        var queryCliente = await clienteModel.selectCliente(undefined, { ordenarPor: 'dsc_nome', id_empresa: dados.id_empresa });
+        if (queryCliente.length > 0) {
+            for (let i = 0; i < queryCliente.length; i++)
+                eixoX.push(queryCliente[i].dsc_nome);
+        }
+        if (queryCliente.length > 0) {
+            for (let i = 0; i < queryCliente.length; i++) {
+                var queryChart = await chartModel.selectProjetoCliente(dados.id_empresa, queryCliente[i].id_cliente);
+                if (queryChart.length > 0)
+                    eixoY.push(queryChart[0].quantidade);
+                else
+                    eixoY.push(0);
+            }
+        }
+    }
+    result['tipos'] = tipos;
+    result['legendas'] = legendas;
+    result['eixoX'] = eixoX;
+    result['eixoY'] = eixoY;
     response.status(200).json({error: false, data: result});
 };
 
 // 9-) Quantidade de Projetos por Fornecedor (Pizza)
 const projetoFornecedorChart = async (request, response) => {
     var result = new Object();
+    var dados = request.query;
+    var tipos = ['doughnut'];
+    var legendas = ['Projetos por Fornecedor'];
+    var eixoX = [];
+    var eixoY = [];
+    if (dados.id_empresa) {
+        var queryFornecedor = await fornecedorModel.selectFornecedor(undefined, { ordenarPor: 'dsc_nome', id_empresa: dados.id_empresa });
+        if (queryFornecedor.length > 0) {
+            for (let i = 0; i < queryFornecedor.length; i++)
+                eixoX.push(queryFornecedor[i].dsc_nome);
+        }
+        if (queryFornecedor.length > 0) {
+            for (let i = 0; i < queryFornecedor.length; i++) {
+                var queryChart = await chartModel.selectProjetoFornecedor(dados.id_empresa, queryFornecedor[i].id_fornecedor);
+                if (queryChart.length > 0)
+                    eixoY.push(queryChart[0].quantidade);
+                else
+                    eixoY.push(0);
+            }
+        }
+    }
+    result['tipos'] = tipos;
+    result['legendas'] = legendas;
+    result['eixoX'] = eixoX;
+    result['eixoY'] = eixoY;
     response.status(200).json({error: false, data: result});
 };
 
 // 10-) Quantidade de Projetos por Funcionário (Pizza)
 const projetoFuncionarioChart = async (request, response) => {
     var result = new Object();
+    var dados = request.query;
+    var tipos = ['doughnut'];
+    var legendas = ['Projetos por Funcionário'];
+    var eixoX = [];
+    var eixoY = [];
+    if (dados.id_empresa) {
+        var queryUsuario = await usuarioModel.selectUsuario(undefined, { ordenarPor: 'dsc_nome_completo', id_empresa: dados.id_empresa });
+        if (queryUsuario.length > 0) {
+            for (let i = 0; i < queryUsuario.length; i++)
+                eixoX.push(queryUsuario[i].dsc_nome_completo);
+        }
+        if (queryUsuario.length > 0) {
+            for (let i = 0; i < queryUsuario.length; i++) {
+                var queryChart = await chartModel.selectProjetoFuncionario(dados.id_empresa, queryUsuario[i].id_usuario_empresa);
+                if (queryChart.length > 0)
+                    eixoY.push(queryChart[0].quantidade);
+                else
+                    eixoY.push(0);
+            }
+        }
+    }
+    result['tipos'] = tipos;
+    result['legendas'] = legendas;
+    result['eixoX'] = eixoX;
+    result['eixoY'] = eixoY;
     response.status(200).json({error: false, data: result});
 };
 
 // 11-) Quantidade de Projetos por Setor (Pizza)
 const projetoSetorChart = async (request, response) => {
     var result = new Object();
+    var dados = request.query;
+    var tipos = ['doughnut'];
+    var legendas = ['Projetos por Setor'];
+    var eixoX = [];
+    var eixoY = [];
+    if (dados.id_empresa) {
+        var querySetor = await setorModel.selectSetor(undefined, { ordenarPor: 'dsc_setor', id_empresa: dados.id_empresa });
+        if (querySetor.length > 0) {
+            for (let i = 0; i < querySetor.length; i++)
+                eixoX.push(querySetor[i].dsc_setor);
+        }
+        if (querySetor.length > 0) {
+            for (let i = 0; i < querySetor.length; i++) {
+                var queryChart = await chartModel.selectProjetoSetor(dados.id_empresa, querySetor[i].id_setor);
+                if (queryChart.length > 0)
+                    eixoY.push(queryChart[0].quantidade);
+                else
+                    eixoY.push(0);
+            }
+        }
+    }
+    result['tipos'] = tipos;
+    result['legendas'] = legendas;
+    result['eixoX'] = eixoX;
+    result['eixoY'] = eixoY;
     response.status(200).json({error: false, data: result});
 };
 

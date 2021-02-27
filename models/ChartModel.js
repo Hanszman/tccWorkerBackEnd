@@ -139,20 +139,64 @@ const selectAtividadeProjetoEtapa = async (id_empresa, id_projeto, id_etapa) => 
     return result;
 };
 
-const selectProjetoCliente = async () => {
-
+const selectProjetoCliente = async (id_empresa, id_cliente) => {
+    let query = knex({ p: 'projeto' })
+    .countDistinct('p.id_projeto as quantidade')
+    .select('c.dsc_nome', 'c.id_cliente')
+    .leftJoin({ pc: "projeto_cliente" }, "pc.id_projeto", "=", "p.id_projeto")
+    .leftJoin({ c: "cliente" }, "c.id_cliente", "=", "pc.id_cliente")
+    .where(1, '=', 1)
+    .andWhere('p.id_empresa', '=', id_empresa)
+    .andWhere('c.id_cliente', '=', id_cliente)
+    .groupBy('c.id_cliente')
+    .orderBy('c.dsc_nome', 'asc')
+    let result = await query;
+    return result;
 };
 
-const selectProjetoFornecedor = async () => {
-
+const selectProjetoFornecedor = async (id_empresa, id_fornecedor) => {
+    let query = knex({ p: 'projeto' })
+    .countDistinct('p.id_projeto as quantidade')
+    .select('f.dsc_nome', 'f.id_fornecedor')
+    .leftJoin({ pf: "projeto_fornecedor" }, "pf.id_projeto", "=", "p.id_projeto")
+    .leftJoin({ f: "fornecedor" }, "f.id_fornecedor", "=", "pf.id_fornecedor")
+    .where(1, '=', 1)
+    .andWhere('p.id_empresa', '=', id_empresa)
+    .andWhere('f.id_fornecedor', '=', id_fornecedor)
+    .groupBy('f.id_fornecedor')
+    .orderBy('f.dsc_nome', 'asc')
+    let result = await query;
+    return result;
 };
 
-const selectProjetoFuncionario = async () => {
-
+const selectProjetoFuncionario = async (id_empresa, id_usuario_empresa) => {
+    let query = knex({ p: 'projeto' })
+    .countDistinct('p.id_projeto as quantidade')
+    .select(knex.raw("concat(u.dsc_nome, ' ', u.dsc_sobrenome) as dsc_nome_completo"), 'ue.id_usuario_empresa')
+    .leftJoin({ pue: "projeto_usuario_empresa" }, "pue.id_projeto", "=", "p.id_projeto")
+    .leftJoin({ ue: "usuario_empresa" }, "ue.id_usuario_empresa", "=", "pue.id_usuario_empresa")
+    .leftJoin({ u: "usuario" }, "u.id_usuario", "=", "ue.id_usuario")
+    .where(1, '=', 1)
+    .andWhere('p.id_empresa', '=', id_empresa)
+    .andWhere('ue.id_usuario_empresa', '=', id_usuario_empresa)
+    .groupBy('ue.id_usuario_empresa')
+    .orderBy('ue.id_usuario_empresa', 'asc')
+    let result = await query;
+    return result;
 };
 
-const selectProjetoSetor = async () => {
-
+const selectProjetoSetor = async (id_empresa, id_setor) => {
+    let query = knex({ p: 'projeto' })
+    .countDistinct('p.id_projeto as quantidade')
+    .select('s.dsc_setor', 's.id_setor')
+    .leftJoin({ s: "setor" }, "s.id_setor", "=", "p.id_setor")
+    .where(1, '=', 1)
+    .andWhere('p.id_empresa', '=', id_empresa)
+    .andWhere('s.id_setor', '=', id_setor)
+    .groupBy('s.id_setor')
+    .orderBy('s.dsc_setor', 'asc')
+    let result = await query;
+    return result;
 };
 
 // Exportando Funções
