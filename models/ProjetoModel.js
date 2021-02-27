@@ -24,13 +24,17 @@ const selectProjeto = async (id_projeto, parametros) => {
             query.andWhere('s.id_setor', '=', parametros.id_setor);
         if (parametros.dsc_setor)
             query.andWhere('s.dsc_setor', 'like', '%' + parametros.dsc_setor + '%');
-        if(parametros.ordenarPor){
-            if(parametros.direcao)
+        if (parametros.ordenarPor) {
+            if (parametros.direcao)
                 query.orderBy(parametros.ordenarPor, parametros.direcao);
             else
                 query.orderBy(parametros.ordenarPor, "asc");
         }
+        else
+            query.orderBy('p.dsc_nome', 'asc');
     }
+    else
+        query.orderBy('p.dsc_nome', 'asc');
     let result = await query;
     return result;
 };

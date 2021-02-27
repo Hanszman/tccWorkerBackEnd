@@ -36,13 +36,17 @@ const selectAtividade = async (id_atividade, parametros) => {
             query.andWhere('p.id_projeto', '=', parametros.id_projeto);
         if (parametros.dsc_projeto)
             query.andWhere('p.dsc_nome', 'like', '%' + parametros.dsc_projeto + '%');
-        if(parametros.ordenarPor){
-            if(parametros.direcao)
+        if (parametros.ordenarPor) {
+            if (parametros.direcao)
                 query.orderBy(parametros.ordenarPor, parametros.direcao);
             else
                 query.orderBy(parametros.ordenarPor, "asc");
         }
+        else
+            query.orderBy('a.dsc_nome', 'asc');
     }
+    else
+        query.orderBy('a.dsc_nome', 'asc');
     let result = await query;
     return result;
 };

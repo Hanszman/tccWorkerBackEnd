@@ -12,13 +12,17 @@ const selectSetor = async (id_setor, parametros) => {
             query.andWhere('id_empresa', '=', parametros.id_empresa);
         if (parametros.dsc_setor)
             query.andWhere('dsc_setor', 'like', '%' + parametros.dsc_setor + '%');
-        if(parametros.ordenarPor){
-            if(parametros.direcao)
+        if (parametros.ordenarPor) {
+            if (parametros.direcao)
                 query.orderBy(parametros.ordenarPor, parametros.direcao);
             else
                 query.orderBy(parametros.ordenarPor, "asc");
         }
+        else
+            query.orderBy('dsc_setor', 'asc');
     }
+    else
+        query.orderBy('dsc_setor', 'asc');
     let result = await query;
     return result;
 };

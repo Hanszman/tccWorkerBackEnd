@@ -33,13 +33,17 @@ const selectUsuario = async (id_usuario, parametros, dsc_login) => {
             query.andWhere(knex.raw("concat(u.dsc_nome, ' ', u.dsc_sobrenome)"), 'like', '%' + parametros.dsc_nome_completo + '%');
         if (parametros.dsc_login)
             query.andWhere('u.dsc_login', 'like', '%' + parametros.dsc_login + '%');
-        if(parametros.ordenarPor){
-            if(parametros.direcao)
+        if (parametros.ordenarPor) {
+            if (parametros.direcao)
                 query.orderBy(parametros.ordenarPor, parametros.direcao);
             else
                 query.orderBy(parametros.ordenarPor, "asc");
         }
+        else
+            query.orderBy('u.dsc_nome', 'asc');
     }
+    else
+        query.orderBy('u.dsc_nome', 'asc');
     let result = await query;
     return result;
 };

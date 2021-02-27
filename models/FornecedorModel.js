@@ -14,13 +14,17 @@ const selectFornecedor = async (id_fornecedor, parametros) => {
             query.andWhere('dsc_nome', 'like', '%' + parametros.dsc_nome + '%');
         if (parametros.dsc_cnpj)
             query.andWhere('dsc_cnpj', 'like', '%' + parametros.dsc_cnpj + '%');
-        if(parametros.ordenarPor){
-            if(parametros.direcao)
+        if (parametros.ordenarPor) {
+            if (parametros.direcao)
                 query.orderBy(parametros.ordenarPor, parametros.direcao);
             else
                 query.orderBy(parametros.ordenarPor, "asc");
         }
+        else
+            query.orderBy('dsc_nome', 'asc');
     }
+    else
+        query.orderBy('dsc_nome', 'asc');
     let result = await query;
     return result;
 };

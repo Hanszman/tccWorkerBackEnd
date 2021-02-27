@@ -18,13 +18,17 @@ const selectEtapa = async (id_etapa, parametros, id_empresa, ind_sequencia) => {
             query.andWhere('dsc_etapa', 'like', '%' + parametros.dsc_etapa + '%');
         if (parametros.ind_sequencia)
             query.andWhere('ind_sequencia', 'like', '%' + parametros.ind_sequencia + '%');
-        if(parametros.ordenarPor){
-            if(parametros.direcao)
+        if (parametros.ordenarPor) {
+            if (parametros.direcao)
                 query.orderBy(parametros.ordenarPor, parametros.direcao);
             else
                 query.orderBy(parametros.ordenarPor, "asc");
         }
+        else
+            query.orderBy('ind_sequencia', 'asc');
     }
+    else
+        query.orderBy('ind_sequencia', 'asc');
     let result = await query;
     return result;
 };
