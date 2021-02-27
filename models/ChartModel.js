@@ -38,8 +38,25 @@ const selectAtividadePrioridadeEtapa = async (id_empresa, ind_prioridade, id_eta
     return result;
 };
 
-const selectAtividadeClienteEtapa = async () => {
-
+const selectAtividadeClienteEtapa = async (id_empresa, id_cliente, id_etapa) => {
+    let query = knex({ a: 'atividade' })
+    .countDistinct('a.id_atividade as quantidade')
+    .select('c.dsc_nome', 'e.dsc_etapa', 'c.id_cliente', 'e.id_etapa', 'e.ind_sequencia')
+    .leftJoin({ q: "quadro" }, "q.id_quadro", "=", "a.id_quadro")
+    .leftJoin({ p: "projeto" }, "p.id_projeto", "=", "q.id_projeto")
+    .leftJoin({ pc: "projeto_cliente" }, "pc.id_projeto", "=", "p.id_projeto")
+    .leftJoin({ c: "cliente" }, "c.id_cliente", "=", "pc.id_cliente")
+    .leftJoin({ e: "etapa" }, "e.id_etapa", "=", "a.id_etapa")
+    .where(1, '=', 1)
+    .andWhere('p.id_empresa', '=', id_empresa)
+    .andWhere('c.id_cliente', '=', id_cliente)
+    .andWhere('e.id_etapa', '=', id_etapa)
+    .groupBy('c.dsc_nome')
+    .groupBy('e.id_etapa')
+    .orderBy('c.id_cliente', 'asc')
+    .orderBy('e.ind_sequencia', 'asc')
+    let result = await query;
+    return result;
 };
 
 const selectAtividadeFornecedorEtapa = async () => {
