@@ -71,6 +71,7 @@ const updateUsuarioEmpresa = async (id, dados) => {
 const deleteUsuarioEmpresa = async (id) => {
     try {
         // TODO: fazer todos os deletes necessários
+        // (projeto_usuario_empresa, atividade_usuario_empresa)
         let query = knex('usuario_empresa')
         .delete()
         .where('id_usuario_empresa', '=', id);

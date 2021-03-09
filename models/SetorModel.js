@@ -50,6 +50,7 @@ const updateSetor = async (id, dados) => {
 const deleteSetor = async (id) => {
     try {
         // TODO: fazer todos os deletes necessários
+        // (usuario_empresa (update null), projeto (update null))
         let query = knex('setor')
         .delete()
         .where('id_setor', '=', id);

@@ -54,6 +54,7 @@ const updateCliente = async (id, dados) => {
 const deleteCliente = async (id) => {
     try {
         // TODO: fazer todos os deletes necessários
+        // (projeto_cliente, telefone, email, endereco)
         let query = knex('cliente')
         .delete()
         .where('id_cliente', '=', id);
