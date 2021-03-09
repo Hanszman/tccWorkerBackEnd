@@ -75,6 +75,7 @@ router.get('/chart/projeto_setor/', chart.projetoSetorChart);
 
 // POST
 router.post('/login/', login.loginAuth);
+router.post('/login_fb/', login.loginAuthFB);
 router.post('/usuario/create/', usuario.usuarioCreate);
 router.post('/empresa/create/', empresa.empresaCreate);
 router.post('/cliente/create/', cliente.clienteCreate);
