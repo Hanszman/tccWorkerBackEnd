@@ -49,6 +49,7 @@ const loginAuthFB = async (request, response) => {
         dados['dsc_email'] = userInfo.data.email;
         dados['dsc_login'] = userInfo.data.email;
         dados['dsc_senha'] = userInfo.data.id;
+        dados['arq_foto'] = userInfo.data.public_profile;
         var queryInsert = await usuarioModel.insertUsuario(dados);
         if (queryInsert.length <= 0) {
             result['sucesso'] = false;
