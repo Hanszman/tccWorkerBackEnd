@@ -31,8 +31,8 @@ const loginAuth = async (request, response) => {
 const loginAuthFB = async (request, response) => {
     var result = new Object();
     var accessToken = request.body['accessToken'];
-    let urlAccessToken = process.env.ValidateTokenUrl + accessToken + '&access_token=' + process.env.APP_ID + '|' + process.env.APP_SECRET;
-    let urlUserInfo = process.env.UserInfoUrl + accessToken;
+    let urlAccessToken = process.env.VALIDATE_TOKEN_URL + accessToken + '&access_token=' + process.env.APP_ID + '|' + process.env.APP_SECRET;
+    let urlUserInfo = process.env.USER_INFO_URL + accessToken;
     const validateResult = await validacaoFB(urlAccessToken);
     if (!validateResult.data.data['is_valid']) {
         result['sucesso'] = false;
