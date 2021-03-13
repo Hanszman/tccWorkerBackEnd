@@ -55,7 +55,8 @@ const insertUsuario = async (dados) => {
         dsc_sobrenome: dados.dsc_sobrenome,
         dsc_email: dados.dsc_email,
         dsc_login: dados.dsc_login,
-        dsc_senha: dados.dsc_senha
+        dsc_senha: dados.dsc_senha,
+        ind_login_fb: dados.ind_login_fb
     }).returning('id_usuario');
     let result = await query;
     return result;

@@ -107,6 +107,19 @@ const indStatus = (indicador) => {
     return result;
 };
 
+const indLoginFB = (indicador) => {
+    var result;
+    switch (indicador) {
+        case 'S':
+            result = 'Sim';
+            break;
+        case 'N':
+            result = 'Não';
+            break;
+    }
+    return result;
+};
+
 const indTipoTelefone = (indicador) => {
     var result;
     switch(indicador){
@@ -175,6 +188,7 @@ module.exports = {
     indControleAcesso,
     indContratacao,
     indStatus,
+    indLoginFB,
     indTipoTelefone,
     indPrioridade,
     filtroSelect

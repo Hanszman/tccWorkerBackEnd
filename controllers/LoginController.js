@@ -49,6 +49,7 @@ const loginAuthFB = async (request, response) => {
         dados['dsc_email'] = userInfo.data.email;
         dados['dsc_login'] = userInfo.data.email;
         dados['dsc_senha'] = userInfo.data.id;
+        dados['ind_login_fb'] = 'S';
         // dados['arq_foto'] = userInfo.data.picture.data.url; // Salvar imagem na pasta de arquivos
         console.log(userInfo.data);
         var queryInsert = await usuarioModel.insertUsuario(dados);
