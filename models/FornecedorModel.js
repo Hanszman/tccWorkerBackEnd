@@ -53,8 +53,24 @@ const updateFornecedor = async (id, dados) => {
 
 const deleteFornecedor = async (id) => {
     try {
-        // TODO: fazer todos os deletes necessários
+        // TODO: fazer todos os deletes necessários (OK)
         // (projeto_fornecedor, telefone, email, endereco)
+        await knex('projeto_fornecedor')
+        .delete()
+        .where('id_fornecedor', '=', id);
+
+        await knex('telefone')
+        .delete()
+        .where('id_fornecedor', '=', id);
+
+        await knex('email')
+        .delete()
+        .where('id_fornecedor', '=', id);
+
+        await knex('endereco')
+        .delete()
+        .where('id_fornecedor', '=', id);
+
         let query = knex('fornecedor')
         .delete()
         .where('id_fornecedor', '=', id);

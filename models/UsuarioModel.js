@@ -81,7 +81,7 @@ const updateUsuario = async (id, dados) => {
 
 const deleteUsuario = async (id) => {
     try {
-        // TODO: fazer todos os deletes necessários
+        // TODO: fazer todos os deletes necessários (WAIT)
         // (usuario_empresa, projeto_usuario_empresa, atividade_usuario_empresa, telefone, email, endereco)
         await knex('usuario_empresa')
         .delete()

@@ -83,8 +83,12 @@ const updateAtividade = async (id, dados) => {
 
 const deleteAtividade = async (id) => {
     try {
-        // TODO: fazer todos os deletes necessários
+        // TODO: fazer todos os deletes necessários (OK)
         // (atividade_usuario_empresa)
+        await knex('atividade_usuario_empresa')
+        .delete()
+        .where('id_atividade', '=', id);
+
         let query = knex('atividade')
         .delete()
         .where('id_atividade', '=', id);
