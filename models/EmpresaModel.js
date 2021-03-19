@@ -55,9 +55,6 @@ const updateEmpresa = async (id, dados) => {
 
 const deleteEmpresa = async (id) => {
     try {
-        // TODO: fazer todos os deletes necessários (todas as tabelas menos a de usuário) (OK)
-        // (usuario_empresa, setor, etapa, projeto, quadro, atividade, cliente, fornecedor, telefone, email, endereco, projeto_fornecedor, projeto_cliente, projeto_usuario_empresa, atividade_usuario_empresa)
-        // OBS: Lembrar de excluir tudo de todos, em mais de um nível, exemplo: telefones de fornecedor
         let vetorProjeto = [];
         let queryProjeto = await knex('projeto').where('id_empresa', '=', id);
         for (let i = 0; i < queryProjeto.length; i++)

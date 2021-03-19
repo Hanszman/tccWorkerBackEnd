@@ -81,8 +81,6 @@ const updateUsuario = async (id, dados) => {
 
 const deleteUsuario = async (id) => {
     try {
-        // TODO: fazer todos os deletes necessários (OK)
-        // (usuario_empresa, projeto_usuario_empresa, atividade_usuario_empresa, telefone, email, endereco)
         let vetorFuncionario = [];
         let queryFuncionario = await knex('usuario_empresa').where('id_usuario', '=', id);
         for (let i = 0; i < queryFuncionario.length; i++)

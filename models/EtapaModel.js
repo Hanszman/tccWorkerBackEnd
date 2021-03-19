@@ -57,8 +57,6 @@ const updateEtapa = async (id, dados) => {
 
 const deleteEtapa = async (id) => {
     try {
-        // TODO: fazer todos os deletes necessários (OK)
-        // (atividade, atividade_usuario_empresa)
         let vetorAtividade = [];
         let queryAtividade = await knex('atividade').where('id_etapa', '=', id);
         for (let i = 0; i < queryAtividade.length; i++)

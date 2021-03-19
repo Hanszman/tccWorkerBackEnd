@@ -67,8 +67,6 @@ const updateQuadro = async (id, dados) => {
 
 const deleteQuadro = async (id) => {
     try {
-        // TODO: fazer todos os deletes necessários (OK)
-        // (atividade, atividade_usuario_empresa)
         let vetorAtividade = [];
         let queryAtividade = await knex('atividade').where('id_quadro', '=', id);
         for (let i = 0; i < queryAtividade.length; i++)
