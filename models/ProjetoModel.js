@@ -69,8 +69,42 @@ const updateProjeto = async (id, dados) => {
 
 const deleteProjeto = async (id) => {
     try {
-        // TODO: fazer todos os deletes necessários (WAIT)
+        // TODO: fazer todos os deletes necessários (OK)
         // (projeto_fornecedor, projeto_cliente, projeto_usuario_empresa, quadro, atividade, atividade_usuario_empresa)
+        let vetorQuadro = [];
+        let queryQuadro = await knex('quadro').where('id_projeto', '=', id);
+        for (let i = 0; i < queryQuadro.length; i++)
+            vetorQuadro.push(queryQuadro[i]['id_quadro']);
+        
+        let vetorAtividade = [];
+        let queryAtividade = await knex('atividade').where('id_quadro', 'IN', vetorQuadro);
+        for (let i = 0; i < queryAtividade.length; i++)
+            vetorAtividade.push(queryAtividade[i]['id_atividade']);
+
+        await knex('atividade_usuario_empresa')
+        .delete()
+        .where('id_atividade', 'IN', vetorAtividade);
+
+        await knex('atividade')
+        .delete()
+        .where('id_quadro', 'IN', vetorQuadro);
+        
+        await knex('quadro')
+        .delete()
+        .where('id_projeto', '=', id);
+        
+        await knex('projeto_fornecedor')
+        .delete()
+        .where('id_projeto', '=', id);
+
+        await knex('projeto_cliente')
+        .delete()
+        .where('id_projeto', '=', id);
+
+        await knex('projeto_usuario_empresa')
+        .delete()
+        .where('id_projeto', '=', id);
+        
         let query = knex('projeto')
         .delete()
         .where('id_projeto', '=', id);
