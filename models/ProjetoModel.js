@@ -93,11 +93,11 @@ const deleteProjeto = async (id) => {
         .delete()
         .where('id_projeto', '=', id);
         
-        await knex('projeto_fornecedor')
+        await knex('projeto_cliente')
         .delete()
         .where('id_projeto', '=', id);
 
-        await knex('projeto_cliente')
+        await knex('projeto_fornecedor')
         .delete()
         .where('id_projeto', '=', id);
 
