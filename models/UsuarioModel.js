@@ -83,7 +83,32 @@ const deleteUsuario = async (id) => {
     try {
         // TODO: fazer todos os deletes necessários (WAIT)
         // (usuario_empresa, projeto_usuario_empresa, atividade_usuario_empresa, telefone, email, endereco)
+        let vetorFuncionario = [];
+        let queryFuncionario = await knex('usuario_empresa').where('id_usuario', '=', id);
+        for (let i = 0; i < queryFuncionario.length; i++)
+            vetorFuncionario.push(queryFuncionario[i]['id_usuario_empresa']);
+
+        await knex('projeto_usuario_empresa')
+        .delete()
+        .where('id_usuario_empresa', 'IN', vetorFuncionario);
+
+        await knex('atividade_usuario_empresa')
+        .delete()
+        .where('id_usuario_empresa', 'IN', vetorFuncionario);
+
         await knex('usuario_empresa')
+        .delete()
+        .where('id_usuario', '=', id);
+
+        await knex('telefone')
+        .delete()
+        .where('id_usuario', '=', id);
+
+        await knex('email')
+        .delete()
+        .where('id_usuario', '=', id);
+
+        await knex('endereco')
         .delete()
         .where('id_usuario', '=', id);
 
