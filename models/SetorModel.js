@@ -49,14 +49,10 @@ const updateSetor = async (id, dados) => {
 
 const deleteSetor = async (id) => {
     try {
-        // TODO: fazer todos os deletes necessários (WAIT/OK)
+        // TODO: fazer todos os deletes necessários (OK)
         // (usuario_empresa (update null), projeto (update null))
-
-        // let atualizaUsuarioEmpresa = await knex('usuario_empresa')
-        // .update({id_setor: null}).where('id_setor', '=', id)
-
-        // let atualizaProjeto = await knex('projeto')
-        // .update({id_setor: null}).where('id_setor', '=', id)
+        await knex('usuario_empresa').update({id_setor: null}).where('id_setor', '=', id)
+        await knex('projeto').update({id_setor: null}).where('id_setor', '=', id)
 
         let query = knex('setor')
         .delete()
