@@ -60,7 +60,7 @@ const atividadePrioridadeEtapaChart = async (request, response) => {
             for (let i = 0; i < queryEtapa.length; i++) {
                 var valoresY = [];
                 for (let j = 0; j < prioridades.length; j++) {
-                    var queryChart = await chartModel.selectAtividadePrioridadeEtapa(dados.id_empresa, prioridades[j], queryEtapa[i].id_etapa);
+                    var queryChart = await chartModel.selectAtividadePrioridadeEtapa(dados.id_empresa, prioridades[j], queryEtapa[i].id_etapa, dados.id_usuario_empresa);
                     if (queryChart.length > 0)
                         valoresY.push(queryChart[0].quantidade);
                     else
