@@ -3,7 +3,7 @@ const { select } = require('../database/conexao');
 const knex = require('../database/conexao');
 
 // Funções do Model
-const selectAtividadeEtapa = async (id_empresa, id_etapa) => { // id_usuario_empresa
+const selectAtividadeEtapa = async (id_empresa, id_etapa, id_usuario_empresa) => {
     let query = knex({ a: 'atividade' })
     .countDistinct('a.id_atividade as quantidade')
     .select('e.dsc_etapa', 'e.id_etapa', 'e.ind_sequencia')
@@ -13,10 +13,10 @@ const selectAtividadeEtapa = async (id_empresa, id_etapa) => { // id_usuario_emp
     .andWhere('e.id_etapa', '=', id_etapa)
     .groupBy('e.id_etapa')
     .orderBy('e.ind_sequencia', 'asc')
-    // if (id_usuario_empresa) {
-    //     query.leftJoin({ aue: "atividade_usuario_empresa" }, "aue.id_atividade", "=", "a.id_atividade")
-    //     query.andWhere('aue.id_usuario_empresa', '=', id_usuario_empresa)
-    // }
+    if (id_usuario_empresa) {
+        query.leftJoin({ aue: "atividade_usuario_empresa" }, "aue.id_atividade", "=", "a.id_atividade")
+        query.andWhere('aue.id_usuario_empresa', '=', id_usuario_empresa)
+    }
     let result = await query;
     return result;
 };
