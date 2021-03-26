@@ -79,7 +79,11 @@ const selectAtividadeUsuarioEmpresa = async (id_atividade_usuario_empresa, id_at
             else
                 query.orderBy(parametros.ordenarPor, "asc");
         }
+        else
+            query.orderBy('a.dsc_nome', 'asc');
     }
+    else
+        query.orderBy('a.dsc_nome', 'asc');
     let result = await query;
     return result;
 };
