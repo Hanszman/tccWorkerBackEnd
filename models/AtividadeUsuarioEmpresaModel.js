@@ -50,21 +50,21 @@ const selectAtividadeUsuarioEmpresa = async (id_atividade_usuario_empresa, id_at
         if (parametros.dat_fim_atividade)
             query.andWhere('a.dat_fim', 'like', '%' + parametros.dat_fim_atividade + '%');
         if (parametros.id_etapa_atividade)
-            query.andWhere('e.id_etapa', '=' + parametros.id_etapa_atividade);
+            query.andWhere('e.id_etapa', '=', parametros.id_etapa_atividade);
         if (parametros.dsc_etapa_atividade)
             query.andWhere('e.dsc_etapa', 'like', '%' + parametros.dsc_etapa_atividade + '%');
         if (parametros.ind_sequencia_etapa_atividade)
             query.andWhere('e.ind_sequencia', 'like', '%' + parametros.ind_sequencia_etapa_atividade + '%');
         if (parametros.id_quadro_atividade)
-            query.andWhere('q.id_quadro', '=' + parametros.id_quadro_atividade);
+            query.andWhere('q.id_quadro', '=', parametros.id_quadro_atividade);
         if (parametros.dsc_quadro_atividade)
             query.andWhere('q.dsc_nome', 'like', '%' + parametros.dsc_quadro_atividade + '%');
         if (parametros.id_projeto_atividade)
-            query.andWhere('p.id_projeto', '=' + parametros.id_projeto_atividade);
+            query.andWhere('p.id_projeto', '=', parametros.id_projeto_atividade);
         if (parametros.dsc_projeto_atividade)
             query.andWhere('p.dsc_nome', 'like', '%' + parametros.dsc_projeto_atividade + '%');
         if (parametros.id_empresa_projeto_atividade)
-            query.andWhere('p.id_empresa', '=' + parametros.id_empresa_projeto_atividade);
+            query.andWhere('p.id_empresa', '=', parametros.id_empresa_projeto_atividade);
         if (parametros.dsc_nome_completo_usuario_empresa)
             query.andWhere(knex.raw("concat(u.dsc_nome, ' ', u.dsc_sobrenome)"), 'like', '%' + parametros.dsc_nome_completo_usuario_empresa + '%');
         if (parametros.dsc_nome_usuario_empresa)
