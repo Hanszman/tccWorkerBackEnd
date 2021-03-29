@@ -34,7 +34,7 @@ const atividadeEtapaChart = async (request, response) => {
         }
         if (dados.id_usuario_empresa) {
             var queryFuncionario = await usuarioModel.selectUsuario(undefined, { id_empresa: dados.id_empresa, id_usuario_empresa: dados.id_usuario_empresa });
-            nomeFuncionario = queryFuncionario[0]['dsc_nome_completo'];
+            nomeFuncionario = '(' + queryFuncionario[0]['dsc_nome_completo'] + ')';
         }
     }    
     result['tipos'] = tipos;
@@ -78,7 +78,7 @@ const atividadePrioridadeEtapaChart = async (request, response) => {
         }
         if (dados.id_usuario_empresa) {
             var queryFuncionario = await usuarioModel.selectUsuario(undefined, { id_empresa: dados.id_empresa, id_usuario_empresa: dados.id_usuario_empresa });
-            nomeFuncionario = queryFuncionario[0]['dsc_nome_completo'];
+            nomeFuncionario = '(' + queryFuncionario[0]['dsc_nome_completo'] + ')';
         }
     }
     result['tipos'] = tipos;
