@@ -16,6 +16,7 @@ const atividadeEtapaChart = async (request, response) => {
     var legendas = ['Atividades por Etapa'];
     var eixoX = [];
     var eixoY = [];
+    var nomeFuncionario = '';
     if (dados.id_empresa) {
         var queryEtapa = await etapaModel.selectEtapa(undefined, { ordenarPor: 'ind_sequencia', id_empresa: dados.id_empresa });
         if (queryEtapa.length > 0) {
@@ -31,11 +32,16 @@ const atividadeEtapaChart = async (request, response) => {
                     eixoY.push(0);
             }
         }
-    }
+        if (dados.id_usuario_empresa) {
+            var queryFuncionario = await usuarioModel.selectUsuario(undefined, { id_empresa: dados.id_empresa, id_usuario_empresa: dados.id_usuario_empresa });
+            nomeFuncionario = queryFuncionario[0]['dsc_nome_completo'];
+        }
+    }    
     result['tipos'] = tipos;
     result['legendas'] = legendas;
     result['eixoX'] = eixoX;
     result['eixoY'] = eixoY;
+    result['nomeFuncionario'] = nomeFuncionario;
     response.status(200).json({error: false, data: result});
 };
 
@@ -48,6 +54,7 @@ const atividadePrioridadeEtapaChart = async (request, response) => {
     var prioridades = ['B', 'N', 'A', 'U'];
     var eixoX = ['Baixa', 'Normal', 'Alta', 'Urgente'];
     var eixoY = [];
+    var nomeFuncionario = '';
     if (dados.id_empresa) {
         var queryEtapa = await etapaModel.selectEtapa(undefined, { ordenarPor: 'ind_sequencia', id_empresa: dados.id_empresa });
         if (queryEtapa.length > 0) {
@@ -69,11 +76,16 @@ const atividadePrioridadeEtapaChart = async (request, response) => {
                 eixoY.push(valoresY);
             }
         }
+        if (dados.id_usuario_empresa) {
+            var queryFuncionario = await usuarioModel.selectUsuario(undefined, { id_empresa: dados.id_empresa, id_usuario_empresa: dados.id_usuario_empresa });
+            nomeFuncionario = queryFuncionario[0]['dsc_nome_completo'];
+        }
     }
     result['tipos'] = tipos;
     result['legendas'] = legendas;
     result['eixoX'] = eixoX;
     result['eixoY'] = eixoY;
+    result['nomeFuncionario'] = nomeFuncionario;
     response.status(200).json({error: false, data: result});
 };
 

@@ -16,6 +16,8 @@ const selectUsuario = async (id_usuario, parametros, dsc_login) => {
             query.join({ ue: "usuario_empresa" }, "ue.id_usuario", "=", "u.id_usuario");
             query.leftJoin({ s: "setor" }, "s.id_setor", "=", "ue.id_setor");
             query.andWhere('ue.id_empresa', '=', parametros.id_empresa);
+            if (parametros.id_usuario_empresa)
+                query.andWhere('ue.id_usuario_empresa', '=', parametros.id_usuario_empresa);
             if (parametros.dsc_cargo)
                 query.andWhere('ue.dsc_cargo', 'like', '%' + parametros.dsc_cargo + '%');
             if (parametros.id_setor)
