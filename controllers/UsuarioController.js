@@ -37,7 +37,7 @@ const usuarioRead = async (request, response) => {
             querySelect[i]['ind_controle_acesso_bruto'] = querySelect[i]['ind_controle_acesso'];
             querySelect[i]['ind_controle_acesso'] = indControleAcesso(querySelect[i]['ind_controle_acesso']);
             querySelect[i]['ind_contratacao'] = indContratacao(querySelect[i]['ind_contratacao']);
-            querySelect[i]['ind_status_bruto'] = querySelect[i]['ind_status_bruto'];
+            querySelect[i]['ind_status_bruto'] = querySelect[i]['ind_status'];
             querySelect[i]['ind_status'] = indStatus(querySelect[i]['ind_status']);
             if (filtroSelect(querySelect[i]['ind_controle_acesso'], request.query['ind_controle_acesso']) &&
                 filtroSelect(querySelect[i]['ind_contratacao'], request.query['ind_contratacao']) &&
