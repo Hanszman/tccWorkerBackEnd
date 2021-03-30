@@ -51,7 +51,7 @@ const selectAtividade = async (id_atividade, parametros) => {
     return result;
 };
 
-const insertAtividade = async (dados) => {
+const insertAtividade = async (dados, idFuncionario) => {
     let query = knex('atividade')
     .insert({
         dsc_nome: dados.dsc_nome,
@@ -63,6 +63,14 @@ const insertAtividade = async (dados) => {
         ind_prioridade: dados.ind_prioridade
     }).returning('id_atividade');
     let result = await query;
+
+    if (idFuncionario) {
+        await knex('atividade_usuario_empresa')
+        .insert({
+            id_atividade: result,
+            id_usuario_empresa: idFuncionario
+        });
+    }
     return result;
 };
 

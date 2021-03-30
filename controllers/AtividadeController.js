@@ -1,5 +1,6 @@
 // Importando Models
 const atividadeModel = require('../models/AtividadeModel');
+const usuarioModel = require('../models/UsuarioModel');
 
 // Importando Funções
 const formatoData = require('./GeralController').formatoData;
@@ -49,7 +50,11 @@ const atividadeRead = async (request, response) => {
 const atividadeCreate = async (request, response) => {
     var result = new Object();
     var dados = request.body;
-    var queryInsert = await atividadeModel.insertAtividade(dados);
+    var idFuncionario = undefined;
+    var queryFuncionario = await usuarioModel.selectUsuario(dados.id_usuario_logado, { id_empresa: dados.id_empresa_logada });
+    if (queryFuncionario[0]['ind_controle_acesso'] == 'C')
+        idFuncionario = queryFuncionario[0]['id_usuario_empresa'];
+    var queryInsert = await atividadeModel.insertAtividade(dados, idFuncionario);
     if (queryInsert.length > 0) {
         result['sucesso'] = true;
         result['mensagem'] = 'Atividade cadastrada com sucesso!';
