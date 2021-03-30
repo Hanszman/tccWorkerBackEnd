@@ -7,7 +7,7 @@ CREATE TABLE `empresa` (
   `dat_fundacao` date DEFAULT NULL,
   `arq_foto` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.usuario definition
@@ -38,7 +38,7 @@ CREATE TABLE `cliente` (
   PRIMARY KEY (`id_cliente`),
   KEY `cliente_FK` (`id_empresa`),
   CONSTRAINT `cliente_FK` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.etapa definition
@@ -51,7 +51,7 @@ CREATE TABLE `etapa` (
   PRIMARY KEY (`id_etapa`),
   KEY `etapa_FK` (`id_empresa`),
   CONSTRAINT `etapa_FK` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.fornecedor definition
@@ -64,7 +64,7 @@ CREATE TABLE `fornecedor` (
   PRIMARY KEY (`id_fornecedor`),
   KEY `fornecedor_FK` (`id_empresa`),
   CONSTRAINT `fornecedor_FK` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.setor definition
@@ -76,7 +76,7 @@ CREATE TABLE `setor` (
   PRIMARY KEY (`id_setor`),
   KEY `setor_FK` (`id_empresa`),
   CONSTRAINT `setor_FK` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.telefone definition
@@ -98,7 +98,7 @@ CREATE TABLE `telefone` (
   CONSTRAINT `telefone_FK_1` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`),
   CONSTRAINT `telefone_FK_2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`),
   CONSTRAINT `telefone_FK_3` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.usuario_empresa definition
@@ -107,7 +107,7 @@ CREATE TABLE `usuario_empresa` (
   `id_usuario_empresa` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) NOT NULL,
   `id_empresa` int(11) NOT NULL,
-  `ind_controle_acesso` char(1) NOT NULL DEFAULT 'C' COMMENT 'C (Comum), A (Administrador), G (Gerente)',
+  `ind_controle_acesso` char(1) NOT NULL DEFAULT 'A' COMMENT 'C (Comum), A (Administrador), G (Gerente)',
   `dsc_cargo` varchar(150) NOT NULL DEFAULT 'Fundador',
   `ind_contratacao` char(1) NOT NULL DEFAULT 'C' COMMENT 'C (Carteira Assinada), E (Estágio), M (MEI)',
   `ind_status` char(1) NOT NULL DEFAULT 'A' COMMENT 'A (Ativo), D (Desativado)',
@@ -120,7 +120,7 @@ CREATE TABLE `usuario_empresa` (
   CONSTRAINT `usuario_empresa_FK` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`),
   CONSTRAINT `usuario_empresa_FK_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `usuario_empresa_FK_2` FOREIGN KEY (`id_setor`) REFERENCES `setor` (`id_setor`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.email definition
@@ -141,7 +141,7 @@ CREATE TABLE `email` (
   CONSTRAINT `email_FK_1` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`),
   CONSTRAINT `email_FK_2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`),
   CONSTRAINT `email_FK_3` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.endereco definition
@@ -166,7 +166,7 @@ CREATE TABLE `endereco` (
   CONSTRAINT `endereco_FK_1` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`),
   CONSTRAINT `endereco_FK_2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`),
   CONSTRAINT `endereco_FK_3` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.projeto definition
@@ -184,7 +184,7 @@ CREATE TABLE `projeto` (
   KEY `projeto_FK_1` (`id_empresa`),
   CONSTRAINT `projeto_FK` FOREIGN KEY (`id_setor`) REFERENCES `setor` (`id_setor`),
   CONSTRAINT `projeto_FK_1` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.projeto_cliente definition
@@ -198,7 +198,7 @@ CREATE TABLE `projeto_cliente` (
   KEY `projeto_cliente_FK_1` (`id_cliente`),
   CONSTRAINT `projeto_cliente_FK` FOREIGN KEY (`id_projeto`) REFERENCES `projeto` (`id_projeto`),
   CONSTRAINT `projeto_cliente_FK_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=251 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.projeto_fornecedor definition
@@ -212,7 +212,7 @@ CREATE TABLE `projeto_fornecedor` (
   KEY `projeto_fornecedor_FK_1` (`id_fornecedor`),
   CONSTRAINT `projeto_fornecedor_FK` FOREIGN KEY (`id_projeto`) REFERENCES `projeto` (`id_projeto`),
   CONSTRAINT `projeto_fornecedor_FK_1` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.projeto_usuario_empresa definition
@@ -226,7 +226,7 @@ CREATE TABLE `projeto_usuario_empresa` (
   KEY `projeto_usuario_empresa_FK_1` (`id_usuario_empresa`),
   CONSTRAINT `projeto_usuario_empresa_FK` FOREIGN KEY (`id_projeto`) REFERENCES `projeto` (`id_projeto`),
   CONSTRAINT `projeto_usuario_empresa_FK_1` FOREIGN KEY (`id_usuario_empresa`) REFERENCES `usuario_empresa` (`id_usuario_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.quadro definition
@@ -241,7 +241,7 @@ CREATE TABLE `quadro` (
   PRIMARY KEY (`id_quadro`),
   KEY `sprint_FK` (`id_projeto`),
   CONSTRAINT `sprint_FK` FOREIGN KEY (`id_projeto`) REFERENCES `projeto` (`id_projeto`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.atividade definition
@@ -260,7 +260,7 @@ CREATE TABLE `atividade` (
   KEY `atividade_FK_2` (`id_etapa`),
   CONSTRAINT `atividade_FK_1` FOREIGN KEY (`id_quadro`) REFERENCES `quadro` (`id_quadro`),
   CONSTRAINT `atividade_FK_2` FOREIGN KEY (`id_etapa`) REFERENCES `etapa` (`id_etapa`)
-) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=271 DEFAULT CHARSET=utf8;
 
 
 -- heroku_9439eb1c84438d2.atividade_usuario_empresa definition
@@ -274,4 +274,4 @@ CREATE TABLE `atividade_usuario_empresa` (
   KEY `atividade_usuario_empresa_FK_1` (`id_usuario_empresa`),
   CONSTRAINT `atividade_usuario_empresa_FK` FOREIGN KEY (`id_atividade`) REFERENCES `atividade` (`id_atividade`),
   CONSTRAINT `atividade_usuario_empresa_FK_1` FOREIGN KEY (`id_usuario_empresa`) REFERENCES `usuario_empresa` (`id_usuario_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=211 DEFAULT CHARSET=utf8;
