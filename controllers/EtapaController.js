@@ -45,7 +45,7 @@ const etapaUpdate = async (request, response) => {
     var id_etapa = request.params.id;
     var dados = request.body;
     var querySelect = await etapaModel.selectEtapa(undefined, undefined, dados.id_empresa_logada, dados.ind_sequencia);
-    if (querySelect.length == 0) {
+    if (querySelect.length == 0 || querySelect[0]['id_etapa'] == id_etapa) {
         var queryUpdate = await etapaModel.updateEtapa(id_etapa, dados);
         if (queryUpdate > 0) {
             result['sucesso'] = true;
